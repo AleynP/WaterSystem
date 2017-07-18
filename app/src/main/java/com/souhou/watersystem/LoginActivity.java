@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable{
     private Result result;
     private List<Result.data> mList =new ArrayList();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable{
         Login_name = (EditText) findViewById(R.id.Login_name);
         Login_pwd = (EditText) findViewById(R.id.Login_pwd);
         cb_rem_pwd = (CheckBox) findViewById(R.id.cb_rmb_pwd);
-        sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
+        sp = this.getSharedPreferences("UserInfo", Context.MODE_WORLD_READABLE);
         if (sp.getBoolean("ISCHECK", false)) {
             //设置默认是记录密码状态
             cb_rem_pwd.setChecked(true);
@@ -118,6 +119,18 @@ public class LoginActivity extends AppCompatActivity implements Serializable{
     }
 
     public void LoginJudge(ArrayList<Result.data> arrayList){
+       /* int a = 0, b = 0, c = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).getGNMC().equals("APP抄表信息")) {
+                a = 1;
+            }
+            if (arrayList.get(i).getGNMC().equals("APP报修处理")) {
+                b = 1;
+            }
+            if (arrayList.get(i).getGNMC().equals("APP报装处理")) {
+                c = 1;
+            }
+        }*/
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, HomeActivity.class);
         Bundle bundle=new Bundle();

@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="输入名关键字搜索"
-            android:textColor="@color/colorTextWhite" />
+            android:hint="输入名关键字搜索" />
 
         <Button
             android:id="@+id/bt_search"
@@ -27,9 +26,195 @@
             android:text="搜索" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list_user"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_number2"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/tv_number2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="14dp"
+            android:text="编号："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_number2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_peopel"
+            android:layout_alignEnd="@+id/tv_peopel"
+            android:layout_alignRight="@+id/tv_peopel"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_peopel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_number"
+            android:layout_marginTop="16dp"
+            android:text="人口数量："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_peopel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_peopel"
+            android:layout_alignBottom="@+id/tv_peopel"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_toEndOf="@+id/tv_peopel"
+            android:layout_toRightOf="@+id/tv_peopel"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_peopel"
+            android:layout_marginTop="18dp"
+            android:text="家庭住址："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_address"
+            android:layout_alignBottom="@+id/tv_address"
+            android:layout_alignLeft="@+id/tv_peopel2"
+            android:layout_alignStart="@+id/tv_peopel2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_address"
+            android:layout_marginTop="20dp"
+            android:text="开户时间："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_time"
+            android:layout_alignBottom="@+id/tv_time"
+            android:layout_alignLeft="@+id/tv_address2"
+            android:layout_alignStart="@+id/tv_address2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_water_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginTop="21dp"
+            android:text="水表编号："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_water_num2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_water_num"
+            android:layout_alignBottom="@+id/tv_water_num"
+            android:layout_alignLeft="@+id/tv_time2"
+            android:layout_alignStart="@+id/tv_time2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_az_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_water_num"
+            android:layout_marginTop="24dp"
+            android:text="安装时间："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_az_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_az_time"
+            android:layout_alignBottom="@+id/tv_az_time"
+            android:layout_alignLeft="@+id/tv_water_num2"
+            android:layout_alignStart="@+id/tv_water_num2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_az_time"
+            android:layout_marginTop="15dp"
+            android:text="水表编号："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_state2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_state"
+            android:layout_alignBottom="@+id/tv_state"
+            android:layout_alignLeft="@+id/tv_az_time2"
+            android:layout_alignStart="@+id/tv_az_time2"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_modle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_state"
+            android:layout_marginTop="21dp"
+            android:text="水表编号："
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_modle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_modle"
+            android:layout_alignBottom="@+id/tv_modle"
+            android:layout_alignLeft="@+id/tv_state2"
+            android:layout_alignStart="@+id/tv_state2"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
 
 </LinearLayout>
