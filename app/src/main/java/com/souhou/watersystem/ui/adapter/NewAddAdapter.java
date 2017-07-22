@@ -49,12 +49,13 @@ public class NewAddAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.handel_adapter, null);
+            view = inflater.inflate(R.layout.new_add_adapter, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {
             vh = (ViewHolder) view.getTag();
         }
+        vh.tvWaterid.setText(mList.get(i).getId() + "");
         vh.tvName.setText(mList.get(i).getInstallation_User());
         vh.tvPhone.setText(mList.get(i).getInstallation_Userphone() + "");
         vh.tvSendtime.setText(mList.get(i).getInstallation_SendTime() + "");
@@ -63,7 +64,10 @@ public class NewAddAdapter extends BaseAdapter {
         return view;
     }
 
-    static class ViewHolder {
+
+    class ViewHolder {
+        @BindView(R.id.tv_waterid)
+        TextView tvWaterid;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.tv_phone)
@@ -79,4 +83,5 @@ public class NewAddAdapter extends BaseAdapter {
             ButterKnife.bind(this, view);
         }
     }
+
 }

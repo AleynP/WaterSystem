@@ -47,7 +47,8 @@
         <activity android:name=".ui.activity.NotHandelActivity" />
         <activity android:name=".ui.activity.YesHandelActivity" />
         <activity android:name=".ui.activity.InstRedActivity" />
-        <activity android:name=".ui.activity.NewAddActivity"></activity>
+        <activity android:name=".ui.activity.NewAddActivity" />
+        <activity android:name=".ui.activity.NewAddSubActivity"></activity>
     </application>
 
 </manifest>

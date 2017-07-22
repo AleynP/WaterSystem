@@ -18,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 public class InstRedActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class InstRedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inst_red);
         ButterKnife.bind(this);
         response();
-        adapter = new InstRedAdapter(mList,this);
+        adapter = new InstRedAdapter(mList, this);
         listInstRed.setAdapter(adapter);
     }
 
@@ -60,4 +61,5 @@ public class InstRedActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

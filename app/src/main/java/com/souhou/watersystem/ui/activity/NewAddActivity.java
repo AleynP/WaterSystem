@@ -1,7 +1,10 @@
 package com.souhou.watersystem.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
@@ -37,6 +40,16 @@ public class NewAddActivity extends AppCompatActivity {
         response();
         newAddAdapter = new NewAddAdapter(mList, this);
         listNewAdd.setAdapter(newAddAdapter);
+        listNewAdd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String id = newAddBean.getXinZengBaoZhuang().get(i).getId() + "";
+                Intent intent = new Intent();
+                intent.setClass(NewAddActivity.this, NewAddSubActivity.class);
+                intent.putExtra("water_id", id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void response() {

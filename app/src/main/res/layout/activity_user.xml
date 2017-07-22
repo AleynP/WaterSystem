@@ -181,7 +181,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_az_time"
             android:layout_marginTop="15dp"
-            android:text="水表编号："
+            android:text="水表状态："
             android:textSize="20sp" />
 
         <TextView
@@ -202,7 +202,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_state"
             android:layout_marginTop="21dp"
-            android:text="水表编号："
+            android:text="水表型号："
             android:textSize="20sp" />
 
         <TextView

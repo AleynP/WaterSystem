@@ -12,4 +12,5 @@ public class ServerConfig {
     public static final String WORK_ORDERS_URL = "http://192.168.1.119:8080/hold/Installation/installationOK.html";
     public static final String BAOZHUANG_URL = "http://192.168.1.119:8080/hold/Installation/disposeInstallation.html";
     public static final String AZ_JL_URL = "http://192.168.1.119:8080/hold/Installation/Installationlog.html";
+    public static final String AZ_BC_URL = "http://192.168.1.119:8080/hold/Installation/addwatermeter.html";
 }
