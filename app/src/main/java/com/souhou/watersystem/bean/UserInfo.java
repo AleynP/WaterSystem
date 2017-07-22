@@ -1,134 +1,64 @@
 package com.souhou.watersystem.bean;
 
-import java.io.Serializable;
-
 /**
- * Created by Administrator on 2017/7/16.
+ * Created by Administrator on 2017/7/20.
  */
 
-/*数据示列
-*{"UserInfo":{
-* "User_Number":11,
-* "User_Name":"小明333",
-* "User_Quantity":3,
-* "User_Site":"河南省周口市",
-* "User_Time":20170705,
-* "WaterMeter_Number":"100010",
-* "WaterMeter_Time":null,
-* "WaterMeter_State":1,
-* "WaterType_Name":"4号水表"}}
- */
-
-public class UserInfo implements Serializable {
+public class UserInfo {
 
     /**
-     * userInfo : {"User_Number":11,"User_Name":"小明333","User_Quantity":3,"User_Site":"河南省周口市","User_Time":20170705,"WaterMeter_Number":"100010","WaterMeter_Time":null,"WaterMeter_State":1,"WaterType_Name":"4号水表"}
+     * Installation_Time : 201707111013
+     * Installation_User : 琳达
+     * Installation_Userphone : 13526023026
+     * Installation_Address : 大方向海南购房人已经
+     * WaterType_Name : 1号水表
      */
 
-    private UserInfoBean userInfo;
+    private long Installation_Time;
+    private String Installation_User;
+    private long Installation_Userphone;
+    private String Installation_Address;
+    private String WaterType_Name;
 
-    public UserInfoBean getUserInfo() {
-        return userInfo;
+    public long getInstallation_Time() {
+        return Installation_Time;
     }
 
-    public void setUserInfo(UserInfoBean userInfo) {
-        this.userInfo = userInfo;
+    public void setInstallation_Time(long Installation_Time) {
+        this.Installation_Time = Installation_Time;
     }
 
-    public static class UserInfoBean {
-        /**
-         * User_Number : 11
-         * User_Name : 小明333
-         * User_Quantity : 3
-         * User_Site : 河南省周口市
-         * User_Time : 20170705
-         * WaterMeter_Number : 100010
-         * WaterMeter_Time : null
-         * WaterMeter_State : 1
-         * WaterType_Name : 4号水表
-         */
-
-        private int User_Number;
-        private String User_Name;
-        private int User_Quantity;
-        private String User_Site;
-        private int User_Time;
-        private String WaterMeter_Number;
-        private Object WaterMeter_Time;
-        private int WaterMeter_State;
-        private String WaterType_Name;
-
-        public int getUser_Number() {
-            return User_Number;
-        }
-
-        public void setUser_Number(int User_Number) {
-            this.User_Number = User_Number;
-        }
-
-        public String getUser_Name() {
-            return User_Name;
-        }
-
-        public void setUser_Name(String User_Name) {
-            this.User_Name = User_Name;
-        }
-
-        public int getUser_Quantity() {
-            return User_Quantity;
-        }
-
-        public void setUser_Quantity(int User_Quantity) {
-            this.User_Quantity = User_Quantity;
-        }
-
-        public String getUser_Site() {
-            return User_Site;
-        }
-
-        public void setUser_Site(String User_Site) {
-            this.User_Site = User_Site;
-        }
-
-        public int getUser_Time() {
-            return User_Time;
-        }
-
-        public void setUser_Time(int User_Time) {
-            this.User_Time = User_Time;
-        }
-
-        public String getWaterMeter_Number() {
-            return WaterMeter_Number;
-        }
-
-        public void setWaterMeter_Number(String WaterMeter_Number) {
-            this.WaterMeter_Number = WaterMeter_Number;
-        }
-
-        public Object getWaterMeter_Time() {
-            return WaterMeter_Time;
-        }
-
-        public void setWaterMeter_Time(Object WaterMeter_Time) {
-            this.WaterMeter_Time = WaterMeter_Time;
-        }
-
-        public int getWaterMeter_State() {
-            return WaterMeter_State;
-        }
-
-        public void setWaterMeter_State(int WaterMeter_State) {
-            this.WaterMeter_State = WaterMeter_State;
-        }
-
-        public String getWaterType_Name() {
-            return WaterType_Name;
-        }
-
-        public void setWaterType_Name(String WaterType_Name) {
-            this.WaterType_Name = WaterType_Name;
-        }
+    public String getInstallation_User() {
+        return Installation_User;
     }
+
+    public void setInstallation_User(String Installation_User) {
+        this.Installation_User = Installation_User;
+    }
+
+    public long getInstallation_Userphone() {
+        return Installation_Userphone;
+    }
+
+    public void setInstallation_Userphone(long Installation_Userphone) {
+        this.Installation_Userphone = Installation_Userphone;
+    }
+
+    public String getInstallation_Address() {
+        return Installation_Address;
+    }
+
+    public void setInstallation_Address(String Installation_Address) {
+        this.Installation_Address = Installation_Address;
+    }
+
+    public String getWaterType_Name() {
+        return WaterType_Name;
+    }
+
+    public void setWaterType_Name(String WaterType_Name) {
+        this.WaterType_Name = WaterType_Name;
+    }
+
+
 }
-

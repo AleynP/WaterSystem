@@ -3,43 +3,36 @@ package com.souhou.watersystem.bean;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/7/18.
+ * Created by Administrator on 2017/7/21.
  */
 
-public class NewsList {
+public class NotHandelBean {
 
-    private List<InstallationBean> Installation;
 
-    public List<InstallationBean> getInstallation() {
-        return Installation;
+    private List<WeichuLiBaoZhuangBean> WeichuLiBaoZhuang;
+
+    public List<WeichuLiBaoZhuangBean> getWeichuLiBaoZhuang() {
+        return WeichuLiBaoZhuang;
     }
 
-    public void setInstallation(List<InstallationBean> Installation) {
-        this.Installation = Installation;
+    public void setWeichuLiBaoZhuang(List<WeichuLiBaoZhuangBean> WeichuLiBaoZhuang) {
+        this.WeichuLiBaoZhuang = WeichuLiBaoZhuang;
     }
 
-    public static class InstallationBean {
+    public static class WeichuLiBaoZhuangBean {
         /**
-         * id : 18
          * installation_SendTime : null
+         * installation_GetTime : 20170720175553
          * Installation_User : 琳达
          * Installation_Userphone : 13526023026
          * Installation_Address : 大方向海南购房人已经
          */
 
-        private int id;
         private Object installation_SendTime;
+        private long installation_GetTime;
         private String Installation_User;
         private long Installation_Userphone;
         private String Installation_Address;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
 
         public Object getInstallation_SendTime() {
             return installation_SendTime;
@@ -47,6 +40,14 @@ public class NewsList {
 
         public void setInstallation_SendTime(Object installation_SendTime) {
             this.installation_SendTime = installation_SendTime;
+        }
+
+        public long getInstallation_GetTime() {
+            return installation_GetTime;
+        }
+
+        public void setInstallation_GetTime(long installation_GetTime) {
+            this.installation_GetTime = installation_GetTime;
         }
 
         public String getInstallation_User() {

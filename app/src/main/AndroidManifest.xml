@@ -42,7 +42,12 @@
         <activity android:name=".ui.activity.UserActivity" />
         <activity android:name=".ui.activity.MsgActivity.NewsActivity" />
         <activity android:name=".ui.activity.MsgActivity.RecordActivity" />
-        <activity android:name=".ui.activity.MsgActivity.FaultActivity"></activity>
+        <activity android:name=".ui.activity.MsgActivity.FaultActivity" />
+        <activity android:name=".ui.activity.MsgActivity.UserdetailsActivity" />
+        <activity android:name=".ui.activity.NotHandelActivity" />
+        <activity android:name=".ui.activity.YesHandelActivity" />
+        <activity android:name=".ui.activity.InstRedActivity" />
+        <activity android:name=".ui.activity.NewAddActivity"></activity>
     </application>
 
 </manifest>

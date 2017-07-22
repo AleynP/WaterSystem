@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.UserInfo;
+import com.souhou.watersystem.bean.UserInfolist;
 import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
@@ -44,7 +44,7 @@ public class UserActivity extends BaseActivity {
     TextView tvState2;
     @BindView(R.id.tv_modle2)
     TextView tvModle2;
-    private UserInfo user;
+    private UserInfolist user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class UserActivity extends BaseActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        user = JsonMananger.jsonToBean(response, UserInfo.class);
+                        user = JsonMananger.jsonToBean(response, UserInfolist.class);
                         if (user.getUserInfo().getUser_Number() != 0) {
                             initText(user);
                         } else {
@@ -90,7 +90,7 @@ public class UserActivity extends BaseActivity {
                 });
     }
 
-    private void initText(UserInfo user) {
+    private void initText(UserInfolist user) {
         tvName2.setText(user.getUserInfo().getUser_Name());
         tvNumber2.setText(user.getUserInfo().getUser_Number() + "");
         tvPeopel2.setText(user.getUserInfo().getUser_Quantity() + "");
@@ -98,7 +98,7 @@ public class UserActivity extends BaseActivity {
         tvTime2.setText(user.getUserInfo().getUser_Time() + "");
         tvState2.setText(user.getUserInfo().getWaterMeter_State() + "");
         tvWaterNum2.setText(user.getUserInfo().getWaterMeter_Number());
-        tvAzTime2.setText((String) user.getUserInfo().getWaterMeter_Time());
+        tvAzTime2.setText(user.getUserInfo().getWaterMeter_Time()+"");
         tvModle2.setText(user.getUserInfo().getWaterType_Name());
     }
 
