@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.souhou.watersystem.ui.activity.MsgActivity.FaultActivity">
+    tools:context="com.souhou.watersystem.ui.activity.FaultActivity.FaultRcodHandelActivity">
 
     <ListView
-        android:id="@+id/list_repair_msg"
+        android:id="@+id/list_record"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

@@ -49,7 +49,7 @@ public class InstRedAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.new_add_adapter, null);
+            view = inflater.inflate(R.layout.adapter_new_add, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {

@@ -1,4 +1,4 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.InsRedBean;
-import com.souhou.watersystem.bean.NewAddBean;
+import com.souhou.watersystem.bean.BXHandelBean;
+import com.souhou.watersystem.bean.BXRepairBean;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
-import com.souhou.watersystem.ui.adapter.NewAddAdapter;
+import com.souhou.watersystem.ui.adapter.BXRecordAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -24,41 +24,42 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class NewAddActivity extends AppCompatActivity {
-    @BindView(R.id.list_new_add)
-    ListView listNewAdd;
-    private List<NewAddBean.XinZengBaoZhuangBean> mList = new ArrayList<>();
-    private NewAddBean newAddBean;
-    private NewAddAdapter newAddAdapter;
+public class FaultNewActivity extends AppCompatActivity {
+
+    @BindView(R.id.list_new_fault)
+    ListView listNewFault;
+    private BXRecordAdapter adapter;
+    private BXRepairBean bxRepairBean;
+    private List<BXRepairBean.RecordBean> mList = new ArrayList<>();
     MyApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_add);
+        setContentView(R.layout.activity_fault_new);
         ButterKnife.bind(this);
-        response();
-        newAddAdapter = new NewAddAdapter(mList, this);
-        listNewAdd.setAdapter(newAddAdapter);
-        listNewAdd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        request();
+        adapter = new BXRecordAdapter(mList, this);
+        listNewFault.setAdapter(adapter);
+        listNewFault.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String waterid = newAddBean.getXinZengBaoZhuang().get(i).getId() + "";
+                String name = bxRepairBean.getRecord().get(i).getRepairs_User();
                 Intent intent = new Intent();
-                intent.setClass(NewAddActivity.this, NewAddSubActivity.class);
-                intent.putExtra("water_id", waterid);
+                intent.setClass(FaultNewActivity.this, FaultSubNewActivity.class);
+                intent.putExtra("name", name);
                 startActivity(intent);
             }
         });
     }
 
-    private void response() {
+    private void request() {
         app = (MyApplication) getApplication();
         OkHttpUtils
                 .get()
-                .url(ServerConfig.AZ_JL_URL)
-                .addParams("state", "0")
+                .url(ServerConfig.BX_RECORD_URL)
                 .addParams("loginName", app.getUsername())
+                .addParams("state", "0")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -68,8 +69,8 @@ public class NewAddActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        newAddBean = JsonMananger.jsonToBean(response, NewAddBean.class);
-                        mList.addAll(newAddBean.getXinZengBaoZhuang());
+                        bxRepairBean = JsonMananger.jsonToBean(response, BXRepairBean.class);
+                        mList.addAll(bxRepairBean.getRecord());
                     }
                 });
     }

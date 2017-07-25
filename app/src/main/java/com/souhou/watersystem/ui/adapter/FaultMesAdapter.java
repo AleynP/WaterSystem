@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.NewAddBean;
+import com.souhou.watersystem.bean.RepairBean;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/7/21.
+ * Created by Administrator on 2017/7/23.
  */
 
-public class NewAddAdapter extends BaseAdapter {
-    private List<NewAddBean.XinZengBaoZhuangBean> mList;
+public class FaultMesAdapter extends BaseAdapter {
+    private List<RepairBean.RepairsBean> mList;
     private LayoutInflater inflater;
-    Context context;
+    private Context context;
 
-    public NewAddAdapter(List<NewAddBean.XinZengBaoZhuangBean> mList, Context context) {
+    public FaultMesAdapter(List<RepairBean.RepairsBean> mList, Context context) {
         this.mList = mList;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -49,39 +49,25 @@ public class NewAddAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.adapter_new_add, null);
+            view = inflater.inflate(R.layout.adpate_newsr, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvWaterid.setText(mList.get(i).getId() + "");
-        vh.tvName.setText(mList.get(i).getInstallation_User());
-        vh.tvPhone.setText(mList.get(i).getInstallation_Userphone() + "");
-        vh.tvSendtime.setText(mList.get(i).getInstallation_SendTime() + "");
-        vh.tvGettime.setText(mList.get(i).getInstallation_GetTime() + "");
-        vh.tvAddress.setText(mList.get(i).getInstallation_Address());
+        vh.tvUser.setText(mList.get(i).getRepairs_User());
+        vh.tvTime.setText(mList.get(i).getRepairs_Time() + "");
         return view;
     }
 
-
-    class ViewHolder {
-        @BindView(R.id.tv_waterid)
-        TextView tvWaterid;
-        @BindView(R.id.tv_name)
-        TextView tvName;
-        @BindView(R.id.tv_phone)
-        TextView tvPhone;
-        @BindView(R.id.tv_gettime)
-        TextView tvGettime;
-        @BindView(R.id.tv_sendtime)
-        TextView tvSendtime;
+    static class ViewHolder {
+        @BindView(R.id.tv_time)
+        TextView tvTime;
         @BindView(R.id.tv_address)
-        TextView tvAddress;
+        TextView tvUser;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
-
 }

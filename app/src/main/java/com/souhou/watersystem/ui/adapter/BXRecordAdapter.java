@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.YesHandelBean;
+import com.souhou.watersystem.bean.BXRepairBean;
 
 import java.util.List;
 
@@ -16,29 +16,28 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/7/21.
+ * Created by Administrator on 2017/7/24.
  */
 
-public class YesHandelAdapter extends BaseAdapter {
-
+public class BXRecordAdapter extends BaseAdapter {
+    private List<BXRepairBean.RecordBean> list;
     private LayoutInflater inflater;
-    private List<YesHandelBean.YiChuLiBaoZhuangBean> mList;
     Context context;
 
-    public YesHandelAdapter(Context context, List<YesHandelBean.YiChuLiBaoZhuangBean> mList) {
+    public BXRecordAdapter(List<BXRepairBean.RecordBean> list, Context context) {
+        this.list = list;
         this.inflater = LayoutInflater.from(context);
-        this.mList = mList;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return list.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return mList.get(i);
+        return list.get(i);
     }
 
     @Override
@@ -50,29 +49,20 @@ public class YesHandelAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.adapter_handel, null);
+            view = inflater.inflate(R.layout.adapter_bx_handel, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
-        } else {
+        }else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvName.setText(mList.get(i).getInstallation_User());
-        vh.tvPhone.setText(mList.get(i).getInstallation_Userphone() + "");
-        vh.tvSendtime.setText(mList.get(i).getInstallation_SendTime() + "");
-        vh.tvGettime.setText(mList.get(i).getInstallation_GetTime() + "");
-        vh.tvAddress.setText(mList.get(i).getInstallation_Address());
+        vh.tvTime.setText(list.get(i).getProcess_Time()+"");
+        vh.tvAddress.setText(list.get(i).getRepairs_User());
         return view;
     }
 
-    class ViewHolder {
-        @BindView(R.id.tv_name)
-        TextView tvName;
-        @BindView(R.id.tv_phone)
-        TextView tvPhone;
-        @BindView(R.id.tv_gettime)
-        TextView tvGettime;
-        @BindView(R.id.tv_sendtime)
-        TextView tvSendtime;
+    static class ViewHolder {
+        @BindView(R.id.tv_time)
+        TextView tvTime;
         @BindView(R.id.tv_address)
         TextView tvAddress;
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,8 +26,11 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,12 +55,17 @@ public class NewAddSubActivity extends AppCompatActivity {
     private Uri imageUri; //图片路径
     private String filename; //图片名称
     ImageDeal headImage;
+    private Bitmap bitmap;
+    private String waterid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_add_sub);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        waterid = intent.getStringExtra("water_id");
+        waterId.setText(waterid);
     }
 
     @OnClick({R.id.sub_img1, R.id.bt_sub})
@@ -72,33 +81,41 @@ public class NewAddSubActivity extends AppCompatActivity {
     }
 
     private void Okhttp() {
-        try {
-            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-            subImg1.setImageBitmap(bitmap);
-//            OkHttpUtils
-//                    .postFile()
-//                    .file(bitmap)
-//                    .url(ServerConfig.AZ_BC_URL)
-//                    .addHeader("WaterMeterID", "id")
-//                    .addHeader("WaterMeterNumber", "number")
-////                .addParams("WaterMeterID", "id")
-////                .addParams("WaterMeterNumber", "number")
-//                    .build()
-//                    .execute(new StringCallback() {
-//                        @Override
-//                        public void onError(Call call, Exception e, int id) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onResponse(String response, int id) {
-//                            Snackbar.make(btSub, "", Snackbar.LENGTH_SHORT).show();
-//                        }
-//                    });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        String photo = null;
+        if (bitmap != null) {
+            photo = ImageDeal.convertIconToString(bitmap);
+            Snackbar.make(btSub, photo, Snackbar.LENGTH_SHORT).show();
         }
+//        File file = null;
+//        try {
+//            file = new File(new URI(imageUri.toString()));
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+        String number = edWaterNumber.getText().toString();
+        HashMap map = new HashMap();
+        map.put("WaterMeterID", waterid);
+        map.put("WaterMeterPic", photo);
+        map.put("WaterMeterNumber", number);
+        OkHttpUtils
+                .get()
+                .url(ServerConfig.AZ_BC_URL)
+//                .addFile("WaterMeterPic", filename + ".jpg", file)
+                .params(map)
+//                .file(file)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Snackbar.make(btSub, e.getMessage().toString(), Snackbar.LENGTH_SHORT).show();
 
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Snackbar.make(btSub, "提交成功", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
@@ -128,30 +145,26 @@ public class NewAddSubActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case TAKE_PHOTO:
-                Intent intent = new Intent("com.android.camera.action.CROP"); //剪裁
-                intent.setDataAndType(imageUri, "image/*");
-                intent.putExtra("scale", true);
-                //设置宽高比例
-                intent.putExtra("aspectX", 1);
-                intent.putExtra("aspectY", 1);
-                //设置裁剪图片宽高
-                intent.putExtra("outputX", 450);
-                intent.putExtra("outputY", 450);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                Intent intent = new Intent("com.android.camera.action.CROP"); //剪裁
+//                intent.setDataAndType(imageUri, "image/*");
+//                intent.putExtra("scale", true);
+//                //设置宽高比例
+//                intent.putExtra("aspectX", 1);
+//                intent.putExtra("aspectY", 1);
+//                //设置裁剪图片宽高
+//                intent.putExtra("outputX", 450);
+//                intent.putExtra("outputY", 450);
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 //广播刷新相册
-//                subImg1.setImageURI(imageUri);
-                startActivityForResult(intent, CROP_PHOTO); //设置裁剪参数显示图片至ImageView
-                break;
-            case CROP_PHOTO:
-                //图片解析成Bitmap对象
                 try {
-                    Bitmap bitmap = BitmapFactory.decodeStream(
-                            getContentResolver().openInputStream(data.getData()));
-                    subImg1.setImageBitmap(bitmap);
+                    bitmap = BitmapFactory.decodeStream(
+                            getContentResolver().openInputStream(imageUri));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+                subImg1.setImageBitmap(bitmap);
                 break;
+
         }
     }
 

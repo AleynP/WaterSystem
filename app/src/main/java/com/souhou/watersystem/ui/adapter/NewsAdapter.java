@@ -13,9 +13,6 @@ import com.souhou.watersystem.bean.NewsList;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by Administrator on 2017/7/16.
  */
@@ -52,7 +49,7 @@ public class NewsAdapter extends BaseAdapter {
         ViewHolder vh;
         if (view == null) {
             vh = new ViewHolder();
-            view = mLayoutInflater.inflate(R.layout.news_adpater, null);
+            view = mLayoutInflater.inflate(R.layout.adpate_newsr, null);
             vh.tv_time = view.findViewById(R.id.tv_time);
             vh.tv_address = view.findViewById(R.id.tv_address);
             view.setTag(vh);

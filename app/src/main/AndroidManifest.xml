@@ -48,7 +48,13 @@
         <activity android:name=".ui.activity.YesHandelActivity" />
         <activity android:name=".ui.activity.InstRedActivity" />
         <activity android:name=".ui.activity.NewAddActivity" />
-        <activity android:name=".ui.activity.NewAddSubActivity"></activity>
+        <activity android:name=".ui.activity.NewAddSubActivity" />
+        <activity android:name=".ui.activity.FaultDataActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultHandActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultNotHandActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultRcodHandelActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultNewActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultSubNewActivity"></activity>
     </application>
 
 </manifest>
