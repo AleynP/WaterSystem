@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.NewsList;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.NewsAdapter;
@@ -24,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends BaseBackActivity {
 
     @BindView(R.id.list_news)
     ListView listNews;
@@ -39,6 +40,7 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         ButterKnife.bind(this);
+        setTitle("新装消息");
         app = (MyApplication) getApplication();
         String name = app.getUsername();
         Respons(name);

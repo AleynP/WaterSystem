@@ -18,4 +18,8 @@ public class ServerConfig {
     public static final String BX_MES_DATA_Choice_URL = "http://192.168.1.119:8080/hold/repairs/repairsOK.html";
     public static final String BX_HANDEL_URL = "http://192.168.1.119:8080/hold/repairs/processOK.html";
     public static final String BX_RECORD_URL = "http://192.168.1.119:8080/hold/repairs/processlog.html";
+    public static final String CB_Meter_URL = "http://192.168.1.119:8080/hold/userinfo/monthuserinfo.html";
+    public static final String CB_RECORD_URL = "http://192.168.1.119:8080/hold/userinfo/meterreadingrecord.html";
+    public static final String CB_SC_WATERREC_URL = "http://192.168.1.119:8080/hold/userinfo/scmeterreading.html";
+    public static final String CB_SC_WATER_SUB_URL = "http://192.168.1.119:8080/hold/userinfo/savemeterreading.html";
 }

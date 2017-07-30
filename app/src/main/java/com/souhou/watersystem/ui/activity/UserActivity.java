@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.UserInfolist;
 import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class UserActivity extends BaseActivity {
+public class UserActivity extends BaseBackActivity {
 
 
     @BindView(R.id.name_search)
@@ -50,6 +51,8 @@ public class UserActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("用户资料");
+        btn_right.setVisibility(View.INVISIBLE);
+        btn_left.setBackgroundResource(R.drawable.ic_back);
         setContentView(R.layout.activity_user);
         ButterKnife.bind(this);
         btSearch.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +101,7 @@ public class UserActivity extends BaseActivity {
         tvTime2.setText(user.getUserInfo().getUser_Time() + "");
         tvState2.setText(user.getUserInfo().getWaterMeter_State() + "");
         tvWaterNum2.setText(user.getUserInfo().getWaterMeter_Number());
-        tvAzTime2.setText(user.getUserInfo().getWaterMeter_Time()+"");
+        tvAzTime2.setText(user.getUserInfo().getWaterMeter_Time() + "");
         tvModle2.setText(user.getUserInfo().getWaterType_Name());
     }
 

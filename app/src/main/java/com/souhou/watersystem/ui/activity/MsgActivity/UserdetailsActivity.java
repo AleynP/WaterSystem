@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.UserInfo;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class UserdetailsActivity extends AppCompatActivity {
+public class UserdetailsActivity extends BaseBackActivity {
 
 
     @BindView(R.id.tv_names)
@@ -47,6 +48,7 @@ public class UserdetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userdetails);
         ButterKnife.bind(this);
+        setTitle("接单详情");
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         response(id);
@@ -99,7 +101,7 @@ public class UserdetailsActivity extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
-                                Snackbar.make(tvNames, response.toString()+"请求成功", Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(tvNames, response.toString() + "请求成功", Snackbar.LENGTH_SHORT).show();
                                 finish();
                             }
                         });

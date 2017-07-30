@@ -2,7 +2,6 @@ package com.souhou.watersystem.ui.activity.MsgActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,9 +9,10 @@ import android.widget.ListView;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.RepairBean;
 import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
-import com.souhou.watersystem.ui.activity.FaultDataActivity;
+import com.souhou.watersystem.ui.activity.FaultActivity.FaultDataActivity;
 import com.souhou.watersystem.ui.adapter.FaultMesAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class FaultActivity extends BaseActivity {
+public class FaultActivity extends BaseBackActivity {
 
     @BindView(R.id.list_repair_msg)
     ListView listview;
@@ -39,9 +39,7 @@ public class FaultActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fault);
         ButterKnife.bind(this);
-        setTitle("消息");
-        btn_left.setBackgroundResource(R.drawable.ic_back);
-        btn_right.setVisibility(View.INVISIBLE);
+        setTitle("故障消息");
         respones();
         adapter = new FaultMesAdapter(mList, this);
         listview.setAdapter(adapter);

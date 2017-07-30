@@ -3,10 +3,13 @@ package com.souhou.watersystem.ui.activity;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.NotHandelBean;
+import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.NotHandelAdapter;
@@ -21,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class NotHandelActivity extends AppCompatActivity {
+public class NotHandelActivity extends BaseBackActivity {
 
     @BindView(R.id.list_not_handel)
     ListView listNotHandel;
@@ -35,6 +38,7 @@ public class NotHandelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_not_handel);
         ButterKnife.bind(this);
+        setTitle("未处理");
         respons();
         adapter = new NotHandelAdapter(this, mList);
         listNotHandel.setAdapter(adapter);

@@ -1,17 +1,14 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.MeterActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.YesHandelBean;
-import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.bean.CBRecordBean;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
-import com.souhou.watersystem.ui.adapter.YesHandelAdapter;
+import com.souhou.watersystem.ui.adapter.CBRecordAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -23,34 +20,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class YesHandelActivity extends BaseBackActivity {
-
-    @BindView(R.id.list_yes_handel)
-    ListView listYesHandel;
-    private List<YesHandelBean.YiChuLiBaoZhuangBean> mList = new ArrayList<>();
-    private YesHandelAdapter adapter;
-    private YesHandelBean weichuli;
+public class MeterRecordctivity extends BaseBackActivity {
+    @BindView(R.id.list_item)
+    ListView listItem;
+    private List<CBRecordBean.RecordBean> mList = new ArrayList<>();
+    private CBRecordBean cbRecordBean;
+    private CBRecordAdapter adapter;
     MyApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yes_handel);
+        setContentView(R.layout.activity_meter_recordctivity);
         ButterKnife.bind(this);
-        setTitle("已处理");
-        btn_right.setVisibility(View.INVISIBLE);
-        btn_left.setBackgroundResource(R.drawable.ic_back);
-        respons();
-        adapter = new YesHandelAdapter(this, mList);
-        listYesHandel.setAdapter(adapter);
+        setTitle("抄表记录");
+        adapter = new CBRecordAdapter(mList, this);
+        listItem.setAdapter(adapter);
+        request();
     }
 
-    private void respons() {
+    private void request() {
         app = (MyApplication) getApplication();
         OkHttpUtils
                 .get()
-                .url(ServerConfig.BAOZHUANG_URL)
-                .addParams("state", "1")
+                .url(ServerConfig.CB_RECORD_URL)
                 .addParams("loginName", app.getUsername())
                 .build()
                 .execute(new StringCallback() {
@@ -61,9 +54,8 @@ public class YesHandelActivity extends BaseBackActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-
-                        weichuli = JsonMananger.jsonToBean(response, YesHandelBean.class);
-                        mList.addAll(weichuli.getYiChuLiBaoZhuang());
+                        cbRecordBean = JsonMananger.jsonToBean(response, CBRecordBean.class);
+                        mList.addAll(cbRecordBean.getRecord());
                     }
                 });
     }

@@ -10,6 +10,8 @@ import android.widget.ListView;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.InsRedBean;
 import com.souhou.watersystem.bean.NewAddBean;
+import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.NewAddAdapter;
@@ -24,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class NewAddActivity extends AppCompatActivity {
+public class NewAddActivity extends BaseBackActivity {
     @BindView(R.id.list_new_add)
     ListView listNewAdd;
     private List<NewAddBean.XinZengBaoZhuangBean> mList = new ArrayList<>();
@@ -37,6 +39,7 @@ public class NewAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_add);
         ButterKnife.bind(this);
+        setTitle("新装水表");
         response();
         newAddAdapter = new NewAddAdapter(mList, this);
         listNewAdd.setAdapter(newAddAdapter);

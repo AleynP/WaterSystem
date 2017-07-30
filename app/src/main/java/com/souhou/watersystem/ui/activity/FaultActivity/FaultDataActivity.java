@@ -1,16 +1,16 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXdateBean;
-import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class FaultDataActivity extends BaseActivity {
+public class FaultDataActivity extends BaseBackActivity {
 
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
@@ -33,18 +33,12 @@ public class FaultDataActivity extends BaseActivity {
     TextView tvTime;
     @BindView(R.id.tv_shuoming)
     TextView tvShuoming;
-    @BindView(R.id.imageView1)
-    ImageView imageView1;
-    @BindView(R.id.imageView2)
-    ImageView imageView2;
-    @BindView(R.id.imageView3)
-    ImageView imageView3;
-    @BindView(R.id.imageView4)
-    ImageView imageView4;
     @BindView(R.id.bt_yes)
     Button btYes;
     @BindView(R.id.bt_not)
     Button btNot;
+    @BindView(R.id.fault_gridView)
+    GridView gridView;
     private BXdateBean bXdateBean;
     private String repairsID;
 
@@ -53,8 +47,6 @@ public class FaultDataActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fault_data);
         ButterKnife.bind(this);
-        btn_left.setVisibility(View.INVISIBLE);
-        btn_right.setVisibility(View.INVISIBLE);
         setTitle("详细信息");
         Intent intent = getIntent();
         repairsID = intent.getStringExtra("id");

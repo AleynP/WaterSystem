@@ -118,7 +118,6 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                         } else if (result.getLoginResult().equals("SUCCESS")) {
                             mList.addAll(result.getType());
                             LoginJudge((ArrayList<Result.data>) mList);
-                            Snackbar.make(Login_name, result.getMsg(), Snackbar.LENGTH_SHORT).show();
                         }
 
                     }
@@ -135,5 +134,10 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         startActivity(intent);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mList.clear();
+    }
 }
 

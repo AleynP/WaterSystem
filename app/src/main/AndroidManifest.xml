@@ -11,15 +11,16 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 申明网络权限  -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 申明权限 操作SD卡 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/login_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/login_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="Android:icon, android:theme">
@@ -49,12 +50,18 @@
         <activity android:name=".ui.activity.InstRedActivity" />
         <activity android:name=".ui.activity.NewAddActivity" />
         <activity android:name=".ui.activity.NewAddSubActivity" />
-        <activity android:name=".ui.activity.FaultDataActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultDataActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultHandActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultNotHandActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultRcodHandelActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultNewActivity" />
-        <activity android:name=".ui.activity.FaultActivity.FaultSubNewActivity"></activity>
+        <activity android:name=".ui.activity.FaultActivity.FaultSubNewActivity" />
+        <activity android:name=".common.BaseBackActivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterNotRecordActivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterYesRecordActivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterRecordctivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterQRActivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterSubActivity"></activity>
     </application>
 
 </manifest>

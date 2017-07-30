@@ -2,10 +2,13 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXNotHandelBean;
+import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.BXNOTHandelAdapter;
@@ -20,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class FaultNotHandActivity extends AppCompatActivity {
+public class FaultNotHandActivity extends BaseBackActivity {
 
     @BindView(R.id.list_not_handel)
     ListView listNotHandel;
@@ -34,6 +37,7 @@ public class FaultNotHandActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fauit_not_hand);
         ButterKnife.bind(this);
+        setTitle("未处理");
         request();
         adapter = new BXNOTHandelAdapter(mList, this);
         listNotHandel.setAdapter(adapter);

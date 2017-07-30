@@ -14,14 +14,17 @@ import android.widget.Toast;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseFragment;
+import com.souhou.watersystem.ui.activity.MeterActivity.MeterNotRecordActivity;
+import com.souhou.watersystem.ui.activity.MeterActivity.MeterQRActivity;
+import com.souhou.watersystem.ui.activity.MeterActivity.MeterRecordctivity;
+import com.souhou.watersystem.ui.activity.MeterActivity.MeterYesRecordActivity;
 import com.souhou.watersystem.ui.activity.UserActivity;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class RecordFragment extends BaseFragment implements View.OnClickListener{
+public class RecordFragment extends BaseFragment implements View.OnClickListener {
 
-    public static final int REQUEST_CODE = 1;
-    private ImageButton bt_qr,bt_momp,bt_not_comp,bt_record,bt_user;
+    private ImageButton bt_qr, bt_momp, bt_not_comp, bt_record, bt_user;
     private View rootview;
     private Intent intent;
 
@@ -60,42 +63,28 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bt_qrcode:
-                intent = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                intent = new Intent(getActivity(), MeterQRActivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_complete_img:
-
+                intent = new Intent(getActivity(), MeterYesRecordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_not_complete_img:
+                intent = new Intent(getActivity(), MeterNotRecordActivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_record_img:
+                intent = new Intent(getActivity(), MeterRecordctivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_user_img:
-                intent= new Intent(getActivity(), UserActivity.class);
+                intent = new Intent(getActivity(), UserActivity.class);
                 startActivity(intent);
                 break;
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            //处理扫描结果（在界面上显示）
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
-                }
-                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
 }

@@ -94,4 +94,5 @@ public class ImageDeal {
         canvas.drawBitmap(bitmap, null, rect, p);
         return backgroundBm;
     }
+
 }

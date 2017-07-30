@@ -2,10 +2,13 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXRepairBean;
+import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.BXRecordAdapter;
@@ -20,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class FaultRcodHandelActivity extends AppCompatActivity {
+public class FaultRcodHandelActivity extends BaseBackActivity {
     @BindView(R.id.list_record)
     ListView listRecord;
     private List<BXRepairBean.RecordBean> mList = new ArrayList<>();
@@ -33,6 +36,7 @@ public class FaultRcodHandelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fault_rcod_handel);
         ButterKnife.bind(this);
+        setTitle("故障报修记录");
         request();
         adapter = new BXRecordAdapter(mList, this);
         listRecord.setAdapter(adapter);

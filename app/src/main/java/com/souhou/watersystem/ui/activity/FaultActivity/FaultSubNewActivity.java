@@ -8,12 +8,13 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseActivity;
+import com.souhou.watersystem.common.BaseBackActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FaultSubNewActivity extends BaseActivity {
+public class FaultSubNewActivity extends BaseBackActivity {
 
     @BindView(R.id.tv_name)
     TextView tvName;
@@ -33,8 +34,6 @@ public class FaultSubNewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fault_sub_new);
         ButterKnife.bind(this);
-        btn_right.setVisibility(View.INVISIBLE);
-        btn_left.setBackgroundResource(R.drawable.ic_back);
         setTitle("新增故障处理");
         Intent intent = getIntent();
         tvName.setText(intent.getStringExtra("name"));

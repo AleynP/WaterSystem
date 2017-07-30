@@ -2,10 +2,12 @@ package com.souhou.watersystem.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.InsRedBean;
+import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.InstRedAdapter;
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-public class InstRedActivity extends AppCompatActivity {
+public class InstRedActivity extends BaseBackActivity {
 
     @BindView(R.id.list_inst_red)
     ListView listInstRed;
@@ -36,6 +38,7 @@ public class InstRedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inst_red);
         ButterKnife.bind(this);
         response();
+        setTitle("新装记录");
         adapter = new InstRedAdapter(mList, this);
         listInstRed.setAdapter(adapter);
     }
