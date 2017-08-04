@@ -1,14 +1,12 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.NotHandelBean;
-import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
@@ -28,6 +26,8 @@ public class NotHandelActivity extends BaseBackActivity {
 
     @BindView(R.id.list_not_handel)
     ListView listNotHandel;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private List<NotHandelBean.WeichuLiBaoZhuangBean> mList = new ArrayList<>();
     private NotHandelAdapter adapter;
     private NotHandelBean weichuli;
@@ -62,6 +62,10 @@ public class NotHandelActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         weichuli = JsonMananger.jsonToBean(response, NotHandelBean.class);
                         mList.addAll(weichuli.getWeichuLiBaoZhuang());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

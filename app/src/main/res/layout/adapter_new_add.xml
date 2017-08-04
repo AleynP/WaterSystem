@@ -2,127 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/shape_list_bagrond"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="姓名:"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="水表号:"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_waterid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:background="@color/Green">
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="手机号:"
-            android:textSize="20sp" />
+            android:layout_margin="5dp"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/tv_phone"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="5dp"
             android:textSize="20sp" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_waterid"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="接单时间:"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_gettime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+    </RelativeLayout>
 
 
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="接单:"
+            android:textColor="@color/Blue"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_gettime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/tv_time"
+            android:textColor="@color/Blue"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="派单时间:"
+            android:layout_toLeftOf="@id/tv_sendtime"
+            android:text="派单:"
+            android:textColor="@color/Green"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_sendtime"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
+            android:textColor="@color/Green"
             android:textSize="20sp" />
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="地址:"
+            android:textColor="@color/viewfinder_laser"
             android:textSize="20sp" />
 
         <TextView
@@ -130,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:textColor="@color/viewfinder_laser"
             android:textSize="20sp" />
     </LinearLayout>
 

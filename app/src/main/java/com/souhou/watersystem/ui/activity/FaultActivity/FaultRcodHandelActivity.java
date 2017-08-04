@@ -1,13 +1,12 @@
 package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXRepairBean;
-import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
@@ -26,6 +25,8 @@ import okhttp3.Call;
 public class FaultRcodHandelActivity extends BaseBackActivity {
     @BindView(R.id.list_record)
     ListView listRecord;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private List<BXRepairBean.RecordBean> mList = new ArrayList<>();
     private BXRepairBean bxRepairBean;
     private BXRecordAdapter adapter;
@@ -60,6 +61,10 @@ public class FaultRcodHandelActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         bxRepairBean = JsonMananger.jsonToBean(response, BXRepairBean.class);
                         mList.addAll(bxRepairBean.getRecord());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

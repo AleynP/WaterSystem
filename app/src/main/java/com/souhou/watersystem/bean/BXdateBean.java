@@ -6,27 +6,32 @@ package com.souhou.watersystem.bean;
 
 public class BXdateBean {
 
+
     /**
-     * id : 6
-     * Repairs_Time : 201707041703
-     * Repairs_User : 天天
-     * Repairs_Number : 5
-     * Repairs_Content : 今天有分割成
-     * Repairs_OK : 0
-     * Repairs_Name : admin_cq
-     * Repairs_Phone : 13526548195
-     * Repairs_Site : 宣传部分通过
+     * id : 51
+     * Repairs_Time : 201707111141
+     * Repairs_User : 刚刚
+     * Repairs_Number : 999
+     * Repairs_Content : 发GV大概
+     * Repairs_Name : 系统管理员
+     * Repairs_Phone : 13838562365
+     * Repairs_Site : 河南省周口市
+     * Repairs_Randomnum : 44271743
+     * FILE_PATH0 : http://192.168.1.119:8080/upload/infofiles/20170730114154_838.jpg
+     * FILE_PATH1 : http://192.168.1.119:8080/upload/infofiles/20170730114158_2989.jpg
      */
 
     private int id;
-    private long Repairs_Time;
+    private String Repairs_Time;
     private String Repairs_User;
-    private int Repairs_Number;
+    private String Repairs_Number;
     private String Repairs_Content;
-    private int Repairs_OK;
     private String Repairs_Name;
-    private long Repairs_Phone;
+    private String Repairs_Phone;
     private String Repairs_Site;
+    private String Repairs_Randomnum;
+    private String FILE_PATH0;
+    private String FILE_PATH1;
 
     public int getId() {
         return id;
@@ -36,11 +41,11 @@ public class BXdateBean {
         this.id = id;
     }
 
-    public long getRepairs_Time() {
+    public String getRepairs_Time() {
         return Repairs_Time;
     }
 
-    public void setRepairs_Time(long Repairs_Time) {
+    public void setRepairs_Time(String Repairs_Time) {
         this.Repairs_Time = Repairs_Time;
     }
 
@@ -52,11 +57,11 @@ public class BXdateBean {
         this.Repairs_User = Repairs_User;
     }
 
-    public int getRepairs_Number() {
+    public String getRepairs_Number() {
         return Repairs_Number;
     }
 
-    public void setRepairs_Number(int Repairs_Number) {
+    public void setRepairs_Number(String Repairs_Number) {
         this.Repairs_Number = Repairs_Number;
     }
 
@@ -68,14 +73,6 @@ public class BXdateBean {
         this.Repairs_Content = Repairs_Content;
     }
 
-    public int getRepairs_OK() {
-        return Repairs_OK;
-    }
-
-    public void setRepairs_OK(int Repairs_OK) {
-        this.Repairs_OK = Repairs_OK;
-    }
-
     public String getRepairs_Name() {
         return Repairs_Name;
     }
@@ -84,11 +81,11 @@ public class BXdateBean {
         this.Repairs_Name = Repairs_Name;
     }
 
-    public long getRepairs_Phone() {
+    public String getRepairs_Phone() {
         return Repairs_Phone;
     }
 
-    public void setRepairs_Phone(long Repairs_Phone) {
+    public void setRepairs_Phone(String Repairs_Phone) {
         this.Repairs_Phone = Repairs_Phone;
     }
 
@@ -98,5 +95,29 @@ public class BXdateBean {
 
     public void setRepairs_Site(String Repairs_Site) {
         this.Repairs_Site = Repairs_Site;
+    }
+
+    public String getRepairs_Randomnum() {
+        return Repairs_Randomnum;
+    }
+
+    public void setRepairs_Randomnum(String Repairs_Randomnum) {
+        this.Repairs_Randomnum = Repairs_Randomnum;
+    }
+
+    public String getFILE_PATH0() {
+        return FILE_PATH0;
+    }
+
+    public void setFILE_PATH0(String FILE_PATH0) {
+        this.FILE_PATH0 = FILE_PATH0;
+    }
+
+    public String getFILE_PATH1() {
+        return FILE_PATH1;
+    }
+
+    public void setFILE_PATH1(String FILE_PATH1) {
+        this.FILE_PATH1 = FILE_PATH1;
     }
 }

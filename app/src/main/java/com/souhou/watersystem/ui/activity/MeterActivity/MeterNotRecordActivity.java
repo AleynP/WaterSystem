@@ -1,7 +1,9 @@
 package com.souhou.watersystem.ui.activity.MeterActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.CBMeterBean;
@@ -23,6 +25,8 @@ public class MeterNotRecordActivity extends BaseBackActivity {
 
     @BindView(R.id.list_item)
     ListView listview;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private CBMeterBean cbMeterBean;
     private CBNotMeterAdapter adapter;
     private List<CBMeterBean.BenYueWeiChaoBean> mList = new ArrayList<>();
@@ -54,6 +58,10 @@ public class MeterNotRecordActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         cbMeterBean = JsonMananger.jsonToBean(response, CBMeterBean.class);
                         mList.addAll(cbMeterBean.getBenYueWeiChao());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

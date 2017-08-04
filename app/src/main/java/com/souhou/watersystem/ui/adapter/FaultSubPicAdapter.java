@@ -1,14 +1,15 @@
 package com.souhou.watersystem.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.RepairBean;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,15 +17,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/7/23.
+ * Created by Administrator on 2017/8/4.
  */
 
-public class FaultMesAdapter extends BaseAdapter {
-    private List<RepairBean.RepairsBean> mList;
+public class FaultSubPicAdapter extends BaseAdapter {
+    private List<Uri> mList;
     private LayoutInflater inflater;
-    private Context context;
+    Context context;
 
-    public FaultMesAdapter(List<RepairBean.RepairsBean> mList, Context context) {
+    public FaultSubPicAdapter(List<Uri> mList, Context context) {
         this.mList = mList;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -32,7 +33,7 @@ public class FaultMesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mList.size();
+        return mList == null ? 1 : mList.size() + 1;//返回listiview数目加1;
     }
 
     @Override
@@ -49,22 +50,24 @@ public class FaultMesAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.adpate_newsr, null);
+            view = inflater.inflate(R.layout.adapter_simp, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvUser.setText(mList.get(i).getRepairs_Time() + "");
-        vh.tvTime.setText(mList.get(i).getRepairs_User());
-        return view;
+        if (mList != null && i < mList.size()) {
+            Picasso.with(context).load(mList.get(i)).into(vh.imageView1);
+            return view;
+        } else {
+            Picasso.with(context).load(R.mipmap.new_add_img).into(vh.imageView1);
+            return view;
+        }
     }
 
     static class ViewHolder {
-        @BindView(R.id.tv_time)
-        TextView tvTime;
-        @BindView(R.id.tv_address)
-        TextView tvUser;
+        @BindView(R.id.imageView1)
+        ImageView imageView1;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -1,4 +1,4 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +25,10 @@ import android.widget.Toast;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.ui.adapter.FaultSubPicAdapter;
 import com.souhou.watersystem.utils.ImageDeal;
+import com.souhou.watersystem.utils.LogUtils;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -51,6 +53,8 @@ public class NewAddSubActivity extends BaseBackActivity {
     @BindView(R.id.bt_sub)
     Button btSub;
 
+    private FaultSubPicAdapter adapter;
+    private List<Uri> mList = new ArrayList<>();
     private Uri imageUri;                       //拍照Uri
     private String pathTakePhoto;              //拍照路径
     private final int TAKE_PHOTO = 3;       //拍照标记
@@ -119,27 +123,27 @@ public class NewAddSubActivity extends BaseBackActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //打开图片
-        if (resultCode == RESULT_OK && requestCode == IMAGE_OPEN) {
-            Uri uri = data.getData();
-            if (!TextUtils.isEmpty(uri.getAuthority())) {
-                //查询选择图片
-                Cursor cursor = getContentResolver().query(
-                        uri,
-                        new String[]{MediaStore.Images.Media.DATA},
-                        null,
-                        null,
-                        null);
-                //返回 没找到选择图片
-                if (null == cursor) {
-                    return;
-                }
-                //光标移动至开头 获取图片路径
-                cursor.moveToFirst();
-                pathImage = cursor.getString(cursor
-                        .getColumnIndex(MediaStore.Images.Media.DATA));
-                list.add(pathImage);
-            }
-        }  //end if 打开图片
+//        if (resultCode == RESULT_OK && requestCode == IMAGE_OPEN) {
+//            Uri uri = data.getData();
+//            if (!TextUtils.isEmpty(uri.getAuthority())) {
+//                //查询选择图片
+//                Cursor cursor = getContentResolver().query(
+//                        uri,
+//                        new String[]{MediaStore.Images.Media.DATA},
+//                        null,
+//                        null,
+//                        null);
+//                //返回 没找到选择图片
+//                if (null == cursor) {
+//                    return;
+//                }
+//                //光标移动至开头 获取图片路径
+//                cursor.moveToFirst();
+//                pathImage = cursor.getString(cursor
+//                        .getColumnIndex(MediaStore.Images.Media.DATA));
+//                list.add(pathImage);
+//            }
+//        }  //end if 打开图片
         //拍照
         if (resultCode == RESULT_OK && requestCode == TAKE_PHOTO) {
             Intent intent = new Intent("com.android.camera.action.CROP"); //剪裁
@@ -150,6 +154,7 @@ public class NewAddSubActivity extends BaseBackActivity {
             Intent intentBc = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             intentBc.setData(imageUri);
             this.sendBroadcast(intentBc);
+            mList.add(imageUri);
         }
     }
 
@@ -177,7 +182,7 @@ public class NewAddSubActivity extends BaseBackActivity {
                     return false;
                 }
             });
-            gridView.setAdapter(simpleAdapter);
+            gridView.setAdapter(adapter);
             simpleAdapter.notifyDataSetChanged();
             //刷新后释放防止手机休眠后自动添加
             pathImage = null;
@@ -187,7 +192,6 @@ public class NewAddSubActivity extends BaseBackActivity {
     private void Okhttp(String photo) {
         number = edWaterNumber.getText().toString();
         if (!number.equals("")) {
-//            Log.i("TAG", photo);
             HashMap map = new HashMap();
             map.put("WaterMeterID", waterid);
 //            map.put("WaterMeterPic", photo);
@@ -203,18 +207,18 @@ public class NewAddSubActivity extends BaseBackActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            Snackbar.make(btSub, e.getMessage().toString(), Snackbar.LENGTH_SHORT).show();
+                            SnackBar.make(btSub, e.getMessage().toString());
 //                            Snackbar.make(btSub, "提交失败", Snackbar.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onResponse(String response, int id) {
                             Log.i("TAG", "提交成功");
-                            Snackbar.make(btSub, "提交成功", Snackbar.LENGTH_SHORT).show();
+                            SnackBar.make(btSub, "提交成功");
                         }
                     });
         } else {
-            Snackbar.make(btSub, "请完善水表信息", Snackbar.LENGTH_SHORT).show();
+            SnackBar.make(btSub, "请完善水表信息");
         }
 
     }
@@ -231,7 +235,7 @@ public class NewAddSubActivity extends BaseBackActivity {
 //            Log.i("TAG", uploadFile);
             }
         } else {
-            Snackbar.make(btSub, "请添加图片", Snackbar.LENGTH_SHORT).show();
+            SnackBar.make(btSub, "请添加图片");
         }
     }
 

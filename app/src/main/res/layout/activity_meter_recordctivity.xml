@@ -1,12 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.souhou.watersystem.ui.activity.MeterActivity.MeterRecordctivity">
 
+    <TableLayout
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/Green"
+        android:orientation="horizontal">
+
+        <TableRow>
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="ID"
+                android:textColor="@color/cc"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:text="姓名"
+                android:textColor="@color/cc"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="时间"
+                android:textColor="@color/cc"
+                android:textSize="20sp" />
+        </TableRow>
+    </TableLayout>
+
     <ListView
         android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_title" />
+
+    <TextView
+        android:id="@+id/fail_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="暂无数据~"
+        android:textColor="@color/sbc_page_number_text"
+        android:textSize="20sp" />
+</RelativeLayout>

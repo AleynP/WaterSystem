@@ -1,14 +1,16 @@
 package com.souhou.watersystem.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.RepairBean;
+import com.souhou.watersystem.bean.BXdateBean;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,17 +18,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/7/23.
+ * Created by Administrator on 2017/7/31.
  */
 
-public class FaultMesAdapter extends BaseAdapter {
-    private List<RepairBean.RepairsBean> mList;
+public class BXPicAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private Context context;
+    private List<String> mList;
+    Context context;
 
-    public FaultMesAdapter(List<RepairBean.RepairsBean> mList, Context context) {
-        this.mList = mList;
+    public BXPicAdapter(List<String> mList, Context context) {
         this.inflater = LayoutInflater.from(context);
+        this.mList = mList;
         this.context = context;
     }
 
@@ -49,22 +51,20 @@ public class FaultMesAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.adpate_newsr, null);
+            view = inflater.inflate(R.layout.adapter_simp, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvUser.setText(mList.get(i).getRepairs_Time() + "");
-        vh.tvTime.setText(mList.get(i).getRepairs_User());
+        String url = mList.get(i);
+        Picasso.with(context).load(url).into(vh.imageView1);
         return view;
     }
 
     static class ViewHolder {
-        @BindView(R.id.tv_time)
-        TextView tvTime;
-        @BindView(R.id.tv_address)
-        TextView tvUser;
+        @BindView(R.id.imageView1)
+        ImageView imageView1;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

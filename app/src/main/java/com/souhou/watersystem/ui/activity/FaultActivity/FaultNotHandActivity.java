@@ -1,13 +1,12 @@
 package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXNotHandelBean;
-import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
@@ -27,6 +26,8 @@ public class FaultNotHandActivity extends BaseBackActivity {
 
     @BindView(R.id.list_not_handel)
     ListView listNotHandel;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private List<BXNotHandelBean.WeiChuLiBaoXiuBean> mList = new ArrayList<>();
     private BXNotHandelBean bxNotHandelBean;
     private BXNOTHandelAdapter adapter;
@@ -61,6 +62,10 @@ public class FaultNotHandActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         bxNotHandelBean = JsonMananger.jsonToBean(response, BXNotHandelBean.class);
                         mList.addAll(bxNotHandelBean.getWeiChuLiBaoXiu());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

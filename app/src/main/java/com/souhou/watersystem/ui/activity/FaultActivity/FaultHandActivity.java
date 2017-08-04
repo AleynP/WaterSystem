@@ -1,13 +1,12 @@
 package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXHandelBean;
-import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
@@ -27,6 +26,8 @@ public class FaultHandActivity extends BaseBackActivity {
 
     @BindView(R.id.list_bx_handel)
     ListView listBxHandel;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private BxHandelAdapter adapter;
     private List<BXHandelBean.YiChuLiBaoXiuBean> mList = new ArrayList<>();
     private BXHandelBean bxHandelBean;
@@ -41,6 +42,7 @@ public class FaultHandActivity extends BaseBackActivity {
         Response();
         adapter = new BxHandelAdapter(mList, this);
         listBxHandel.setAdapter(adapter);
+//        listBxHandel.setEmptyView(failText);
     }
 
     private void Response() {
@@ -61,6 +63,10 @@ public class FaultHandActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         bxHandelBean = JsonMananger.jsonToBean(response, BXHandelBean.class);
                         mList.addAll(bxHandelBean.getYiChuLiBaoXiu());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

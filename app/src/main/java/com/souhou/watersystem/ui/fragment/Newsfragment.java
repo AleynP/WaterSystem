@@ -10,11 +10,11 @@ import android.widget.ImageButton;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseFragment;
-import com.souhou.watersystem.ui.activity.InstRedActivity;
-import com.souhou.watersystem.ui.activity.NewAddActivity;
-import com.souhou.watersystem.ui.activity.NotHandelActivity;
+import com.souhou.watersystem.ui.activity.NewsActivity.NewInstRedActivity;
+import com.souhou.watersystem.ui.activity.NewsActivity.NewAddActivity;
+import com.souhou.watersystem.ui.activity.NewsActivity.NotHandelActivity;
 import com.souhou.watersystem.ui.activity.UserActivity;
-import com.souhou.watersystem.ui.activity.YesHandelActivity;
+import com.souhou.watersystem.ui.activity.NewsActivity.YesHandelActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +83,7 @@ public class Newsfragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.bt_record_img:
-                intent = new Intent(getActivity(), InstRedActivity.class);
+                intent = new Intent(getActivity(), NewInstRedActivity.class);
                 startActivity(intent);
                 break;
             case R.id.bt_user_img:

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXRepairBean;
@@ -27,6 +28,8 @@ public class FaultNewActivity extends BaseBackActivity {
 
     @BindView(R.id.list_new_fault)
     ListView listNewFault;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private BXRecordAdapter adapter;
     private BXRepairBean bxRepairBean;
     private List<BXRepairBean.RecordBean> mList = new ArrayList<>();
@@ -71,6 +74,10 @@ public class FaultNewActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         bxRepairBean = JsonMananger.jsonToBean(response, BXRepairBean.class);
                         mList.addAll(bxRepairBean.getRecord());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

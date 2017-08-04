@@ -2,7 +2,6 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -12,9 +11,14 @@ import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXdateBean;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.ui.adapter.BXPicAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +43,11 @@ public class FaultDataActivity extends BaseBackActivity {
     Button btNot;
     @BindView(R.id.fault_gridView)
     GridView gridView;
+
     private BXdateBean bXdateBean;
+    private List<String> mList = new ArrayList<>();
     private String repairsID;
+    private BXPicAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +66,8 @@ public class FaultDataActivity extends BaseBackActivity {
         tvPhone.setText(bXdateBean.getRepairs_Phone() + "");
         tvAddress.setText(bXdateBean.getRepairs_Site());
         tvShuoming.setText(bXdateBean.getRepairs_Content());
-
+        adapter = new BXPicAdapter(mList, this);
+        gridView.setAdapter(adapter);
     }
 
     private void respones(String repairsID) {
@@ -77,6 +85,8 @@ public class FaultDataActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         bXdateBean = JsonMananger.jsonToBean(response, BXdateBean.class);
+                        mList.add(bXdateBean.getFILE_PATH0());
+                        mList.add(bXdateBean.getFILE_PATH1());
                         initViews(bXdateBean);
                     }
                 });
@@ -110,7 +120,7 @@ public class FaultDataActivity extends BaseBackActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Snackbar.make(tvAddress, "接单成功", Snackbar.LENGTH_SHORT).show();
+                        SnackBar.make(tvAddress, "接单成功");
                         btYes.setVisibility(View.INVISIBLE);
                         btNot.setVisibility(View.INVISIBLE);
                     }

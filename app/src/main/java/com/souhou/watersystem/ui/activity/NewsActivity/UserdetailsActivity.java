@@ -1,20 +1,17 @@
-package com.souhou.watersystem.ui.activity.MsgActivity;
+package com.souhou.watersystem.ui.activity.NewsActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.UserInfo;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -101,7 +98,7 @@ public class UserdetailsActivity extends BaseBackActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
-                                Snackbar.make(tvNames, response.toString() + "请求成功", Snackbar.LENGTH_SHORT).show();
+                                SnackBar.make(tvNames, response.toString() + "请求成功");
                                 finish();
                             }
                         });

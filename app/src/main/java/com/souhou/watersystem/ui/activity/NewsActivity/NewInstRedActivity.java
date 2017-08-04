@@ -1,9 +1,9 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.InsRedBean;
@@ -20,13 +20,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import okhttp3.Call;
 
-public class InstRedActivity extends BaseBackActivity {
+public class NewInstRedActivity extends BaseBackActivity {
 
     @BindView(R.id.list_inst_red)
     ListView listInstRed;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private List<InsRedBean.ZhuangBiaoJiLuBean> mList = new ArrayList<>();
     private InstRedAdapter adapter;
     private InsRedBean insRedBean;
@@ -61,6 +62,10 @@ public class InstRedActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         insRedBean = JsonMananger.jsonToBean(response, InsRedBean.class);
                         mList.addAll(insRedBean.getZhuangBiaoJiLu());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

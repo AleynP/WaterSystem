@@ -1,7 +1,6 @@
 package com.souhou.watersystem.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,10 +8,10 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.UserInfolist;
-import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -60,7 +59,7 @@ public class UserActivity extends BaseBackActivity {
             public void onClick(View view) {
                 String num = nameSearch.getText().toString();
                 if (num.equals("")) {
-                    Snackbar.make(btSearch, "请输入手机号或用户编号!", Snackbar.LENGTH_SHORT).show();
+                    SnackBar.make(btSearch, "请输入手机号或用户编号!");
                 } else {
                     Okhttp(num);
                 }
@@ -78,7 +77,7 @@ public class UserActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Snackbar.make(btSearch, "请求失败", Snackbar.LENGTH_SHORT).show();
+                        SnackBar.make(btSearch, "请求失败");
                     }
 
                     @Override
@@ -87,7 +86,7 @@ public class UserActivity extends BaseBackActivity {
                         if (user.getUserInfo().getUser_Number() != 0) {
                             initText(user);
                         } else {
-                            Snackbar.make(btSearch, "请核对输入信息是否正确", Snackbar.LENGTH_SHORT).show();
+                            SnackBar.make(btSearch, "请核对输入信息是否正确");
                         }
                     }
                 });

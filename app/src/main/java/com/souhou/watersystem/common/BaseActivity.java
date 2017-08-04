@@ -67,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mContentView = (ViewFlipper) super.findViewById(R.id.layout_container);
         layout_head = (RelativeLayout) super.findViewById(R.id.layout_head);
         btn_left = (Button) super.findViewById(R.id.btn_left);
-        btn_left.setBackgroundResource(R.drawable.left_top_img);
+        btn_left.setBackgroundResource(R.drawable.ic_account);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
         btn_right = (Button) super.findViewById(R.id.btn_right);
-        btn_right.setBackgroundResource(R.drawable.right_top_img);
+        btn_right.setBackgroundResource(R.drawable.ic_msg_img);
         btn_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +88,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public void  setContentView(View view) {
+    public void setContentView(View view) {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         mContentView.addView(view, lp);
     }
@@ -239,9 +239,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        finish();
-        return super.dispatchKeyEvent(event);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        // TODO Auto-generated method stub
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            return true;
+        }
+        return true;
     }
 }

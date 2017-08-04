@@ -2,16 +2,17 @@ package com.souhou.watersystem.ui.activity.MeterActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.CBWaterMeterBean;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.utils.ClearEditText;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.SnackBar;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -24,12 +25,13 @@ import okhttp3.Call;
 
 public class MeterQRActivity extends BaseBackActivity {
     public static final int REQUEST_CODE = 1;
+
     private CBWaterMeterBean cbWaterMeterBean;
     private String Water_LiuLiang, water_BianHao;
     @BindView(R.id.ed_input)
-    EditText edInput;
+    ClearEditText ed_input;
     @BindView(R.id.bt_qr_input)
-    Button btQrInput;
+    ImageButton btQrInput;
     @BindView(R.id.bt_ok)
     Button btOk;
     @BindView(R.id.bt_no)
@@ -53,7 +55,13 @@ public class MeterQRActivity extends BaseBackActivity {
                 startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.bt_ok:
-                request();
+                water_BianHao = ed_input.getText().toString();
+                if (!water_BianHao.equals("")) {
+                    request(water_BianHao);
+                } else {
+                    ed_input.setShakeAnimation();
+                    SnackBar.make(ed_input, "水表不能为空");
+                }
                 break;
             case R.id.bt_no:
                 finish();
@@ -61,12 +69,11 @@ public class MeterQRActivity extends BaseBackActivity {
         }
     }
 
-    private void request() {
-        water_BianHao = edInput.getText().toString();
+    private void request(String bianhao) {
         OkHttpUtils
                 .get()
                 .url(ServerConfig.CB_SC_WATERREC_URL)
-                .addParams("WaterMeterNumber", water_BianHao)
+                .addParams("WaterMeterNumber", bianhao)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -89,7 +96,7 @@ public class MeterQRActivity extends BaseBackActivity {
                             intent.putExtra("WaterSortID", Water_sort);
                             startActivity(intent);
                         } else {
-                            Snackbar.make(btOk, "没有该水表", Snackbar.LENGTH_SHORT).show();
+                            SnackBar.make(btOk, "没有该水表");
                         }
                     }
                 });
@@ -108,9 +115,9 @@ public class MeterQRActivity extends BaseBackActivity {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    edInput.setText(result);
+                    request(result);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-//                    Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
+                    SnackBar.make(ed_input, "解析二维码失败");
                 }
             }
         }

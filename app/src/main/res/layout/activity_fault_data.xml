@@ -151,14 +151,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:text="接受" />
+            android:background="@drawable/shape_button_green"
+            android:text="接受"
+            android:textSize="20sp"
+            android:textStyle="italic" />
 
         <Button
             android:id="@+id/bt_not"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="160dp"
-            android:text="拒绝" />
+            android:background="@drawable/shape_button_red"
+            android:text="拒绝"
+            android:textSize="20sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
 </LinearLayout>

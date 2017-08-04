@@ -6,6 +6,8 @@
     <color name="black">#000000</color>
     <color name="huise">#fdfdfd</color>
     <color name="Green">#95f19b</color>
+    <color name="Green2">#06f115</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorTextWhite">#FFFAFA</color>
+    <color name="colorButton">#fd0505</color>
 </resources>

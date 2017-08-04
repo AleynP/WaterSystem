@@ -5,12 +5,12 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- 申明网络权限  -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 申明权限 操作SD卡 -->
@@ -19,7 +19,7 @@
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/login_logo"
+        android:icon="@drawable/login_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -41,15 +41,14 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.activity.UserActivity" />
-        <activity android:name=".ui.activity.MsgActivity.NewsActivity" />
-        <activity android:name=".ui.activity.MsgActivity.RecordActivity" />
-        <activity android:name=".ui.activity.MsgActivity.FaultActivity" />
-        <activity android:name=".ui.activity.MsgActivity.UserdetailsActivity" />
-        <activity android:name=".ui.activity.NotHandelActivity" />
-        <activity android:name=".ui.activity.YesHandelActivity" />
-        <activity android:name=".ui.activity.InstRedActivity" />
-        <activity android:name=".ui.activity.NewAddActivity" />
-        <activity android:name=".ui.activity.NewAddSubActivity" />
+        <activity android:name=".ui.activity.NewsActivity.NewsMsgActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultMesActivity" />
+        <activity android:name=".ui.activity.NewsActivity.UserdetailsActivity" />
+        <activity android:name=".ui.activity.NewsActivity.NotHandelActivity" />
+        <activity android:name=".ui.activity.NewsActivity.YesHandelActivity" />
+        <activity android:name=".ui.activity.NewsActivity.NewInstRedActivity" />
+        <activity android:name=".ui.activity.NewsActivity.NewAddActivity" />
+        <activity android:name=".ui.activity.NewsActivity.NewAddSubActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultDataActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultHandActivity" />
         <activity android:name=".ui.activity.FaultActivity.FaultNotHandActivity" />

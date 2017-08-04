@@ -1,13 +1,12 @@
-package com.souhou.watersystem.ui.activity;
+package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.YesHandelBean;
-import com.souhou.watersystem.common.BaseActivity;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
@@ -27,6 +26,8 @@ public class YesHandelActivity extends BaseBackActivity {
 
     @BindView(R.id.list_yes_handel)
     ListView listYesHandel;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private List<YesHandelBean.YiChuLiBaoZhuangBean> mList = new ArrayList<>();
     private YesHandelAdapter adapter;
     private YesHandelBean weichuli;
@@ -64,6 +65,10 @@ public class YesHandelActivity extends BaseBackActivity {
 
                         weichuli = JsonMananger.jsonToBean(response, YesHandelBean.class);
                         mList.addAll(weichuli.getYiChuLiBaoZhuang());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }

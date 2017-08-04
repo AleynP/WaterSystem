@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.souhou.watersystem.ui.activity.NewAddSubActivity">
+    tools:context="com.souhou.watersystem.ui.activity.NewsActivity.NewAddSubActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         <!-- 网格显示图片 行列间距5dp 每列宽度90dp -->
         <GridView
             android:id="@+id/gridView"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_margin="10dp"
             android:background="#EFDFDF"

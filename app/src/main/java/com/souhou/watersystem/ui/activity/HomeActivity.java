@@ -4,9 +4,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,13 +12,13 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.Result;
 import com.souhou.watersystem.common.BaseActivity;
-import com.souhou.watersystem.ui.activity.MsgActivity.FaultActivity;
-import com.souhou.watersystem.ui.activity.MsgActivity.NewsActivity;
-import com.souhou.watersystem.ui.activity.MsgActivity.RecordActivity;
+import com.souhou.watersystem.ui.activity.FaultActivity.FaultMesActivity;
+import com.souhou.watersystem.ui.activity.NewsActivity.NewsMsgActivity;
 import com.souhou.watersystem.ui.fragment.ExitFragment;
 import com.souhou.watersystem.ui.fragment.FaultFragment;
 import com.souhou.watersystem.ui.fragment.Newsfragment;
 import com.souhou.watersystem.ui.fragment.RecordFragment;
+import com.souhou.watersystem.utils.SnackBar;
 
 import java.util.List;
 
@@ -59,11 +56,11 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             public void onClick(View view) {
                 switch (type) {
                     case 1:
-                        intent = new Intent(HomeActivity.this, FaultActivity.class);
+                        intent = new Intent(HomeActivity.this, FaultMesActivity.class);
                         startActivity(intent);
                         break;
                     case 2:
-                        intent = new Intent(HomeActivity.this, NewsActivity.class);
+                        intent = new Intent(HomeActivity.this, NewsMsgActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -115,7 +112,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                     type = 0;
                     transaction.replace(R.id.id_content, mRecordFragment);
                 } else if (a == 0) {
-                    Snackbar.make(bottomNavigationBar, "抱歉您没有权限", Snackbar.LENGTH_SHORT).show();
+                    SnackBar.make(bottomNavigationBar, "抱歉您没有权限");
                 }
                 break;
             case 1:
@@ -127,7 +124,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                     type = 1;
                     transaction.replace(R.id.id_content, mFaultFragment);
                 } else if (b == 0) {
-                    Snackbar.make(bottomNavigationBar, "抱歉您没有权限", Snackbar.LENGTH_SHORT).show();
+                    SnackBar.make(bottomNavigationBar, "抱歉您没有权限");
                 }
                 break;
             case 2:
@@ -139,7 +136,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                     type = 2;
                     transaction.replace(R.id.id_content, mNewsfragment);
                 } else if (c == 0) {
-                    Snackbar.make(bottomNavigationBar, "抱歉您没有权限", Snackbar.LENGTH_SHORT).show();
+                    SnackBar.make(bottomNavigationBar, "抱歉您没有权限");
                 }
                 break;
             case 3:
@@ -166,5 +163,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     public void onTabReselected(int position) {
 
     }
+
 
 }

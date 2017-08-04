@@ -1,8 +1,9 @@
 package com.souhou.watersystem.ui.activity.MeterActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -39,7 +41,7 @@ public class MeterSubActivity extends BaseBackActivity {
     @BindView(R.id.bt_not)
     Button btNot;
     MyApplication app;
-    private String ladder, water_BianHao, water_LiuLiang, sort;
+    private String ladder, water_BianHao, water_LiuLiang, sort, BC_LiuLiang;
     Intent intent;
 
     @Override
@@ -67,8 +69,7 @@ public class MeterSubActivity extends BaseBackActivity {
     }
 
 
-    private void request() {
-        String bc = edWaterBcNum.getText().toString();
+    private void request(String bc) {
         OkHttpUtils
                 .get()
                 .url(ServerConfig.CB_SC_WATER_SUB_URL)
@@ -82,12 +83,12 @@ public class MeterSubActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Snackbar.make(tvWaterNum, "请求失败", Snackbar.LENGTH_SHORT).show();
+                        SnackBar.make(tvWaterNum, "请求失败" + e.getMessage().toString());
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Snackbar.make(tvWaterNum, "请求成功", Snackbar.LENGTH_SHORT).show();
+                        SnackBar.make(tvWaterNum, "提交成功");
                     }
                 });
     }
@@ -96,11 +97,37 @@ public class MeterSubActivity extends BaseBackActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bu_sub:
-                request();
+                BC_LiuLiang = edWaterBcNum.getText().toString();
+                if (!BC_LiuLiang.equals("")) {
+                    ADialog(BC_LiuLiang);
+                } else {
+                    SnackBar.make(tvWaterNum, "水表数不能为空");
+
+                }
                 break;
             case R.id.bt_not:
                 finish();
                 break;
         }
+    }
+
+    private void ADialog(String bc) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MeterSubActivity.this);
+        builder.setIcon(R.drawable.login_logo);
+        builder.setTitle("请确认本次水表号");
+        builder.setMessage(bc);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                request(BC_LiuLiang);
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 }

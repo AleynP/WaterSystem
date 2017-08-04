@@ -1,11 +1,11 @@
-package com.souhou.watersystem.ui.activity.MsgActivity;
+package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.NewsList;
@@ -17,7 +17,6 @@ import com.souhou.watersystem.utils.JsonMananger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +24,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 
-public class NewsActivity extends BaseBackActivity {
+public class NewsMsgActivity extends BaseBackActivity {
 
     @BindView(R.id.list_news)
     ListView listNews;
+    @BindView(R.id.fail_text)
+    TextView failText;
     private List<NewsList.InstallationBean> mList = new ArrayList<>();
     private NewsList newsList;
     private MyApplication app;
@@ -49,10 +50,10 @@ public class NewsActivity extends BaseBackActivity {
         listNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String id = newsList.getInstallation().get(i).getId()+"";
+                String id = newsList.getInstallation().get(i).getId() + "";
                 Intent intent = new Intent();
-                intent.setClass(NewsActivity.this,UserdetailsActivity.class);
-                intent.putExtra("id",id);
+                intent.setClass(NewsMsgActivity.this, UserdetailsActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -75,6 +76,10 @@ public class NewsActivity extends BaseBackActivity {
                     public void onResponse(String response, int id) {
                         newsList = JsonMananger.jsonToBean(response, NewsList.class);
                         mList.addAll(newsList.getInstallation());
+                        if (mList.size() > 0) {
+                            failText.setVisibility(View.GONE);
+                            newsAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }
