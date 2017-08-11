@@ -50,7 +50,7 @@ public class YesHandelAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder vh;
         if (view == null) {
-            view = inflater.inflate(R.layout.adapter_handel, null);
+            view = inflater.inflate(R.layout.adapter_new_add, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
         } else {

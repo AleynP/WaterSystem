@@ -8,8 +8,9 @@
     <RelativeLayout
         android:id="@+id/layout_head"
         android:layout_width="match_parent"
-        android:layout_height="50dip"
-        android:background="@color/colorPrimary">
+        android:layout_height="50dp"
+
+        android:background="@mipmap/title_img">
 
         <Button
             android:id="@+id/btn_left"
@@ -26,8 +27,8 @@
             android:layout_centerInParent="true"
             android:background="@null"
             android:text="Title"
-            android:textColor="@color/colorTextWhite"
             android:textAllCaps="false"
+            android:textColor="@color/colorTextWhite"
             android:textSize="18sp" />
 
         <Button

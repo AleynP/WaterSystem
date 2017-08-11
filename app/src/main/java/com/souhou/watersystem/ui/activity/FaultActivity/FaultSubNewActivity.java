@@ -2,54 +2,62 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.FaultSubPicAdapter;
+import com.souhou.watersystem.utils.ImageDeal;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.callback.Callback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.Response;
 
 public class FaultSubNewActivity extends BaseBackActivity {
 
     @BindView(R.id.tv_name)
     TextView tvName;
-    @BindView(R.id.gridView)
-    GridView gridView;
+    @BindView(R.id.pic_gridView)
+    GridView picGridView;
     @BindView(R.id.ed_input_explain)
     EditText inPutText;
-    @BindView(R.id.textView9)
-    TextView textView9;
     @BindView(R.id.bt_sub)
     Button btSub;
 
-    private static int REQUEST_THUMBNAIL = 1;// 请求缩略图信号标识
-    @BindView(R.id.img_text)
-    ImageView imgText;
+    public static final int IMAGE_PICKER = 1004;
+    @BindView(R.id.ddk_sub)
+    ProgressBar ddkSub;
     private FaultSubPicAdapter adapter;
-    private List<Uri> mList = new ArrayList<>();
+    private List<ImageItem> mList = new ArrayList<>();
+    MyApplication app;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,43 +65,62 @@ public class FaultSubNewActivity extends BaseBackActivity {
         setContentView(R.layout.activity_fault_sub_new);
         ButterKnife.bind(this);
         setTitle("新增故障处理");
+        initView();
+    }
+
+    public void initView() {
+        ddkSub.setVisibility(View.GONE);
+        app = (MyApplication) getApplication();
         Intent intent = getIntent();
-        tvName.setText(intent.getStringExtra("name"));
-        adapter = new FaultSubPicAdapter(mList, this);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        id = intent.getStringExtra("id");
+        tvName.setText(app.getUsername());
+        adapter = new FaultSubPicAdapter(mList, this, picGridView);
+        picGridView.setAdapter(adapter);
+        picGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == mList.size()) {
                     if (mList.size() == 4) {
-                        SnackBar.make(gridView, "最多添加四张");
+                        SnackBar.make(picGridView, "最多添加四张");
                     } else {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);       // 启动相机
-                        startActivityForResult(intent, REQUEST_THUMBNAIL);
+                        Intent intent = new Intent(FaultSubNewActivity.this, ImageGridActivity.class);
+                        intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
+                        startActivityForResult(intent, IMAGE_PICKER);
                     }
                 } else {
                     dialog(i);
                 }
             }
         });
-
     }
 
-    private void request() {
+    private void request(JSONObject json) {
         OkHttpUtils
-                .get()
+                .postString()
                 .url(ServerConfig.BX_SAVE_URL)
-                .addParams("", "")
+                .content(String.valueOf(json))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
-                .execute(new StringCallback() {
+                .execute(new Callback() {
+
+                    @Override
+                    public Object parseNetworkResponse(Response response, int id) throws Exception {
+                        return null;
+                    }
+
                     @Override
                     public void onError(Call call, Exception e, int id) {
 
                     }
 
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(Object response, int id) {
+                        ddkSub.setVisibility(View.GONE);
+                    }
 
+                    @Override
+                    public void inProgress(float progress, long total, int id) {
+                        super.inProgress(progress, total, id);
                     }
                 });
     }
@@ -101,30 +128,35 @@ public class FaultSubNewActivity extends BaseBackActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_THUMBNAIL) {
-                /**
-                 * * 通过这种方法取出的拍摄会默认压缩，因为如果相机的像素比较高拍摄出来的图会比较高清，
-                 *如果图太大会造成内存溢出（OOM），因此此种方法会默认给图片尽心压缩
-                 */
-                Uri uri = data.getData();
-                Cursor cursor = this.getContentResolver().query(uri, null, null, null, null);
-                if (cursor.moveToFirst()) {
-                    String videoPath = cursor.getString(cursor.getColumnIndex("_data"));// 获取绝对路径
-
-                }
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = (Bitmap) bundle.get("data");
-//                Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
-//                mList.add(uri);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == IMAGE_PICKER) {
+                mList.addAll((ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS));
                 adapter.notifyDataSetChanged();
+            } else {
+                SnackBar.make(picGridView, "没有数据");
             }
         }
     }
 
     @OnClick(R.id.bt_sub)
     public void onViewClicked() {
-        request();
+        if (mList.size() > 0) {
+            String content = inPutText.getText().toString();
+            Map<String, String> map = new HashMap<>();
+            map.put("processID", id);
+            map.put("processContent", content);
+            for (int i = 0; i < mList.size(); i++) {
+                String path = mList.get(i).path;
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
+                String photo = ImageDeal.convertIconToString(bitmap);
+                map.put("processPic" + (i + 1), photo);
+            }
+            ddkSub.setVisibility(View.VISIBLE);
+            JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
+            request(jsonObject);
+        } else {
+            SnackBar.make(btSub, "请添加图片");
+        }
     }
 
     protected void dialog(final int position) {

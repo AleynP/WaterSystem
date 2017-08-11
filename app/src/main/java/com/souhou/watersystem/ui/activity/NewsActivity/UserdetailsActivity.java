@@ -37,6 +37,8 @@ public class UserdetailsActivity extends BaseBackActivity {
     Button btTrue;
     @BindView(R.id.bt_false)
     Button btFalse;
+    @BindView(R.id.tv_close)
+    TextView tvClose;
     private String id;
     private UserInfo userinfo;
 
@@ -46,6 +48,7 @@ public class UserdetailsActivity extends BaseBackActivity {
         setContentView(R.layout.activity_userdetails);
         ButterKnife.bind(this);
         setTitle("接单详情");
+        tvClose.setVisibility(View.GONE);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         response(id);
@@ -72,7 +75,6 @@ public class UserdetailsActivity extends BaseBackActivity {
     }
 
     private void initView(UserInfo userinfo) {
-
         tvNames.setText(userinfo.getInstallation_User());
         tvPhone.setText(userinfo.getInstallation_Userphone() + "");
         tvInstatime.setText(userinfo.getInstallation_Time() + "");
@@ -80,7 +82,7 @@ public class UserdetailsActivity extends BaseBackActivity {
         tvWaterNum.setText(userinfo.getWaterType_Name());
     }
 
-    @OnClick({R.id.bt_true, R.id.bt_false})
+    @OnClick({R.id.bt_true, R.id.bt_false, R.id.tv_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_true:
@@ -98,8 +100,9 @@ public class UserdetailsActivity extends BaseBackActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
-                                SnackBar.make(tvNames, response.toString() + "请求成功");
-                                finish();
+                                btTrue.setVisibility(View.GONE);
+                                btFalse.setVisibility(View.GONE);
+                                tvClose.setVisibility(View.VISIBLE);
                             }
                         });
                 break;
@@ -112,14 +115,17 @@ public class UserdetailsActivity extends BaseBackActivity {
                         .execute(new StringCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
-
+                                SnackBar.make(tvClose, "操作失败" + e.getMessage().toString());
                             }
 
                             @Override
                             public void onResponse(String response, int id) {
-
+                                finish();
                             }
                         });
+                break;
+            case R.id.tv_close:
+                finish();
                 break;
         }
     }

@@ -1,5 +1,7 @@
 package com.souhou.watersystem.ui.activity.FaultActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +45,8 @@ public class FaultDataActivity extends BaseBackActivity {
     Button btNot;
     @BindView(R.id.fault_gridView)
     GridView gridView;
+    @BindView(R.id.tv_complete)
+    TextView tvComplete;
 
     private BXdateBean bXdateBean;
     private List<String> mList = new ArrayList<>();
@@ -55,6 +59,7 @@ public class FaultDataActivity extends BaseBackActivity {
         setContentView(R.layout.activity_fault_data);
         ButterKnife.bind(this);
         setTitle("详细信息");
+        tvComplete.setVisibility(View.GONE);
         Intent intent = getIntent();
         repairsID = intent.getStringExtra("id");
         respones(repairsID);
@@ -93,19 +98,22 @@ public class FaultDataActivity extends BaseBackActivity {
     }
 
 
-    @OnClick({R.id.bt_yes, R.id.bt_not})
+    @OnClick({R.id.bt_yes, R.id.bt_not, R.id.tv_complete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_yes:
                 Response(repairsID, "1");
                 break;
             case R.id.bt_not:
-                Response(repairsID, "2");
+                ADialog(repairsID);
+                break;
+            case R.id.tv_complete:
+                finish();
                 break;
         }
     }
 
-    private void Response(String repairsID, String type) {
+    private void Response(final String repairsID, final String type) {
         OkHttpUtils
                 .get()
                 .url(ServerConfig.BX_MES_DATA_Choice_URL)
@@ -120,10 +128,37 @@ public class FaultDataActivity extends BaseBackActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        SnackBar.make(tvAddress, "接单成功");
-                        btYes.setVisibility(View.INVISIBLE);
-                        btNot.setVisibility(View.INVISIBLE);
+                        if (type.equals("1")) {
+                            SnackBar.make(tvAddress, "接单成功");
+                            tvComplete.setVisibility(View.VISIBLE);
+                            btYes.setVisibility(View.GONE);
+                            btNot.setVisibility(View.GONE);
+                        } else if (type.equals("2")) {
+                            finish();
+                        }
+
                     }
                 });
     }
+
+    public void ADialog(final String repairsID) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(FaultDataActivity.this);
+        builder.setMessage("您确定要拒绝吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Response(repairsID, "2");
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
 }

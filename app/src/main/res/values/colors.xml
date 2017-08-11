@@ -9,5 +9,6 @@
     <color name="Green2">#06f115</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorTextWhite">#FFFAFA</color>
+    <color name="colorHuiSe">#dedddd</color>
     <color name="colorButton">#fd0505</color>
 </resources>

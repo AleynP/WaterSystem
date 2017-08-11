@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
@@ -25,7 +26,7 @@ public class UserActivity extends BaseBackActivity {
     @BindView(R.id.name_search)
     EditText nameSearch;
     @BindView(R.id.bt_search)
-    Button btSearch;
+    ImageButton btSearch;
     @BindView(R.id.tv_name2)
     TextView tvName2;
     @BindView(R.id.tv_number2)
@@ -49,10 +50,10 @@ public class UserActivity extends BaseBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user);
         setTitle("用户资料");
         btn_right.setVisibility(View.INVISIBLE);
         btn_left.setBackgroundResource(R.drawable.ic_back);
-        setContentView(R.layout.activity_user);
         ButterKnife.bind(this);
         btSearch.setOnClickListener(new View.OnClickListener() {
             @Override

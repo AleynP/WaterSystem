@@ -1,14 +1,18 @@
 package com.souhou.watersystem.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.lzy.imagepicker.bean.ImageItem;
 import com.souhou.watersystem.R;
+import com.souhou.watersystem.utils.PicassoImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,14 +25,16 @@ import butterknife.ButterKnife;
  */
 
 public class FaultSubPicAdapter extends BaseAdapter {
-    private List<Uri> mList;
+    private List<ImageItem> mList;
     private LayoutInflater inflater;
-    Context context;
+    private GridView gridView;
+    Activity activity;
 
-    public FaultSubPicAdapter(List<Uri> mList, Context context) {
+    public FaultSubPicAdapter(List<ImageItem> mList, Activity activity, GridView gridView) {
         this.mList = mList;
-        this.inflater = LayoutInflater.from(context);
-        this.context = context;
+        this.inflater = LayoutInflater.from(activity);
+        this.activity = activity;
+        this.gridView = gridView;
     }
 
     @Override
@@ -56,11 +62,14 @@ public class FaultSubPicAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) view.getTag();
         }
+
+        int size = gridView.getWidth();
+        PicassoImageLoader pic = new PicassoImageLoader();
         if (mList != null && i < mList.size()) {
-            Picasso.with(context).load(mList.get(i)).into(vh.imageView1);
+            pic.displayImage(activity, mList.get(i).path, vh.imageView1, size, size);
             return view;
         } else {
-            Picasso.with(context).load(R.mipmap.new_add_img).into(vh.imageView1);
+            Picasso.with(activity).load(R.mipmap.new_add_img).into(vh.imageView1);
             return view;
         }
     }

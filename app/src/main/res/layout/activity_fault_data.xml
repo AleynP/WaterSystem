@@ -17,14 +17,14 @@
             android:layout_height="wrap_content"
             android:text="户        主："
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -38,14 +38,14 @@
             android:layout_height="wrap_content"
             android:text="联系方式："
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,19 +58,19 @@
             android:layout_height="wrap_content"
             android:text="地        址："
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="110dp"
         android:layout_margin="10dp">
 
         <TextView
@@ -83,8 +83,9 @@
         <TextView
             android:id="@+id/tv_shuoming"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/shape_biankuang" />
+            android:layout_height="100dp"
+            android:background="@drawable/shape_biankuang"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -98,14 +99,14 @@
             android:layout_height="wrap_content"
             android:text="保修时间："
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -120,17 +121,18 @@
             android:layout_weight="2"
             android:text="现场图片："
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <GridView
             android:id="@+id/fault_gridView"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             android:background="#EFDFDF"
@@ -140,31 +142,41 @@
             android:numColumns="2"
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/fault_gridView"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/bt_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_green"
+                android:text="接受"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tv_complete"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_toRightOf="@id/bt_yes"
+                android:background="@drawable/shape_button"
+                android:gravity="center"
+                android:text="接单完成，点击关闭" />
+
+            <Button
+                android:id="@+id/bt_not"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_toRightOf="@id/bt_yes"
+                android:background="@drawable/shape_button_red"
+                android:text="拒绝"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+        </RelativeLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/bt_yes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:background="@drawable/shape_button_green"
-            android:text="接受"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-        <Button
-            android:id="@+id/bt_not"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="160dp"
-            android:background="@drawable/shape_button_red"
-            android:text="拒绝"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-    </LinearLayout>
-
 </LinearLayout>

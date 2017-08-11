@@ -55,7 +55,6 @@ public class NewAddAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvWaterid.setText(mList.get(i).getId() + "");
         vh.tvName.setText(mList.get(i).getInstallation_User());
         vh.tvPhone.setText(mList.get(i).getInstallation_Userphone() + "");
         vh.tvSendtime.setText(mList.get(i).getInstallation_SendTime() + "");
@@ -66,8 +65,6 @@ public class NewAddAdapter extends BaseAdapter {
 
 
     class ViewHolder {
-        @BindView(R.id.tv_waterid)
-        TextView tvWaterid;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.tv_phone)

@@ -47,10 +47,10 @@ public class FaultNewActivity extends BaseBackActivity {
         listNewFault.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String name = bxRepairBean.getRecord().get(i).getRepairs_User();
+                String id = bxRepairBean.getRecord().get(i).getId() + "";
                 Intent intent = new Intent();
                 intent.setClass(FaultNewActivity.this, FaultSubNewActivity.class);
-                intent.putExtra("name", name);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });

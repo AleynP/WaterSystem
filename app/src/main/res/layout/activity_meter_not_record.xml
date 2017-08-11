@@ -10,7 +10,7 @@
         android:id="@+id/tab_title"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@color/Green"
+        android:background="@mipmap/biaoti"
         android:orientation="horizontal">
 
         <TableRow>
