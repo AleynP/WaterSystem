@@ -137,7 +137,8 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
      * 设置晃动动画
      */
     public void setShakeAnimation() {
-        this.setAnimation(shakeAnimation(5));
+//        this.setAnimation(shakeAnimation(5));
+        this.startAnimation(shakeAnimation(5));
     }
 
 

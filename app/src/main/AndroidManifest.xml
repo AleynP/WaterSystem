@@ -21,7 +21,7 @@
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/souhou_icon"
+        android:icon="@drawable/ic_souhou_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -63,6 +63,22 @@
         <activity android:name=".ui.activity.MeterActivity.MeterRecordctivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterQRActivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterSubActivity"></activity>
+
+        <!-- User defined. 用户自定义的广播接收器-->
+        <receiver
+            android:name=".utils.MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.souhou.watersystem" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.UserInfo;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -41,6 +42,7 @@ public class UserdetailsActivity extends BaseBackActivity {
     TextView tvClose;
     private String id;
     private UserInfo userinfo;
+    MyApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class UserdetailsActivity extends BaseBackActivity {
         setContentView(R.layout.activity_userdetails);
         ButterKnife.bind(this);
         setTitle("接单详情");
+        app = (MyApplication) getApplication();
         tvClose.setVisibility(View.GONE);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -91,6 +94,7 @@ public class UserdetailsActivity extends BaseBackActivity {
                         .addParams("state", "1")
                         .url(ServerConfig.WORK_ORDERS_URL)
                         .addParams("installationID", id)
+                        .addParams("loginName", app.getUsername())
                         .build()
                         .execute(new StringCallback() {
                             @Override
@@ -111,6 +115,7 @@ public class UserdetailsActivity extends BaseBackActivity {
                         .get()
                         .addParams("state", "2")
                         .addParams("installationID", id)
+                        .addParams("loginName", app.getUsername())
                         .build()
                         .execute(new StringCallback() {
                             @Override

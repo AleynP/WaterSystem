@@ -20,11 +20,11 @@ import butterknife.ButterKnife;
  */
 
 public class BXRecordAdapter extends BaseAdapter {
-    private List<BXRepairBean.RecordBean> list;
+    private List<BXRepairBean.BaoXiuJiLuBean> list;
     private LayoutInflater inflater;
     Context context;
 
-    public BXRecordAdapter(List<BXRepairBean.RecordBean> list, Context context) {
+    public BXRecordAdapter(List<BXRepairBean.BaoXiuJiLuBean> list, Context context) {
         this.list = list;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -52,11 +52,11 @@ public class BXRecordAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.adapter_bx_handel, null);
             vh = new ViewHolder(view);
             view.setTag(vh);
-        }else {
+        } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvTime.setText(list.get(i).getProcess_Time()+"");
-        vh.tvAddress.setText(list.get(i).getRepairs_User());
+        vh.tvAddress.setText(list.get(i).getProcess_Time() + "");
+        vh.tvTime.setText(list.get(i).getRepairs_User());
         return view;
     }
 

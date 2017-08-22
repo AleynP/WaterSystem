@@ -78,7 +78,7 @@ public class MeterQRActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        SnackBar.make(btOk, "请求失败" + e.getMessage().toString());
                     }
 
                     @Override

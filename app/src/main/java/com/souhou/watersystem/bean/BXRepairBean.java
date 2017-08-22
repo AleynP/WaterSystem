@@ -8,26 +8,28 @@ import java.util.List;
 
 public class BXRepairBean {
 
-    private List<RecordBean> record;
+    private List<BaoXiuJiLuBean> BaoXiuJiLu;
 
-    public List<RecordBean> getRecord() {
-        return record;
+    public List<BaoXiuJiLuBean> getBaoXiuJiLu() {
+        return BaoXiuJiLu;
     }
 
-    public void setRecord(List<RecordBean> record) {
-        this.record = record;
+    public void setBaoXiuJiLu(List<BaoXiuJiLuBean> BaoXiuJiLu) {
+        this.BaoXiuJiLu = BaoXiuJiLu;
     }
 
-    public static class RecordBean {
+    public static class BaoXiuJiLuBean {
         /**
-         * id : 6
-         * Repairs_User : 天天
-         * Process_Time : 20170724124937
+         * id : 66
+         * Repairs_User : 萝莉
+         * Process_Time : null
+         * Process_ID : 20
          */
 
         private int id;
         private String Repairs_User;
-        private long Process_Time;
+        private Object Process_Time;
+        private int Process_ID;
 
         public int getId() {
             return id;
@@ -45,12 +47,20 @@ public class BXRepairBean {
             this.Repairs_User = Repairs_User;
         }
 
-        public long getProcess_Time() {
+        public Object getProcess_Time() {
             return Process_Time;
         }
 
-        public void setProcess_Time(long Process_Time) {
+        public void setProcess_Time(Object Process_Time) {
             this.Process_Time = Process_Time;
+        }
+
+        public int getProcess_ID() {
+            return Process_ID;
+        }
+
+        public void setProcess_ID(int Process_ID) {
+            this.Process_ID = Process_ID;
         }
     }
 }

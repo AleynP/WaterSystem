@@ -55,8 +55,8 @@ public class BXNOTHandelAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvTime.setText(mList.get(i).getProcess_Time() + "");
-        vh.tvAddress.setText(mList.get(i).getRepairs_User());
+        vh.tvAddress.setText(mList.get(i).getRepairs_SendTime() + "");
+        vh.tvTime.setText(mList.get(i).getRepairs_User());
         return view;
     }
 

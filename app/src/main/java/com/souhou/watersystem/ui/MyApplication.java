@@ -7,6 +7,8 @@ import com.lzy.imagepicker.view.CropImageView;
 import com.souhou.watersystem.utils.PicassoImageLoader;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2017/7/16.
  */
@@ -27,7 +29,10 @@ public class MyApplication extends Application {
         super.onCreate();
         //初始化二维码工具类
         ZXingLibrary.initDisplayOpinion(this);
-
+        //初始化极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(getApplicationContext());
+        //初始化九宫格图片参数
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
 //        imagePicker.setShowCamera(true);  //显示拍照按钮

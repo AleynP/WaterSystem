@@ -5,16 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -30,7 +28,6 @@ import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +51,8 @@ public class NewAddSubActivity extends BaseBackActivity {
     GridView gridView1;
 
     public static final int IMAGE_PICKER = 1004;
+    @BindView(R.id.ddk_new_sub)
+    ProgressBar ddkNewSub;
     private FaultSubPicAdapter adapter;
     private List<ImageItem> mList = new ArrayList<>();
     String waterid;
@@ -65,13 +64,14 @@ public class NewAddSubActivity extends BaseBackActivity {
         setContentView(R.layout.activity_new_add_sub);
         ButterKnife.bind(this);
         setTitle("提交新装水表");
-        Intent intent = getIntent();
-        waterid = intent.getStringExtra("water_id");
-        waterId.setText(waterid);
         InItView();
     }
 
     private void InItView() {
+        ddkNewSub.setVisibility(View.INVISIBLE);
+        Intent intent = getIntent();
+        waterid = intent.getStringExtra("water_id");
+        waterId.setText(waterid);
         adapter = new FaultSubPicAdapter(mList, this, gridView1);
         gridView1.setAdapter(adapter);
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,7 +108,9 @@ public class NewAddSubActivity extends BaseBackActivity {
 
 
     private void Okhttp(JSONObject jsonObject) {
-        Log.i("TAG", jsonObject.toJSONString());
+        ddkNewSub.setVisibility(View.VISIBLE);
+//        Log.i("TAG", resMap.toString());
+//        Log.i("TAG", jsonObject.toJSONString());
         if (!number.equals("")) {
             OkHttpUtils
                     .postString()
@@ -119,12 +121,14 @@ public class NewAddSubActivity extends BaseBackActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-
+                            ddkNewSub.setVisibility(View.INVISIBLE);
+                            SnackBar.make(ddkNewSub, "请求失败" + e.getMessage());
                         }
 
                         @Override
                         public void onResponse(String response, int id) {
-
+                            ddkNewSub.setVisibility(View.INVISIBLE);
+                            SnackBar.make(ddkNewSub, "提交成功");
                         }
 
                         @Override
@@ -143,16 +147,23 @@ public class NewAddSubActivity extends BaseBackActivity {
     public void onViewClicked() {
         if (mList.size() > 0) {
             number = edWaterNumber.getText().toString();
-            Map<String, String> map = new HashMap<>();
-            map.put("WaterMeterID", waterid);
-            map.put("WaterMeterNumber", number);
+            Map<String, String> resMap = new HashMap<>();
+            resMap.put("WaterMeterID", waterid);
+            resMap.put("WaterMeterNumber", number);
+            String Pic = "";
             for (int i = 0; i < mList.size(); i++) {
                 String path = mList.get(i).path;
                 Bitmap bitmap = BitmapFactory.decodeFile(path);
                 String photo = ImageDeal.convertIconToString(bitmap);
-                map.put("WaterMeterPic" + (i + 1), photo);
+                if (Pic.equals("")) {
+                    Pic = photo;
+                } else {
+                    Pic = photo + "," + Pic;
+                }
+
             }
-            JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
+            resMap.put("WaterMeterPic", Pic);
+            JSONObject jsonObject = (JSONObject) JSONObject.toJSON(resMap);
             Okhttp(jsonObject);
 
         } else {

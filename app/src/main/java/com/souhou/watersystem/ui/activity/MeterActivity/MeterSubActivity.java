@@ -13,6 +13,7 @@ import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
+import com.souhou.watersystem.utils.ClearEditText;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -35,7 +36,7 @@ public class MeterSubActivity extends BaseBackActivity {
     @BindView(R.id.tv_water_sc_num)
     TextView tvWaterScNum;
     @BindView(R.id.ed_water_bc_num)
-    EditText edWaterBcNum;
+    ClearEditText edWaterBcNum;
     @BindView(R.id.bu_sub)
     Button buSub;
     @BindView(R.id.bt_not)
@@ -101,8 +102,8 @@ public class MeterSubActivity extends BaseBackActivity {
                 if (!BC_LiuLiang.equals("")) {
                     ADialog(BC_LiuLiang);
                 } else {
+                    edWaterBcNum.setShakeAnimation();
                     SnackBar.make(tvWaterNum, "水表数不能为空");
-
                 }
                 break;
             case R.id.bt_not:

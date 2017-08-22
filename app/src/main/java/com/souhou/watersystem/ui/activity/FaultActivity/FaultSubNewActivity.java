@@ -1,5 +1,6 @@
 package com.souhou.watersystem.ui.activity.FaultActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import com.souhou.watersystem.utils.ImageDeal;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +59,7 @@ public class FaultSubNewActivity extends BaseBackActivity {
     private FaultSubPicAdapter adapter;
     private List<ImageItem> mList = new ArrayList<>();
     MyApplication app;
-    private String id;
+    private String id, ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +71,11 @@ public class FaultSubNewActivity extends BaseBackActivity {
     }
 
     public void initView() {
-        ddkSub.setVisibility(View.GONE);
+        ddkSub.setVisibility(View.INVISIBLE);
         app = (MyApplication) getApplication();
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        ID = intent.getStringExtra("ID");
         tvName.setText(app.getUsername());
         adapter = new FaultSubPicAdapter(mList, this, picGridView);
         picGridView.setAdapter(adapter);
@@ -95,32 +98,39 @@ public class FaultSubNewActivity extends BaseBackActivity {
     }
 
     private void request(JSONObject json) {
+
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setTitle("正在提交");
+        dialog.setMessage("10");
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.show();
+
         OkHttpUtils
                 .postString()
                 .url(ServerConfig.BX_SAVE_URL)
-                .content(String.valueOf(json))
+                .content(json.toJSONString())
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
-                .execute(new Callback() {
-
-                    @Override
-                    public Object parseNetworkResponse(Response response, int id) throws Exception {
-                        return null;
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Object response, int id) {
-                        ddkSub.setVisibility(View.GONE);
-                    }
+                .execute(new StringCallback() {
 
                     @Override
                     public void inProgress(float progress, long total, int id) {
                         super.inProgress(progress, total, id);
+                        dialog.setProgress((int) (progress * 100));
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        SnackBar.make(btSub, "请求失败" + e.getMessage());
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+//                        ddkSub.setVisibility(View.GONE);
+                        dialog.dismiss();
+                        SnackBar.make(btSub, "提交成功");
                     }
                 });
     }
@@ -143,15 +153,21 @@ public class FaultSubNewActivity extends BaseBackActivity {
         if (mList.size() > 0) {
             String content = inPutText.getText().toString();
             Map<String, String> map = new HashMap<>();
-            map.put("processID", id);
+            map.put("processID", ID);
             map.put("processContent", content);
+            String Pic = "";
             for (int i = 0; i < mList.size(); i++) {
                 String path = mList.get(i).path;
                 Bitmap bitmap = BitmapFactory.decodeFile(path);
                 String photo = ImageDeal.convertIconToString(bitmap);
-                map.put("processPic" + (i + 1), photo);
+                if (Pic.equals("")) {
+                    Pic = photo;
+                } else {
+                    Pic = Pic + "," + photo;
+                }
             }
-            ddkSub.setVisibility(View.VISIBLE);
+            map.put("processPic", Pic);
+//            ddkSub.setVisibility(View.VISIBLE);
             JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
             request(jsonObject);
         } else {

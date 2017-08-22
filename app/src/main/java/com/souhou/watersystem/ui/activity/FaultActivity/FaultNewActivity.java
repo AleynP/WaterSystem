@@ -32,7 +32,7 @@ public class FaultNewActivity extends BaseBackActivity {
     TextView failText;
     private BXRecordAdapter adapter;
     private BXRepairBean bxRepairBean;
-    private List<BXRepairBean.RecordBean> mList = new ArrayList<>();
+    private List<BXRepairBean.BaoXiuJiLuBean> mList = new ArrayList<>();
     MyApplication app;
 
     @Override
@@ -47,10 +47,12 @@ public class FaultNewActivity extends BaseBackActivity {
         listNewFault.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String id = bxRepairBean.getRecord().get(i).getId() + "";
+                String id = bxRepairBean.getBaoXiuJiLu().get(i).getId() + "";
+                String ID = bxRepairBean.getBaoXiuJiLu().get(i).getProcess_ID() + "";
                 Intent intent = new Intent();
                 intent.setClass(FaultNewActivity.this, FaultSubNewActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("ID", ID);
                 startActivity(intent);
             }
         });
@@ -73,7 +75,7 @@ public class FaultNewActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         bxRepairBean = JsonMananger.jsonToBean(response, BXRepairBean.class);
-                        mList.addAll(bxRepairBean.getRecord());
+                        mList.addAll(bxRepairBean.getBaoXiuJiLu());
                         if (mList.size() > 0) {
                             failText.setVisibility(View.GONE);
                             adapter.notifyDataSetChanged();

@@ -12,6 +12,7 @@ import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseFragment;
 import com.souhou.watersystem.common.manager.ActivityManager;
 import com.souhou.watersystem.ui.MyApplication;
+import com.souhou.watersystem.ui.activity.HomeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +53,6 @@ public class ExitFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -63,6 +63,5 @@ public class ExitFragment extends BaseFragment {
     public void onViewClicked() {
         ActivityManager.getInstance().finishAllActivity();
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.souhou.watersystem.utils;
 
-import android.util.Log;
 
 import com.orhanobut.logger.Logger;
 

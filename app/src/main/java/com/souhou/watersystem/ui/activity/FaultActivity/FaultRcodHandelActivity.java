@@ -27,7 +27,7 @@ public class FaultRcodHandelActivity extends BaseBackActivity {
     ListView listRecord;
     @BindView(R.id.fail_text)
     TextView failText;
-    private List<BXRepairBean.RecordBean> mList = new ArrayList<>();
+    private List<BXRepairBean.BaoXiuJiLuBean> mList = new ArrayList<>();
     private BXRepairBean bxRepairBean;
     private BXRecordAdapter adapter;
     MyApplication app;
@@ -60,7 +60,7 @@ public class FaultRcodHandelActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         bxRepairBean = JsonMananger.jsonToBean(response, BXRepairBean.class);
-                        mList.addAll(bxRepairBean.getRecord());
+                        mList.addAll(bxRepairBean.getBaoXiuJiLu());
                         if (mList.size() > 0) {
                             failText.setVisibility(View.GONE);
                             adapter.notifyDataSetChanged();

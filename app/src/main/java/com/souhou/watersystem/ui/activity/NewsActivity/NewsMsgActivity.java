@@ -34,7 +34,7 @@ public class NewsMsgActivity extends BaseBackActivity {
     private NewsList newsList;
     private MyApplication app;
     private NewsAdapter newsAdapter;
-
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class NewsMsgActivity extends BaseBackActivity {
         ButterKnife.bind(this);
         setTitle("新装消息");
         app = (MyApplication) getApplication();
-        String name = app.getUsername();
+        name = app.getUsername();
         Respons(name);
         newsAdapter = new NewsAdapter(this, mList);
         listNews.setAdapter(newsAdapter);
@@ -59,6 +59,11 @@ public class NewsMsgActivity extends BaseBackActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Respons(name);
+    }
 
     public void Respons(String name) {
         OkHttpUtils
@@ -80,6 +85,9 @@ public class NewsMsgActivity extends BaseBackActivity {
                             failText.setVisibility(View.GONE);
                             newsAdapter.notifyDataSetChanged();
                         }
+                        Intent intent = new Intent();
+                        intent.putExtra("size", mList.size());
+                        setResult(RESULT_OK, intent);
                     }
                 });
     }

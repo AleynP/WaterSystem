@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class BXNotHandelBean {
+
     private List<WeiChuLiBaoXiuBean> WeiChuLiBaoXiu;
 
     public List<WeiChuLiBaoXiuBean> getWeiChuLiBaoXiu() {
@@ -19,13 +20,15 @@ public class BXNotHandelBean {
 
     public static class WeiChuLiBaoXiuBean {
         /**
-         * id : 6
-         * Repairs_User : 天天
+         * id : 58
+         * Repairs_User : 通天塔222
+         * Repairs_SendTime : 20170815171616
          * Process_Time : null
          */
 
         private int id;
         private String Repairs_User;
+        private long Repairs_SendTime;
         private Object Process_Time;
 
         public int getId() {
@@ -42,6 +45,14 @@ public class BXNotHandelBean {
 
         public void setRepairs_User(String Repairs_User) {
             this.Repairs_User = Repairs_User;
+        }
+
+        public long getRepairs_SendTime() {
+            return Repairs_SendTime;
+        }
+
+        public void setRepairs_SendTime(long Repairs_SendTime) {
+            this.Repairs_SendTime = Repairs_SendTime;
         }
 
         public Object getProcess_Time() {

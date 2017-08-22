@@ -2,6 +2,7 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -77,9 +78,16 @@ public class FaultMesActivity extends BaseBackActivity {
                             failText.setVisibility(View.GONE);
                             adapter.notifyDataSetChanged();
                         }
+                        Intent intent = new Intent();
+                        intent.putExtra("size", mList.size());
+                        setResult(RESULT_OK, intent);
                     }
                 });
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

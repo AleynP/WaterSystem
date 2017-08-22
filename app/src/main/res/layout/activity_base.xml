@@ -31,14 +31,13 @@
             android:textColor="@color/colorTextWhite"
             android:textSize="18sp" />
 
-        <Button
+        <com.souhou.watersystem.utils.ButonBarview
             android:id="@+id/btn_right"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@null"
             android:gravity="right|center_vertical"
             android:textAllCaps="false" />
     </RelativeLayout>

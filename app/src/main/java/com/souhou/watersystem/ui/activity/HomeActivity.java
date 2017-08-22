@@ -5,10 +5,10 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.souhou.watersystem.LoginActivity;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.Result;
 import com.souhou.watersystem.common.BaseActivity;
@@ -18,6 +18,7 @@ import com.souhou.watersystem.ui.fragment.ExitFragment;
 import com.souhou.watersystem.ui.fragment.FaultFragment;
 import com.souhou.watersystem.ui.fragment.Newsfragment;
 import com.souhou.watersystem.ui.fragment.RecordFragment;
+import com.souhou.watersystem.utils.ButonBarview;
 import com.souhou.watersystem.utils.SnackBar;
 
 import java.util.List;
@@ -29,10 +30,14 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     private FaultFragment mFaultFragment;
     private Newsfragment mNewsfragment;
     private ExitFragment mExitFragment;
-    private Button bt_right;
-    Intent intent;
-    int type = 0;
-    int a = 0, b = 0, c = 0;
+    private ButonBarview bt_right;
+    private static final int MES_CODE = 1;
+    private static final int MES_CODE2 = 2;
+    private int size1 = 0;
+    private int size2 = 0;
+    private Intent intent;
+    private int type = 0;
+    private int a = 0, b = 0, c = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         setContentView(R.layout.activity_home);
 
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigationbar);
-        bt_right = (Button) findViewById(R.id.btn_right);
+        bt_right = (ButonBarview) findViewById(R.id.btn_right);
         bottomNavigationBar
 //                .setMode(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_record, "抄表").setActiveColor(R.color.Blue))
@@ -57,10 +62,14 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                 switch (type) {
                     case 1:
                         intent = new Intent(HomeActivity.this, FaultMesActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent, MES_CODE);
                         break;
                     case 2:
                         intent = new Intent(HomeActivity.this, NewsMsgActivity.class);
+                        startActivityForResult(intent, MES_CODE2);
+                        break;
+                    case 3:
+                        intent = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -68,6 +77,20 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MES_CODE && resultCode == RESULT_OK) {
+            size1 = data.getIntExtra("size", 0);
+            bt_right.setMessageCount(size1);
+        }
+        if (requestCode == MES_CODE2 && resultCode == RESULT_OK) {
+            size2 = data.getIntExtra("size", 0);
+            bt_right.setMessageCount(size2);
+        }
+
+    }
 
     @Override
     protected void onResume() {
@@ -93,6 +116,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         FragmentTransaction transaction = fm.beginTransaction();
         mExitFragment = new ExitFragment();
         setTitle(getString(R.string.Exit));
+        type = 3;
+        bt_right.setBackgroundResource(R.drawable.ic_edit_qiehuan);
         transaction.replace(R.id.id_content, mExitFragment);
         transaction.commit();
     }
@@ -109,6 +134,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                         mRecordFragment = new RecordFragment();
                     }
                     setTitle(getString(R.string.Record));
+                    bt_right.setBackgroundResource(R.drawable.ic_msg_img);
+                    bt_right.setMessageCount(0);
                     type = 0;
                     transaction.replace(R.id.id_content, mRecordFragment);
                 } else if (a == 0) {
@@ -121,6 +148,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                         mFaultFragment = new FaultFragment();
                     }
                     setTitle(getString(R.string.Fault));
+                    bt_right.setBackgroundResource(R.drawable.ic_msg_img);
+                    bt_right.setMessageCount(size1);
                     type = 1;
                     transaction.replace(R.id.id_content, mFaultFragment);
                 } else if (b == 0) {
@@ -133,6 +162,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                         mNewsfragment = new Newsfragment();
                     }
                     setTitle(getString(R.string.News));
+                    bt_right.setBackgroundResource(R.drawable.ic_msg_img);
+                    bt_right.setMessageCount(size2);
                     type = 2;
                     transaction.replace(R.id.id_content, mNewsfragment);
                 } else if (c == 0) {
@@ -144,7 +175,9 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                     mExitFragment = new ExitFragment();
                 }
                 setTitle(getString(R.string.Exit));
-                type = 0;
+                bt_right.setMessageCount(0);
+                bt_right.setBackgroundResource(R.drawable.ic_edit_qiehuan);
+                type = 3;
                 transaction.replace(R.id.id_content, mExitFragment);
                 break;
         }

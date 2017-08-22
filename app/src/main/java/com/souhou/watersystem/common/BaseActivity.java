@@ -20,6 +20,7 @@ import android.widget.ViewFlipper;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.manager.ActivityManager;
+import com.souhou.watersystem.utils.ButonBarview;
 import com.souhou.watersystem.utils.DensityUtils;
 
 
@@ -44,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ViewFlipper mContentView;
     protected RelativeLayout layout_head;
     protected Button btn_left;
-    protected Button btn_right;
+    protected ButonBarview btn_right;
     protected TextView tv_title;
 
     static {
@@ -74,8 +75,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             }
         });
-        btn_right = (Button) super.findViewById(R.id.btn_right);
+        btn_right = (ButonBarview) super.findViewById(R.id.btn_right);
         btn_right.setBackgroundResource(R.drawable.ic_msg_img);
+        btn_right.setMessageCount(0);
         btn_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,30 +158,30 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param titleId
      */
-    public void setRightText(int titleId) {
-        btn_right.setText(getString(titleId));
-    }
+//    public void setRightText(int titleId) {
+//        btn_right.setText(getString(titleId));
+//    }
 
     /**
      * 设置右边按钮的文字
      *
      * @param text
      */
-    public void setRightText(String text) {
-        btn_right.setText(text);
-    }
+//    public void setRightText(String text) {
+//        btn_right.setText(text);
+//    }
 
     /**
      * 设置右边按钮的图标
      *
      * @param resId
      */
-    public void setRightDrawable(int resId) {
-        btn_right.setText("");
-        btn_right.setWidth(DensityUtils.dp2px(this, 36));
-        btn_right.setHeight(DensityUtils.dp2px(this, 36));
-        btn_right.setBackgroundResource(resId);
-    }
+//    public void setRightDrawable(int resId) {
+//        btn_right.setText("");
+//        btn_right.setWidth(DensityUtils.dp2px(this, 36));
+//        btn_right.setHeight(DensityUtils.dp2px(this, 36));
+//        btn_right.setBackgroundResource(resId);
+//    }
 
     /**
      * 设置右边按钮的监听器

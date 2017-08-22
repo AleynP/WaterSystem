@@ -32,6 +32,25 @@ public class BXdateBean {
     private String Repairs_Randomnum;
     private String FILE_PATH0;
     private String FILE_PATH1;
+    private String FILE_PATH2;
+
+    public String getFILE_PATH2() {
+        return FILE_PATH2;
+    }
+
+    public void setFILE_PATH2(String FILE_PATH2) {
+        this.FILE_PATH2 = FILE_PATH2;
+    }
+
+    public String getFILE_PATH3() {
+        return FILE_PATH3;
+    }
+
+    public void setFILE_PATH3(String FILE_PATH3) {
+        this.FILE_PATH3 = FILE_PATH3;
+    }
+
+    private String FILE_PATH3;
 
     public int getId() {
         return id;

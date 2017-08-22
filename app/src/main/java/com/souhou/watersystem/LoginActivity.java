@@ -122,8 +122,10 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                         result = JsonMananger.jsonToBean(response, Result.class);
                         if (result.getLoginResult().equals("ERROR")) {
                             SnackBar.make(LoginName, result.getMsg());
+                            ddk.setVisibility(View.GONE);
                         } else if (result.getLoginResult().equals("SUCCESS")) {
                             mList.addAll(result.getType());
+                            ddk.setVisibility(View.GONE);
                             LoginJudge((ArrayList<Result.data>) mList);
                         }
 

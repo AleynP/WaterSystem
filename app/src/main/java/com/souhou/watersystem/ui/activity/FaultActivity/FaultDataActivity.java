@@ -7,15 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXdateBean;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.BXPicAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.souhou.watersystem.utils.SnackBar;
+import com.souhou.watersystem.utils.Toasts;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -47,11 +51,18 @@ public class FaultDataActivity extends BaseBackActivity {
     GridView gridView;
     @BindView(R.id.tv_complete)
     TextView tvComplete;
+    @BindView(R.id.ddk_sub)
+    ProgressBar ddkSub;
+    @BindView(R.id.Lin_main)
+    LinearLayout LinMain;
+    @BindView(R.id.jzk_sub)
+    ProgressBar jzkSub;
 
     private BXdateBean bXdateBean;
     private List<String> mList = new ArrayList<>();
     private String repairsID;
     private BXPicAdapter adapter;
+    MyApplication application;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +70,9 @@ public class FaultDataActivity extends BaseBackActivity {
         setContentView(R.layout.activity_fault_data);
         ButterKnife.bind(this);
         setTitle("详细信息");
-        tvComplete.setVisibility(View.GONE);
+        LinMain.setVisibility(View.INVISIBLE);
+        ddkSub.setVisibility(View.INVISIBLE);
+        tvComplete.setVisibility(View.INVISIBLE);
         Intent intent = getIntent();
         repairsID = intent.getStringExtra("id");
         respones(repairsID);
@@ -84,7 +97,8 @@ public class FaultDataActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        ddkSub.setVisibility(View.INVISIBLE);
+                        Toasts.Toast(FaultDataActivity.this, "请求错误" + e.getMessage());
                     }
 
                     @Override
@@ -92,6 +106,10 @@ public class FaultDataActivity extends BaseBackActivity {
                         bXdateBean = JsonMananger.jsonToBean(response, BXdateBean.class);
                         mList.add(bXdateBean.getFILE_PATH0());
                         mList.add(bXdateBean.getFILE_PATH1());
+                        mList.add(bXdateBean.getFILE_PATH2());
+                        mList.add(bXdateBean.getFILE_PATH3());
+                        LinMain.setVisibility(View.VISIBLE);
+                        jzkSub.setVisibility(View.INVISIBLE);
                         initViews(bXdateBean);
                     }
                 });
@@ -102,6 +120,7 @@ public class FaultDataActivity extends BaseBackActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_yes:
+                ddkSub.setVisibility(View.VISIBLE);
                 Response(repairsID, "1");
                 break;
             case R.id.bt_not:
@@ -114,29 +133,32 @@ public class FaultDataActivity extends BaseBackActivity {
     }
 
     private void Response(final String repairsID, final String type) {
+        application = (MyApplication) getApplication();
         OkHttpUtils
                 .get()
                 .url(ServerConfig.BX_MES_DATA_Choice_URL)
                 .addParams("repairsID", repairsID)
+                .addParams("loginName", application.getUsername())
                 .addParams("state", type)
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        ddkSub.setVisibility(View.GONE);
+                        SnackBar.make(tvAddress, "请求失败" + e.getMessage());
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
                         if (type.equals("1")) {
+                            ddkSub.setVisibility(View.GONE);
                             SnackBar.make(tvAddress, "接单成功");
                             tvComplete.setVisibility(View.VISIBLE);
-                            btYes.setVisibility(View.GONE);
-                            btNot.setVisibility(View.GONE);
+                            btYes.setVisibility(View.INVISIBLE);
+                            btNot.setVisibility(View.INVISIBLE);
                         } else if (type.equals("2")) {
                             finish();
                         }
-
                     }
                 });
     }
