@@ -44,7 +44,7 @@ public class NewsMsgActivity extends BaseBackActivity {
         setTitle("新装消息");
         app = (MyApplication) getApplication();
         name = app.getUsername();
-        Respons(name);
+//        Respons(name);
         newsAdapter = new NewsAdapter(this, mList);
         listNews.setAdapter(newsAdapter);
         listNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,6 +63,7 @@ public class NewsMsgActivity extends BaseBackActivity {
     protected void onResume() {
         super.onResume();
         Respons(name);
+        newsAdapter.notifyDataSetChanged();
     }
 
     public void Respons(String name) {

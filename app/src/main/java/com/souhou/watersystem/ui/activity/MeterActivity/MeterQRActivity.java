@@ -13,6 +13,7 @@ import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.ClearEditText;
 import com.souhou.watersystem.utils.JsonMananger;
 import com.souhou.watersystem.utils.SnackBar;
+import com.souhou.watersystem.utils.Toasts;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -78,7 +79,8 @@ public class MeterQRActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        SnackBar.make(btOk, "请求失败" + e.getMessage().toString());
+                        Toasts.setText(MeterQRActivity.this, "请求失败");
+//                        SnackBar.make(btOk, "请求失败" + e.getMessage().toString());
                     }
 
                     @Override

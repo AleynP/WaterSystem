@@ -104,6 +104,7 @@ public class UserdetailsActivity extends BaseBackActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
+                                SnackBar.make(btTrue, "接单成功！");
                                 btTrue.setVisibility(View.GONE);
                                 btFalse.setVisibility(View.GONE);
                                 tvClose.setVisibility(View.VISIBLE);

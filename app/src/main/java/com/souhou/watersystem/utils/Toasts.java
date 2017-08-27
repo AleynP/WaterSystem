@@ -13,7 +13,7 @@ import com.souhou.watersystem.ui.activity.FaultActivity.FaultDataActivity;
  */
 
 public class Toasts {
-    public static void Toast(Activity context, String s) {
+    public static void setText(Activity context, String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 

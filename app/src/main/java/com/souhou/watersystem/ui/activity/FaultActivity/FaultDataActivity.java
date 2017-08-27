@@ -98,7 +98,7 @@ public class FaultDataActivity extends BaseBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ddkSub.setVisibility(View.INVISIBLE);
-                        Toasts.Toast(FaultDataActivity.this, "请求错误" + e.getMessage());
+                        Toasts.setText(FaultDataActivity.this, "请求错误" + e.getMessage());
                     }
 
                     @Override

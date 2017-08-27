@@ -20,9 +20,9 @@ android {
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "26ede799c09d3df3f0f7fb5d", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
 
     }
@@ -41,6 +41,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    // 此处以JPush 3.0.3 版本为例。
+    // 此处以JCore 1.1.1 版本为例。
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.alibaba:fastjson:1.2.33'
@@ -52,10 +54,10 @@ dependencies {
     compile 'cn.yipianfengye.android:zxing-library:2.2'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
-    testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.lzy.widget:imagepicker:0.5.5'
-    compile 'cn.jiguang.sdk:jpush:3.0.3'  // 此处以JPush 3.0.3 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.1'  // 此处以JCore 1.1.1 版本为例。
+    compile 'cn.jiguang.sdk:jpush:3.0.3'
+    compile 'cn.jiguang.sdk:jcore:1.1.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

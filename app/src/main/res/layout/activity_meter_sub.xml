@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.souhou.watersystem.ui.activity.MeterActivity.MeterSubActivity">
 
@@ -37,7 +38,6 @@
                     android:id="@+id/tv_loginName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1234546ad"
                     android:textSize="20sp" />
             </TableRow>
 
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="1234546l"
+                    android:text="暂无"
                     android:textSize="20sp" />
             </TableRow>
 
@@ -124,6 +124,12 @@
             android:hint="输入本次水表底数"
             android:textColorHint="@color/Blue" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/ddk_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

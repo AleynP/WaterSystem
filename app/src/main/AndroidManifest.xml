@@ -11,9 +11,8 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 申明网络权限  -->
+    <!-- 申明网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 申明权限 操作SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -62,9 +61,9 @@
         <activity android:name=".ui.activity.MeterActivity.MeterYesRecordActivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterRecordctivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterQRActivity" />
-        <activity android:name=".ui.activity.MeterActivity.MeterSubActivity"></activity>
+        <activity android:name=".ui.activity.MeterActivity.MeterSubActivity" />
 
-        <!-- User defined. 用户自定义的广播接收器-->
+        <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
             android:name=".utils.MyReceiver"
             android:enabled="true">
@@ -79,6 +78,8 @@
                 <category android:name="com.souhou.watersystem" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ui.activity.MeterActivity.MeterAlbumActivity"></activity>
     </application>
 
 </manifest>

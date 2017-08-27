@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseFragment;
+import com.souhou.watersystem.ui.activity.MeterActivity.MeterAlbumActivity;
 import com.souhou.watersystem.ui.activity.MeterActivity.MeterNotRecordActivity;
 import com.souhou.watersystem.ui.activity.MeterActivity.MeterQRActivity;
 import com.souhou.watersystem.ui.activity.MeterActivity.MeterRecordctivity;
@@ -73,7 +74,7 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.bt_not_complete_img:
-                intent = new Intent(getActivity(), MeterNotRecordActivity.class);
+                intent = new Intent(getActivity(), MeterAlbumActivity.class);
                 startActivity(intent);
                 break;
             case R.id.bt_record_img:
