@@ -60,7 +60,7 @@ public class CBNotMeterAdapter extends BaseAdapter {
         }
         vh.tvNumber.setText(mList.get(i).getUser_Number() + "");
         vh.tvName.setText(mList.get(i).getUser_Name() + "");
-        vh.tvTime.setText(mList.get(i).getMeterReading_Time() + "");
+        vh.tvTime.setText(mList.get(i).getUser_Site() + "");
         return view;
     }
 

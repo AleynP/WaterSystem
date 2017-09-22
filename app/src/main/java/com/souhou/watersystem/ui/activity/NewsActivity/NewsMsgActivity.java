@@ -62,6 +62,7 @@ public class NewsMsgActivity extends BaseBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mList.clear();
         Respons(name);
         newsAdapter.notifyDataSetChanged();
     }
@@ -92,6 +93,5 @@ public class NewsMsgActivity extends BaseBackActivity {
                     }
                 });
     }
-
 
 }

@@ -19,6 +19,7 @@ import com.souhou.watersystem.ui.fragment.FaultFragment;
 import com.souhou.watersystem.ui.fragment.Newsfragment;
 import com.souhou.watersystem.ui.fragment.RecordFragment;
 import com.souhou.watersystem.utils.ButonBarview;
+import com.souhou.watersystem.utils.SlidingMenu;
 import com.souhou.watersystem.utils.SnackBar;
 
 import java.util.List;

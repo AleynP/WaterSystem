@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
@@ -42,6 +42,8 @@ public class MeterSubActivity extends BaseBackActivity {
     @BindView(R.id.bt_not)
     Button btNot;
     MyApplication app;
+    @BindView(R.id.ddk_sub)
+    ProgressBar ddkSub;
     private String ladder, water_BianHao, water_LiuLiang, sort, BC_LiuLiang;
     Intent intent;
 
@@ -61,6 +63,7 @@ public class MeterSubActivity extends BaseBackActivity {
         water_BianHao = intent.getStringExtra("water_num");
         ladder = intent.getStringExtra("UserLadder");
         sort = intent.getStringExtra("WaterSortID");
+        ddkSub.setVisibility(View.INVISIBLE);
 
         tvLoginName.setText(app.getUsername());
         tvWaterNum.setText(water_BianHao);
@@ -90,6 +93,7 @@ public class MeterSubActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         SnackBar.make(tvWaterNum, "提交成功");
+                        ddkSub.setVisibility(View.INVISIBLE);
                     }
                 });
     }
@@ -115,12 +119,13 @@ public class MeterSubActivity extends BaseBackActivity {
     private void ADialog(String bc) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MeterSubActivity.this);
         builder.setIcon(R.drawable.login_logo);
-        builder.setTitle("请确认本次水表号");
+        builder.setTitle("请确认本次水表数");
         builder.setMessage(bc);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 request(BC_LiuLiang);
+                ddkSub.setVisibility(View.VISIBLE);
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

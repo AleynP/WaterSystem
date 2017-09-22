@@ -70,7 +70,7 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.bt_complete_img:
-                intent = new Intent(getActivity(), MeterYesRecordActivity.class);
+                intent = new Intent(getActivity(), MeterRecordctivity.class);
                 startActivity(intent);
                 break;
             case R.id.bt_not_complete_img:

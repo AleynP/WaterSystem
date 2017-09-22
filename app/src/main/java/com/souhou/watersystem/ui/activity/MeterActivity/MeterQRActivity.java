@@ -26,7 +26,6 @@ import okhttp3.Call;
 
 public class MeterQRActivity extends BaseBackActivity {
     public static final int REQUEST_CODE = 1;
-
     private CBWaterMeterBean cbWaterMeterBean;
     private String Water_LiuLiang, water_BianHao;
     @BindView(R.id.ed_input)
@@ -80,7 +79,7 @@ public class MeterQRActivity extends BaseBackActivity {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Toasts.setText(MeterQRActivity.this, "请求失败");
-//                        SnackBar.make(btOk, "请求失败" + e.getMessage().toString());
+                        SnackBar.make(btOk, "请求失败" + e.getMessage().toString());
                     }
 
                     @Override

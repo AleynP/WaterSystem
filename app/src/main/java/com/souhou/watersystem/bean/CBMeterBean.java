@@ -65,22 +65,35 @@ public class CBMeterBean {
         }
     }
 
+
     public static class BenYueWeiChaoBean {
         /**
-         * User_Number : 888
-         * User_Name : 张明
-         * MeterReading_Time : 20170510
+         * id : 106
+         * User_Number : 1000106
+         * User_Name : 萝莉
+         * User_Site : 河南省周口市
+         * WaterMeter_Number : 010621113
          */
 
-        private int User_Number;
+        private int id;
+        private long User_Number;
         private String User_Name;
-        private String MeterReading_Time;
+        private String User_Site;
+        private String WaterMeter_Number;
 
-        public int getUser_Number() {
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public long getUser_Number() {
             return User_Number;
         }
 
-        public void setUser_Number(int User_Number) {
+        public void setUser_Number(long User_Number) {
             this.User_Number = User_Number;
         }
 
@@ -92,12 +105,20 @@ public class CBMeterBean {
             this.User_Name = User_Name;
         }
 
-        public String getMeterReading_Time() {
-            return MeterReading_Time;
+        public String getUser_Site() {
+            return User_Site;
         }
 
-        public void setMeterReading_Time(String MeterReading_Time) {
-            this.MeterReading_Time = MeterReading_Time;
+        public void setUser_Site(String User_Site) {
+            this.User_Site = User_Site;
+        }
+
+        public String getWaterMeter_Number() {
+            return WaterMeter_Number;
+        }
+
+        public void setWaterMeter_Number(String WaterMeter_Number) {
+            this.WaterMeter_Number = WaterMeter_Number;
         }
     }
 }

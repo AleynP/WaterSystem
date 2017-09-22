@@ -1,51 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.souhou.watersystem.utils.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:scrollbars="none">
 
-    <RelativeLayout
-        android:id="@+id/layout_head"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        android:background="@mipmap/title_img">
-
-        <Button
-            android:id="@+id/btn_left"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:id="@+id/tv_title"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@null"
-            android:text="Title"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTextWhite"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:background="@drawable/login_img"
+            android:orientation="vertical">
 
-        <com.souhou.watersystem.utils.ButonBarview
-            android:id="@+id/btn_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:gravity="right|center_vertical"
-            android:textAllCaps="false" />
-    </RelativeLayout>
 
-    <ViewFlipper
-        android:id="@+id/layout_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp">
 
-</LinearLayout>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_admin" />
+
+                <TextView
+                    android:id="@+id/tv_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_password" />
+
+                <TextView
+                    android:id="@+id/tv_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="修改密码"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_head"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@mipmap/title_img">
+
+                <Button
+                    android:id="@+id/btn_left"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:text="Title"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="18sp" />
+
+                <com.souhou.watersystem.utils.ButonBarview
+                    android:id="@+id/btn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right|center_vertical"
+                    android:textAllCaps="false" />
+            </RelativeLayout>
+
+            <ViewFlipper
+                android:id="@+id/layout_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+</com.souhou.watersystem.utils.SlidingMenu>

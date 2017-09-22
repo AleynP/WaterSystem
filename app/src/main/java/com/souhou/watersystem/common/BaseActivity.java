@@ -20,8 +20,10 @@ import android.widget.ViewFlipper;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.manager.ActivityManager;
+import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.utils.ButonBarview;
-import com.souhou.watersystem.utils.DensityUtils;
+import com.souhou.watersystem.utils.SlidingMenu;
+import com.souhou.watersystem.utils.Toasts;
 
 
 /**
@@ -47,6 +49,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Button btn_left;
     protected ButonBarview btn_right;
     protected TextView tv_title;
+    protected TextView tv_admin;
+    protected TextView tv_password;
+    private MyApplication app;
+    protected SlidingMenu main_menu;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -64,6 +70,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initView() {
         mContext = this;
+        //初始化菜单
+        main_menu = (SlidingMenu) super.findViewById(R.id.base_layout);
+        tv_admin = (TextView) super.findViewById(R.id.tv_admin);
+        tv_password = (TextView) super.findViewById(R.id.tv_password);
+        app = (MyApplication) getApplication();
+        tv_admin.setText(app.getUsername());
+        tv_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toasts.setText(BaseActivity.this, "请到营业厅办理");
+            }
+        });
         //初始化公共头部
         mContentView = (ViewFlipper) super.findViewById(R.id.layout_container);
         layout_head = (RelativeLayout) super.findViewById(R.id.layout_head);
@@ -72,7 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                main_menu.toggle();
             }
         });
         btn_right = (ButonBarview) super.findViewById(R.id.btn_right);

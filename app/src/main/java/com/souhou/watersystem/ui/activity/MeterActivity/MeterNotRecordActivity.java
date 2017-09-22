@@ -2,6 +2,7 @@ package com.souhou.watersystem.ui.activity.MeterActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,13 +41,15 @@ public class MeterNotRecordActivity extends BaseBackActivity {
         ButterKnife.bind(this);
         setTitle("本月未抄");
         request();
+
         adapter = new CBNotMeterAdapter(mList, this);
         listview.setAdapter(adapter);
-        Intent intent = getIntent();
-        id = intent.getStringExtra("id");
+
     }
 
     private void request() {
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
         OkHttpUtils
                 .get()
                 .url(ServerConfig.CB_Meter_URL)
@@ -62,6 +65,8 @@ public class MeterNotRecordActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         cbMeterBean = JsonMananger.jsonToBean(response, CBMeterBean.class);
+                        int count = cbMeterBean.getBenYueWeiChao().size();
+                        Log.i("TAG", count + "");
                         mList.addAll(cbMeterBean.getBenYueWeiChao());
                         if (mList.size() > 0) {
                             failText.setVisibility(View.GONE);
