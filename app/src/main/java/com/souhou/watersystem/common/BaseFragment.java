@@ -41,7 +41,7 @@ public abstract class BaseFragment<T> extends Fragment {
      * @param targetActivity 要跳转的目标Activity
      */
     protected final void startActivity(@NonNull Class<?> targetActivity) {
-        startActivity(new Intent(getContext(), targetActivity));
+        startActivity(new Intent(getActivity(), targetActivity));
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class BaseFragment<T> extends Fragment {
     public final void startActivity(@NonNull String extraName, @NonNull String extraValue, @NonNull Class<?> targetActivity) {
         if (TextUtil.isEmptyAndNull(extraName))
             throw new NullPointerException("传递的值的键名称为null或空");
-        final Intent intent = new Intent(getContext(), targetActivity);
+        final Intent intent = new Intent(getActivity(), targetActivity);
         intent.putExtra(extraName, extraValue);
         startActivity(intent);
     }
@@ -69,7 +69,7 @@ public abstract class BaseFragment<T> extends Fragment {
     public final void startActivity(@NonNull String extraName, @NonNull int extraValue, @NonNull Class<?> targetActivity) {
         if (TextUtil.isEmptyAndNull(extraName))
             throw new NullPointerException("传递的值的键名称为null或空");
-        final Intent intent = new Intent(getContext(), targetActivity);
+        final Intent intent = new Intent(getActivity(), targetActivity);
         intent.putExtra(extraName, extraValue);
         startActivity(intent);
     }
@@ -77,7 +77,7 @@ public abstract class BaseFragment<T> extends Fragment {
     public final void startActivity(@NonNull String extraName, @NonNull T ojectParcelable, @NonNull Class<?> targetActivity){
         if (TextUtil.isEmptyAndNull(extraName))
             throw new NullPointerException("传递的值的键名称为null或空");
-        final Intent intent = new Intent(getContext(), targetActivity);
+        final Intent intent = new Intent(getActivity(), targetActivity);
         Bundle data = new Bundle();
         data.putParcelable(extraName, (Parcelable) ojectParcelable);
         intent.putExtras(data);
@@ -313,12 +313,10 @@ public abstract class BaseFragment<T> extends Fragment {
     public void onResume() {
         super.onResume();
         initData();
-        initView();
     }
 
     protected abstract void initData();
 
-    protected abstract void initView();
 
     public void setInflateView(View view){
         inflateView = view;

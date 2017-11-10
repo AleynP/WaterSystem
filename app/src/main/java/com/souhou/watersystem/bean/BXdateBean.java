@@ -6,33 +6,43 @@ package com.souhou.watersystem.bean;
 
 public class BXdateBean {
 
-
     /**
-     * id : 51
-     * Repairs_Time : 201707111141
-     * Repairs_User : 刚刚
-     * Repairs_Number : 999
-     * Repairs_Content : 发GV大概
-     * Repairs_Name : 系统管理员
-     * Repairs_Phone : 13838562365
-     * Repairs_Site : 河南省周口市
-     * Repairs_Randomnum : 44271743
-     * FILE_PATH0 : http://192.168.1.119:8080/upload/infofiles/20170730114154_838.jpg
-     * FILE_PATH1 : http://192.168.1.119:8080/upload/infofiles/20170730114158_2989.jpg
+     * id : 26
+     * Repairs_Time : 20171021114246
+     * Repairs_SendTime : 20171021114308
+     * Repairs_User : 李红
+     * Repairs_Content : 漏水
+     * Repairs_Name : admin_zz
+     * Repairs_Phone : 13524689524
+     * User_Site : 河南省周口市
+     * Repairs_Randomnum : 55155362
+     * FILE_PATH0 : http://192.168.1.111:8080/upload/infofiles/20171021114244_5712.jpg
+     * FILE_PATH1 : http://192.168.1.111:8080/upload/infofiles/20171021114244_5712.jpg
+     * FILE_PATH2 : http://192.168.1.111:8080/upload/infofiles/20171021114244_5712.jpg
+     * FILE_PATH3 : http://192.168.1.111:8080/upload/infofiles/20171021114244_5712.jpg
      */
 
     private int id;
-    private String Repairs_Time;
+    private long Repairs_Time;
+    private long Repairs_SendTime;
     private String Repairs_User;
-    private String Repairs_Number;
     private String Repairs_Content;
     private String Repairs_Name;
-    private String Repairs_Phone;
-    private String Repairs_Site;
-    private String Repairs_Randomnum;
+    private long Repairs_Phone;
+    private String User_Site;
+    private int Repairs_Randomnum;
     private String FILE_PATH0;
     private String FILE_PATH1;
     private String FILE_PATH2;
+    private String FILE_PATH3;
+
+    public String getFILE_PATH1() {
+        return FILE_PATH1;
+    }
+
+    public void setFILE_PATH1(String FILE_PATH1) {
+        this.FILE_PATH1 = FILE_PATH1;
+    }
 
     public String getFILE_PATH2() {
         return FILE_PATH2;
@@ -50,8 +60,6 @@ public class BXdateBean {
         this.FILE_PATH3 = FILE_PATH3;
     }
 
-    private String FILE_PATH3;
-
     public int getId() {
         return id;
     }
@@ -60,12 +68,20 @@ public class BXdateBean {
         this.id = id;
     }
 
-    public String getRepairs_Time() {
+    public long getRepairs_Time() {
         return Repairs_Time;
     }
 
-    public void setRepairs_Time(String Repairs_Time) {
+    public void setRepairs_Time(long Repairs_Time) {
         this.Repairs_Time = Repairs_Time;
+    }
+
+    public long getRepairs_SendTime() {
+        return Repairs_SendTime;
+    }
+
+    public void setRepairs_SendTime(long Repairs_SendTime) {
+        this.Repairs_SendTime = Repairs_SendTime;
     }
 
     public String getRepairs_User() {
@@ -74,14 +90,6 @@ public class BXdateBean {
 
     public void setRepairs_User(String Repairs_User) {
         this.Repairs_User = Repairs_User;
-    }
-
-    public String getRepairs_Number() {
-        return Repairs_Number;
-    }
-
-    public void setRepairs_Number(String Repairs_Number) {
-        this.Repairs_Number = Repairs_Number;
     }
 
     public String getRepairs_Content() {
@@ -100,27 +108,27 @@ public class BXdateBean {
         this.Repairs_Name = Repairs_Name;
     }
 
-    public String getRepairs_Phone() {
+    public long getRepairs_Phone() {
         return Repairs_Phone;
     }
 
-    public void setRepairs_Phone(String Repairs_Phone) {
+    public void setRepairs_Phone(long Repairs_Phone) {
         this.Repairs_Phone = Repairs_Phone;
     }
 
-    public String getRepairs_Site() {
-        return Repairs_Site;
+    public String getUser_Site() {
+        return User_Site;
     }
 
-    public void setRepairs_Site(String Repairs_Site) {
-        this.Repairs_Site = Repairs_Site;
+    public void setUser_Site(String User_Site) {
+        this.User_Site = User_Site;
     }
 
-    public String getRepairs_Randomnum() {
+    public int getRepairs_Randomnum() {
         return Repairs_Randomnum;
     }
 
-    public void setRepairs_Randomnum(String Repairs_Randomnum) {
+    public void setRepairs_Randomnum(int Repairs_Randomnum) {
         this.Repairs_Randomnum = Repairs_Randomnum;
     }
 
@@ -130,13 +138,5 @@ public class BXdateBean {
 
     public void setFILE_PATH0(String FILE_PATH0) {
         this.FILE_PATH0 = FILE_PATH0;
-    }
-
-    public String getFILE_PATH1() {
-        return FILE_PATH1;
-    }
-
-    public void setFILE_PATH1(String FILE_PATH1) {
-        this.FILE_PATH1 = FILE_PATH1;
     }
 }

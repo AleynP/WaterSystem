@@ -2,6 +2,7 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,11 +39,19 @@ public class FaultHandActivity extends BaseBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fault_hand);
         ButterKnife.bind(this);
-        setTitle("已处理处理");
+        setTitle("已处理");
         Response();
         adapter = new BxHandelAdapter(mList, this);
         listBxHandel.setAdapter(adapter);
-//        listBxHandel.setEmptyView(failText);
+        listBxHandel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String processID = mList.get(i).getProcess_ID() + "";
+                Bundle bundle = new Bundle();
+                bundle.putString("id", processID);
+                startActivity(FaultHandDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private void Response() {

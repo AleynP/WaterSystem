@@ -43,15 +43,9 @@ public class ExitFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
-    }
-
-    @Override
-    protected void initView() {
         app = (MyApplication) getActivity().getApplication();
         tvName.setText(app.getUsername());
     }
-
 
     @Override
     public void onDestroyView() {

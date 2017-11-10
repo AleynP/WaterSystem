@@ -52,5 +52,6 @@
         android:layout_centerVertical="true"
         android:text="暂无数据~"
         android:textColor="@color/sbc_page_number_text"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
 </RelativeLayout>

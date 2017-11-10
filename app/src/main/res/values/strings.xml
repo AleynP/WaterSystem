@@ -8,4 +8,6 @@
     <string name="Fault">故障</string>
     <string name="News">新装</string>
     <string name="Exit">退出</string>
+    <string name="Loading">正在加载...</string>
+    <string name="ServerError">服务器或网络错误！</string>
 </resources>

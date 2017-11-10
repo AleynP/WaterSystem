@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.souhou.watersystem.R;
@@ -17,7 +16,10 @@ import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.BXPicAdapter;
+import com.souhou.watersystem.utils.DatetoStringFormat;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LoadingDialog;
+import com.souhou.watersystem.utils.LogUtils;
 import com.souhou.watersystem.utils.SnackBar;
 import com.souhou.watersystem.utils.Toasts;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -51,12 +53,8 @@ public class FaultDataActivity extends BaseBackActivity {
     GridView gridView;
     @BindView(R.id.tv_complete)
     TextView tvComplete;
-    @BindView(R.id.ddk_sub)
-    ProgressBar ddkSub;
     @BindView(R.id.Lin_main)
     LinearLayout LinMain;
-    @BindView(R.id.jzk_sub)
-    ProgressBar jzkSub;
 
     private BXdateBean bXdateBean;
     private List<String> mList = new ArrayList<>();
@@ -71,7 +69,6 @@ public class FaultDataActivity extends BaseBackActivity {
         ButterKnife.bind(this);
         setTitle("详细信息");
         LinMain.setVisibility(View.INVISIBLE);
-        ddkSub.setVisibility(View.INVISIBLE);
         tvComplete.setVisibility(View.INVISIBLE);
         Intent intent = getIntent();
         repairsID = intent.getStringExtra("id");
@@ -80,15 +77,16 @@ public class FaultDataActivity extends BaseBackActivity {
 
     private void initViews(BXdateBean bXdateBean) {
         tvUserName.setText(bXdateBean.getRepairs_User() + "");
-        tvTime.setText(bXdateBean.getRepairs_Time() + "");
+        tvTime.setText(DatetoStringFormat.StringToStrLong(bXdateBean.getRepairs_Time() + ""));
         tvPhone.setText(bXdateBean.getRepairs_Phone() + "");
-        tvAddress.setText(bXdateBean.getRepairs_Site());
+        tvAddress.setText(bXdateBean.getUser_Site());
         tvShuoming.setText(bXdateBean.getRepairs_Content());
         adapter = new BXPicAdapter(mList, this);
         gridView.setAdapter(adapter);
     }
 
     private void respones(String repairsID) {
+        LoadingDialog.createLoadingDialog(this, getString(R.string.Loading));
         OkHttpUtils
                 .get()
                 .url(ServerConfig.BX_MES_DATA_URL)
@@ -97,7 +95,7 @@ public class FaultDataActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        ddkSub.setVisibility(View.INVISIBLE);
+                        LoadingDialog.closeDialog();
                         Toasts.setText(FaultDataActivity.this, "请求错误" + e.getMessage());
                     }
 
@@ -109,8 +107,8 @@ public class FaultDataActivity extends BaseBackActivity {
                         mList.add(bXdateBean.getFILE_PATH2());
                         mList.add(bXdateBean.getFILE_PATH3());
                         LinMain.setVisibility(View.VISIBLE);
-                        jzkSub.setVisibility(View.INVISIBLE);
                         initViews(bXdateBean);
+                        LoadingDialog.closeDialog();
                     }
                 });
     }
@@ -120,7 +118,6 @@ public class FaultDataActivity extends BaseBackActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_yes:
-                ddkSub.setVisibility(View.VISIBLE);
                 Response(repairsID, "1");
                 break;
             case R.id.bt_not:
@@ -134,6 +131,7 @@ public class FaultDataActivity extends BaseBackActivity {
 
     private void Response(final String repairsID, final String type) {
         application = (MyApplication) getApplication();
+        LoadingDialog.createLoadingDialog(this, "正在提交");
         OkHttpUtils
                 .get()
                 .url(ServerConfig.BX_MES_DATA_Choice_URL)
@@ -144,14 +142,14 @@ public class FaultDataActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        ddkSub.setVisibility(View.GONE);
+                        LoadingDialog.closeDialog();
                         SnackBar.make(tvAddress, "请求失败" + e.getMessage());
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
                         if (type.equals("1")) {
-                            ddkSub.setVisibility(View.GONE);
+                            LoadingDialog.closeDialog();
                             SnackBar.make(tvAddress, "接单成功");
                             tvComplete.setVisibility(View.VISIBLE);
                             btYes.setVisibility(View.INVISIBLE);

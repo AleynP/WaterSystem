@@ -1,18 +1,20 @@
 package com.souhou.watersystem;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.souhou.watersystem.bean.Result;
 import com.souhou.watersystem.common.ServerConfig;
+import com.souhou.watersystem.server.LocationService;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.activity.HomeActivity;
 import com.souhou.watersystem.utils.JsonMananger;
@@ -41,8 +43,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
     private SharedPreferences sp;
     private Result result;
     private MyApplication app;
-    private List<Result.data> mList = new ArrayList();
-
+    private List<String> mList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,11 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         initView();
     }
 
+
     private void initView() {
         ddk.setVisibility(View.GONE);
         app = (MyApplication) getApplication();
-        sp = this.getSharedPreferences("UserInfolist", Context.MODE_WORLD_READABLE);
+        sp = this.getSharedPreferences("UserInfolist", Context.MODE_PRIVATE);
         if (sp.getBoolean("ISCHECK", false)) {
             //设置默认是记录密码状态
             cbRmbPwd.setChecked(true);
@@ -74,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                 break;
             case R.id.cb_rmb_pwd:
                 if (cbRmbPwd.isChecked()) {
-
                     sp.edit().putBoolean("ISCHECK", true).commit();
                 } else {
                     sp.edit().putBoolean("ISCHECK", false).commit();
@@ -88,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         String pwd = LoginPwd.getText().toString();
 
         if (name != null && pwd != null) {
-//            EventBus.getDefault().post(new LoginName(name));
             if (cbRmbPwd.isChecked()) {
                 //记住用户名、密码、
                 SharedPreferences.Editor editor = sp.edit();
@@ -118,22 +118,26 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        app.setUsername(name);
                         result = JsonMananger.jsonToBean(response, Result.class);
                         if (result.getLoginResult().equals("ERROR")) {
                             SnackBar.make(LoginName, result.getMsg());
                             ddk.setVisibility(View.GONE);
                         } else if (result.getLoginResult().equals("SUCCESS")) {
-                            mList.addAll(result.getType());
+                            app.setUsername(name);
+                            app.setPhone(result.getSjhm());
+                            startService();
+                            for (int i = 0; i < result.getGnmc().size(); i++) {
+                                mList.add(result.getGnmc().get(i).getGNMC());
+                            }
                             ddk.setVisibility(View.GONE);
-                            LoginJudge((ArrayList<Result.data>) mList);
+                            LoginJudge((ArrayList<String>) mList);
                         }
 
                     }
                 });
     }
 
-    public void LoginJudge(ArrayList<Result.data> arrayList) {
+    public void LoginJudge(ArrayList<String> arrayList) {
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, HomeActivity.class);
         Bundle bundle = new Bundle();
@@ -148,6 +152,31 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         super.onPause();
         mList.clear();
         finish();
+    }
+
+    public void startService() {
+        if (!isServiceRunning(getApplicationContext(), "com.souhou.watersystem.server.LocationService")) {
+            Log.d("PCL", "Service true");
+            getApplicationContext().startService(new Intent(LoginActivity.this, LocationService.class));
+        } else {
+            Log.d("PCL", "Service false");
+        }
+    }
+
+    public static boolean isServiceRunning(Context context, String ServiceName) {
+        if (("").equals(ServiceName) || ServiceName == null)
+            return false;
+        ActivityManager myManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager
+                .getRunningServices(30);
+        for (int i = 0; i < runningService.size(); i++) {
+            if (runningService.get(i).service.getClassName().toString()
+                    .equals(ServiceName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

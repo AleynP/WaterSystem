@@ -59,11 +59,8 @@ public class InstRedAdapter extends BaseAdapter {
         vh.tv_id.setText(mList.get(i).getId() + "");
         vh.tvName.setText(mList.get(i).getInstallation_User());
         vh.tvPhone.setText(mList.get(i).getInstallation_Userphone() + "");
-        String sendtim = DatetoStringFormat.StringToStrLong(mList.get(i).getInstallation_SendTime() + "");
-        String gettim = DatetoStringFormat.StringToStrLong(mList.get(i).getInstallation_GetTime() + "");
-
-        vh.tvSendtime.setText(sendtim);
-        vh.tvGettime.setText(gettim);
+        vh.tvSendtime.setText(DatetoStringFormat.StringToStrLong(mList.get(i).getInstallation_SendTime() + ""));
+        vh.tvGettime.setText(DatetoStringFormat.StringToStrLong(mList.get(i).getInstallation_GetTime() + ""));
         vh.tvAddress.setText(mList.get(i).getInstallation_Address());
         return view;
     }

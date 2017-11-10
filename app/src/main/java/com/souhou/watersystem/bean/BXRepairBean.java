@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BXRepairBean {
 
+
     private List<BaoXiuJiLuBean> BaoXiuJiLu;
 
     public List<BaoXiuJiLuBean> getBaoXiuJiLu() {
@@ -20,14 +21,16 @@ public class BXRepairBean {
 
     public static class BaoXiuJiLuBean {
         /**
-         * id : 66
-         * Repairs_User : 萝莉
+         * id : 3
+         * Repairs_User : 党松江
+         * Repairs_getTime : 20171012152355
          * Process_Time : null
-         * Process_ID : 20
+         * Process_ID : 23
          */
 
         private int id;
         private String Repairs_User;
+        private long Repairs_getTime;
         private Object Process_Time;
         private int Process_ID;
 
@@ -45,6 +48,14 @@ public class BXRepairBean {
 
         public void setRepairs_User(String Repairs_User) {
             this.Repairs_User = Repairs_User;
+        }
+
+        public long getRepairs_getTime() {
+            return Repairs_getTime;
+        }
+
+        public void setRepairs_getTime(long Repairs_getTime) {
+            this.Repairs_getTime = Repairs_getTime;
         }
 
         public Object getProcess_Time() {

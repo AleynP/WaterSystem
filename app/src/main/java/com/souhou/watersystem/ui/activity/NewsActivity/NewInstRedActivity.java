@@ -2,6 +2,7 @@ package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +43,14 @@ public class NewInstRedActivity extends BaseBackActivity {
         setTitle("新装记录");
         adapter = new InstRedAdapter(mList, this);
         listInstRed.setAdapter(adapter);
+        listInstRed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mList.get(i).getId() + "");
+                startActivity(YesHandelDetilsActivity.class, bundle);
+            }
+        });
     }
 
     private void response() {

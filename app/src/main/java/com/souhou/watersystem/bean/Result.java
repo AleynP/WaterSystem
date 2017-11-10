@@ -1,29 +1,26 @@
 package com.souhou.watersystem.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/14.
  */
 
-public class Result implements Serializable{
+public class Result {
+
+    /**
+     * loginResult : SUCCESS
+     * sjhm : 18636365858
+     * zsxm : 超级管理员
+     * gnmc : [{"GNMC":"APP报修处理"},{"GNMC":"APP报装处理"},{"GNMC":"APP抄表信息"}]
+     * msg : 登录成功！
+     */
 
     private String loginResult;
-    private List<data> type;
+    private String sjhm;
+    private String zsxm;
     private String msg;
-
-    public Result() {
-
-    }
-
-    public List<data> getType() {
-        return type;
-    }
-
-    public void setType(List<data> type) {
-        this.type = type;
-    }
+    private List<GnmcBean> gnmc;
 
     public String getLoginResult() {
         return loginResult;
@@ -31,6 +28,22 @@ public class Result implements Serializable{
 
     public void setLoginResult(String loginResult) {
         this.loginResult = loginResult;
+    }
+
+    public String getSjhm() {
+        return sjhm;
+    }
+
+    public void setSjhm(String sjhm) {
+        this.sjhm = sjhm;
+    }
+
+    public String getZsxm() {
+        return zsxm;
+    }
+
+    public void setZsxm(String zsxm) {
+        this.zsxm = zsxm;
     }
 
     public String getMsg() {
@@ -41,7 +54,19 @@ public class Result implements Serializable{
         this.msg = msg;
     }
 
-    public static class data implements Serializable{
+    public List<GnmcBean> getGnmc() {
+        return gnmc;
+    }
+
+    public void setGnmc(List<GnmcBean> gnmc) {
+        this.gnmc = gnmc;
+    }
+
+    public static class GnmcBean {
+        /**
+         * GNMC : APP报修处理
+         */
+
         private String GNMC;
 
         public String getGNMC() {
@@ -52,5 +77,4 @@ public class Result implements Serializable{
             this.GNMC = GNMC;
         }
     }
-
 }

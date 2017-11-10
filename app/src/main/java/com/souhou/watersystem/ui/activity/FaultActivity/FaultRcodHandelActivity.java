@@ -2,6 +2,7 @@ package com.souhou.watersystem.ui.activity.FaultActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,6 +42,14 @@ public class FaultRcodHandelActivity extends BaseBackActivity {
         request();
         adapter = new BXRecordAdapter(mList, this);
         listRecord.setAdapter(adapter);
+        listRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id", mList.get(i).getProcess_ID() + "");
+                startActivity(FaultHandDetailsActivity.class, bundle);
+            }
+        });
     }
 
     private void request() {

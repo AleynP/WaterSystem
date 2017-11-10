@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.YesHandelBean;
+import com.souhou.watersystem.utils.DatetoStringFormat;
 
 import java.util.List;
 
@@ -58,8 +59,8 @@ public class YesHandelAdapter extends BaseAdapter {
         }
         vh.tvName.setText(mList.get(i).getInstallation_User());
         vh.tvPhone.setText(mList.get(i).getInstallation_Userphone() + "");
-        vh.tvSendtime.setText(mList.get(i).getInstallation_SendTime() + "");
-        vh.tvGettime.setText(mList.get(i).getInstallation_GetTime() + "");
+        vh.tvSendtime.setText(DatetoStringFormat.StringToStrLong(mList.get(i).getInstallation_SendTime() + ""));
+        vh.tvGettime.setText(DatetoStringFormat.StringToStrLong(mList.get(i).getInstallation_GetTime() + ""));
         vh.tvAddress.setText(mList.get(i).getInstallation_Address());
         return view;
     }

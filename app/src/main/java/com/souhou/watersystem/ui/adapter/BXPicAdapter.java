@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.souhou.watersystem.R;
+import com.souhou.watersystem.utils.LogUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class BXPicAdapter extends BaseAdapter {
         }
         String url = mList.get(i);
         Picasso.with(context).load(url).into(vh.imageView1);
+        LogUtils.d(mList.get(i) + "");
         return view;
     }
 

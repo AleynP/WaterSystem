@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.CBRecordBean;
+import com.souhou.watersystem.utils.LogUtils;
 
 import java.util.List;
 
@@ -22,11 +23,11 @@ import static com.souhou.watersystem.bean.CBMeterBean.*;
  */
 
 public class CBRecordAdapter extends BaseAdapter {
-    private List<CBRecordBean.RecordBean> mList;
+    private List<CBRecordBean> mList;
     private LayoutInflater inflater;
     private Context context;
 
-    public CBRecordAdapter(List<CBRecordBean.RecordBean> list, Context context) {
+    public CBRecordAdapter(List<CBRecordBean> list, Context context) {
         this.mList = list;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -58,9 +59,10 @@ public class CBRecordAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvNumber.setText(mList.get(i).getId() + "");
-        vh.tvName.setText(mList.get(i).getUser_Name() + "");
-        vh.tvTime.setText(mList.get(i).getMeterReading_Time() + "");
+        LogUtils.d(mList.get(i).getUser_Name());
+        vh.tvNumber.setText(mList.get(i).getUser_Number() + "");
+        vh.tvName.setText(mList.get(i).getUser_Name());
+        vh.tvTime.setText(mList.get(i).getUser_Site());
         return view;
     }
 

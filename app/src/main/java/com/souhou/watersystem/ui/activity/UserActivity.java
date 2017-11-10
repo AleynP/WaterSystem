@@ -12,6 +12,7 @@ import com.souhou.watersystem.bean.UserInfolist;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LoadingDialog;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -44,6 +45,8 @@ public class UserActivity extends BaseBackActivity {
     TextView tvState2;
     @BindView(R.id.tv_modle2)
     TextView tvModle2;
+    @BindView(R.id.layout_main)
+    RelativeLayout layoutMain;
     private UserInfolist user;
 
     @Override
@@ -68,6 +71,7 @@ public class UserActivity extends BaseBackActivity {
     }
 
     private void Okhttp(String num) {
+        LoadingDialog.createLoadingDialog(this,"正在查询...");
         OkHttpUtils
                 .get()
                 .url(ServerConfig.USER_URL)
@@ -76,11 +80,13 @@ public class UserActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
+                        LoadingDialog.closeDialog();
                         SnackBar.make(btSearch, "请求失败");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        LoadingDialog.closeDialog();
                         user = JsonMananger.jsonToBean(response, UserInfolist.class);
                         if (user.getUserInfo().getUser_Number() != 0) {
                             initText(user);
@@ -92,12 +98,17 @@ public class UserActivity extends BaseBackActivity {
     }
 
     private void initText(UserInfolist user) {
+        layoutMain.setVisibility(View.VISIBLE);
         tvName2.setText(user.getUserInfo().getUser_Name());
         tvNumber2.setText(user.getUserInfo().getUser_Number() + "");
         tvPeopel2.setText(user.getUserInfo().getUser_Quantity() + "");
         tvAddress2.setText(user.getUserInfo().getUser_Site());
         tvTime2.setText(user.getUserInfo().getUser_Time() + "");
-        tvState2.setText(user.getUserInfo().getWaterMeter_State() + "");
+        if (user.getUserInfo().getWaterMeter_State() == 1) {
+            tvState2.setText("正常");
+        } else {
+            tvState2.setText("停水");
+        }
         tvWaterNum2.setText(user.getUserInfo().getWaterMeter_Number());
         tvAzTime2.setText(user.getUserInfo().getWaterMeter_Time() + "");
         tvModle2.setText(user.getUserInfo().getWaterType_Name());

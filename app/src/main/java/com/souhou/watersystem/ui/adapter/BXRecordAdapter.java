@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.BXRepairBean;
+import com.souhou.watersystem.utils.DatetoStringFormat;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class BXRecordAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvAddress.setText(list.get(i).getProcess_Time() + "");
+        vh.tvAddress.setText(DatetoStringFormat.StringToStrLong(list.get(i).getRepairs_getTime() + ""));
         vh.tvTime.setText(list.get(i).getRepairs_User());
         return view;
     }

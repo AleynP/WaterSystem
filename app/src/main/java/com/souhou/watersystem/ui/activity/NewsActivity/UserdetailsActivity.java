@@ -2,16 +2,20 @@ package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.UserInfo;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
+import com.souhou.watersystem.utils.DatetoStringFormat;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LoadingDialog;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -22,7 +26,6 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class UserdetailsActivity extends BaseBackActivity {
-
 
     @BindView(R.id.tv_names)
     TextView tvNames;
@@ -38,8 +41,8 @@ public class UserdetailsActivity extends BaseBackActivity {
     Button btTrue;
     @BindView(R.id.bt_false)
     Button btFalse;
-    @BindView(R.id.tv_close)
-    TextView tvClose;
+    @BindView(R.id.bt_close)
+    Button btClose;
     private String id;
     private UserInfo userinfo;
     MyApplication app;
@@ -51,7 +54,6 @@ public class UserdetailsActivity extends BaseBackActivity {
         ButterKnife.bind(this);
         setTitle("接单详情");
         app = (MyApplication) getApplication();
-        tvClose.setVisibility(View.GONE);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         response(id);
@@ -60,8 +62,8 @@ public class UserdetailsActivity extends BaseBackActivity {
     private void response(String id) {
         OkHttpUtils
                 .get()
-                .url(ServerConfig.USER_DETAILS_URL)
-                .addParams("id", id)
+                .url(ServerConfig.AZ_MES_DETAILS_URL)
+                .addParams("userID", id)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -72,42 +74,50 @@ public class UserdetailsActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         userinfo = JsonMananger.jsonToBean(response, UserInfo.class);
-                        initView(userinfo);
+                        if (!userinfo.equals("")){
+                            initView();
+                        }else {
+
+                        }
                     }
                 });
     }
 
-    private void initView(UserInfo userinfo) {
+    private void initView() {
         tvNames.setText(userinfo.getInstallation_User());
         tvPhone.setText(userinfo.getInstallation_Userphone() + "");
-        tvInstatime.setText(userinfo.getInstallation_Time() + "");
+        tvInstatime.setText(DatetoStringFormat.StringToStrLong(userinfo.getInstallation_Time() + ""));
         tvAddress.setText(userinfo.getInstallation_Address());
         tvWaterNum.setText(userinfo.getWaterType_Name());
     }
 
-    @OnClick({R.id.bt_true, R.id.bt_false, R.id.tv_close})
+    @OnClick({R.id.bt_true, R.id.bt_false, R.id.bt_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_true:
                 OkHttpUtils
                         .get()
-                        .addParams("state", "1")
                         .url(ServerConfig.WORK_ORDERS_URL)
+                        .addParams("state", "1")
                         .addParams("installationID", id)
                         .addParams("loginName", app.getUsername())
                         .build()
                         .execute(new StringCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
-
+                                btTrue.setVisibility(View.GONE);
+                                btFalse.setVisibility(View.GONE);
+                                btClose.setVisibility(View.VISIBLE);
+                                SnackBar.make(btTrue, "服务器错误");
                             }
 
                             @Override
                             public void onResponse(String response, int id) {
-                                SnackBar.make(btTrue, "接单成功！");
+                                JSONObject json = JSONObject.parseObject(response);
+                                SnackBar.make(btTrue, json.getString("msg").toString());
                                 btTrue.setVisibility(View.GONE);
                                 btFalse.setVisibility(View.GONE);
-                                tvClose.setVisibility(View.VISIBLE);
+                                btClose.setVisibility(View.VISIBLE);
                             }
                         });
                 break;
@@ -121,7 +131,7 @@ public class UserdetailsActivity extends BaseBackActivity {
                         .execute(new StringCallback() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
-                                SnackBar.make(tvClose, "操作失败" + e.getMessage().toString());
+                                SnackBar.make(btTrue, "操作失败" + e.getMessage().toString());
                             }
 
                             @Override
@@ -130,10 +140,9 @@ public class UserdetailsActivity extends BaseBackActivity {
                             }
                         });
                 break;
-            case R.id.tv_close:
+            case R.id.bt_close:
                 finish();
                 break;
         }
     }
-
 }

@@ -15,6 +15,15 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
     public String username;
+    public String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getUsername() {
         return username;

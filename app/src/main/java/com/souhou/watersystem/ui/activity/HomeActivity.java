@@ -10,16 +10,14 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.souhou.watersystem.LoginActivity;
 import com.souhou.watersystem.R;
-import com.souhou.watersystem.bean.Result;
 import com.souhou.watersystem.common.BaseActivity;
-import com.souhou.watersystem.ui.activity.FaultActivity.FaultMesActivity;
+import com.souhou.watersystem.ui.activity.FaultActivity.FaultMsgActivity;
 import com.souhou.watersystem.ui.activity.NewsActivity.NewsMsgActivity;
 import com.souhou.watersystem.ui.fragment.ExitFragment;
 import com.souhou.watersystem.ui.fragment.FaultFragment;
 import com.souhou.watersystem.ui.fragment.Newsfragment;
 import com.souhou.watersystem.ui.fragment.RecordFragment;
 import com.souhou.watersystem.utils.ButonBarview;
-import com.souhou.watersystem.utils.SlidingMenu;
 import com.souhou.watersystem.utils.SnackBar;
 
 import java.util.List;
@@ -44,11 +42,13 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        initNavigationBar();
+    }
 
+    private void initNavigationBar() {
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigationbar);
         bt_right = (ButonBarview) findViewById(R.id.btn_right);
         bottomNavigationBar
-//                .setMode(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_record, "抄表").setActiveColor(R.color.Blue))
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_fault, "故障").setActiveColor(R.color.Blue))
                 .addItem(new BottomNavigationItem(R.mipmap.bottom_news, "新装").setActiveColor(R.color.Blue))
@@ -62,7 +62,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             public void onClick(View view) {
                 switch (type) {
                     case 1:
-                        intent = new Intent(HomeActivity.this, FaultMesActivity.class);
+                        intent = new Intent(HomeActivity.this, FaultMsgActivity.class);
                         startActivityForResult(intent, MES_CODE);
                         break;
                     case 2:
@@ -97,16 +97,16 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     protected void onResume() {
         super.onResume();
         Bundle bundle = getIntent().getExtras();
-        List<Result.data> list = (List<Result.data>) bundle.getSerializable("type");
+        List<String> list = (List<String>) bundle.getSerializable("type");
         //判断权限
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getGNMC().equals("APP抄表信息")) {
+            if (list.get(i).equals("APP抄表信息")) {
                 a = 1;
             }
-            if (list.get(i).getGNMC().equals("APP报修处理")) {
+            if (list.get(i).equals("APP报修处理")) {
                 b = 1;
             }
-            if (list.get(i).getGNMC().equals("APP报装处理")) {
+            if (list.get(i).equals("APP报装处理")) {
                 c = 1;
             }
         }
@@ -197,6 +197,4 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     public void onTabReselected(int position) {
 
     }
-
-
 }

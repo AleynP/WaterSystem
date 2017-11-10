@@ -56,10 +56,6 @@ public class Newsfragment extends BaseFragment {
 
     }
 
-    @Override
-    protected void initView() {
-
-    }
 
     @Override
     public void onDestroyView() {

@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.orhanobut.logger.Logger;
-import com.souhou.watersystem.ui.activity.FaultActivity.FaultMesActivity;
+import com.souhou.watersystem.ui.activity.FaultActivity.FaultMsgActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +48,7 @@ public class MyReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
 //          打开自定义的Activity
-            Intent i = new Intent(context, FaultMesActivity.class);
+            Intent i = new Intent(context, FaultMsgActivity.class);
             i.putExtras(bundle);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

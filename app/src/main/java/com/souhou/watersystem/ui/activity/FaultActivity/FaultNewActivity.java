@@ -14,6 +14,8 @@ import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.BXRecordAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LoadingDialog;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -41,7 +43,6 @@ public class FaultNewActivity extends BaseBackActivity {
         setContentView(R.layout.activity_fault_new);
         ButterKnife.bind(this);
         setTitle("新增故障处理");
-        request();
         adapter = new BXRecordAdapter(mList, this);
         listNewFault.setAdapter(adapter);
         listNewFault.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +59,14 @@ public class FaultNewActivity extends BaseBackActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        request();
+    }
+
     private void request() {
+        LoadingDialog.createLoadingDialog(this, "正在加载...");
         app = (MyApplication) getApplication();
         OkHttpUtils
                 .get()
@@ -69,18 +77,26 @@ public class FaultNewActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        SnackBar.make(listNewFault, "服务器或网络错误！");
+                        LoadingDialog.closeDialog();
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        LoadingDialog.closeDialog();
                         bxRepairBean = JsonMananger.jsonToBean(response, BXRepairBean.class);
                         mList.addAll(bxRepairBean.getBaoXiuJiLu());
-                        if (mList.size() > 0) {
+                        adapter.notifyDataSetChanged();
+                        if (!(mList.isEmpty())) {
                             failText.setVisibility(View.GONE);
-                            adapter.notifyDataSetChanged();
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mList.clear();
     }
 }

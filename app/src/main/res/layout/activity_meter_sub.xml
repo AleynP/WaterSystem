@@ -3,157 +3,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@color/colorHuiSe"
     android:orientation="vertical"
     tools:context="com.souhou.watersystem.ui.activity.MeterActivity.MeterSubActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f56b2d"
+        android:gravity="center"
+        android:text="水表信息"
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow android:layout_margin="2.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="用户名："
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/user_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow android:layout_margin="2.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:text="用户编号："
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/user_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_margin="2.5dp"
+            android:layout_marginRight="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:text="用户地址："
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/user_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow android:layout_margin="2.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="水用途："
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/water_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow android:layout_margin="2.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:text="水价类型："
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/water_price_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow android:layout_margin="2.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:text="上次水表底数："
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/water_sc_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="15sp" />
+        </TableRow>
+    </TableLayout>
+
+    <com.souhou.watersystem.utils.ClearEditText
+        android:id="@+id/water_bc_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="输入本次水表底数"
+        android:textColorHint="@color/Blue"
+        android:textSize="15sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorHuiSe"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#f56b2d"
-            android:gravity="center"
-            android:text="水表信息"
-            android:textSize="25dp" />
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TableRow android:layout_margin="2.5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="抄表员："
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_loginName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow android:layout_margin="2.5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="水用途："
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_water_sort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="暂无"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow android:layout_margin="2.5dp">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="right"
-                    android:text="水表编号："
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_water_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow android:layout_margin="2.5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="right"
-                    android:text="水价类型："
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_ladder_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="20sp" />
-            </TableRow>
-
-            <TableRow android:layout_margin="2.5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="right"
-                    android:text="上次水表底数："
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_water_sc_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="20sp" />
-            </TableRow>
-        </TableLayout>
-
-        <com.souhou.watersystem.utils.ClearEditText
-            android:id="@+id/ed_water_bc_num"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_span="2"
-            android:hint="输入本次水表底数"
-            android:textColorHint="@color/Blue" />
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/ddk_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:gravity="center">
 
         <Button
             android:id="@+id/bu_sub"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_button_green"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_true"
             android:text="提交"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/bt_not"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:background="@drawable/shape_button_red"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_true"
             android:text="取消"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>
 

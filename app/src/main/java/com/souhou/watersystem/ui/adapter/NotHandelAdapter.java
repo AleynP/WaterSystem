@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.NotHandelBean;
+import com.souhou.watersystem.utils.DatetoStringFormat;
 
 import java.util.List;
 
@@ -61,8 +62,8 @@ public class NotHandelAdapter extends BaseAdapter {
         NotHandelBean.WeichuLiBaoZhuangBean weichuLi = mlist.get(i);
         vh.tvName.setText(weichuLi.getInstallation_User());
         vh.tvPhone.setText(weichuLi.getInstallation_Userphone() + "");
-        vh.tvGettime.setText(weichuLi.getInstallation_GetTime() + "");
-        vh.tvSendtime.setText(weichuLi.getInstallation_SendTime() + "");
+        vh.tvGettime.setText(DatetoStringFormat.StringToStrLong(weichuLi.getInstallation_GetTime() + ""));
+        vh.tvSendtime.setText(DatetoStringFormat.StringToStrLong(weichuLi.getInstallation_SendTime() + ""));
         vh.tvAddress.setText(weichuLi.getInstallation_Address());
         return view;
 

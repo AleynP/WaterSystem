@@ -258,16 +258,4 @@ public abstract class BaseActivity extends AppCompatActivity {
             getWindow().setExitTransition(mFadeTransition);
         }
     }
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        // TODO Auto-generated method stub
-
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            return true;
-        }
-        return true;
-    }
 }

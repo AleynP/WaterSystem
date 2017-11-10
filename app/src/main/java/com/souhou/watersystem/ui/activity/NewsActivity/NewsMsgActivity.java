@@ -2,6 +2,7 @@ package com.souhou.watersystem.ui.activity.NewsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,6 +15,8 @@ import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.NewsAdapter;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LoadingDialog;
+import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -44,7 +47,6 @@ public class NewsMsgActivity extends BaseBackActivity {
         setTitle("新装消息");
         app = (MyApplication) getApplication();
         name = app.getUsername();
-//        Respons(name);
         newsAdapter = new NewsAdapter(this, mList);
         listNews.setAdapter(newsAdapter);
         listNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,6 +56,7 @@ public class NewsMsgActivity extends BaseBackActivity {
                 Intent intent = new Intent();
                 intent.setClass(NewsMsgActivity.this, UserdetailsActivity.class);
                 intent.putExtra("id", id);
+                Log.d("PCl", id);
                 startActivity(intent);
             }
         });
@@ -62,12 +65,11 @@ public class NewsMsgActivity extends BaseBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mList.clear();
         Respons(name);
-        newsAdapter.notifyDataSetChanged();
     }
 
     public void Respons(String name) {
+        LoadingDialog.createLoadingDialog(this, getString(R.string.Loading));
         OkHttpUtils
                 .get()
                 .url(ServerConfig.USER_INSTA_URL)
@@ -76,16 +78,18 @@ public class NewsMsgActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        LoadingDialog.closeDialog();
+                        SnackBar.make(listNews, getString(R.string.ServerError));
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        LoadingDialog.closeDialog();
                         newsList = JsonMananger.jsonToBean(response, NewsList.class);
                         mList.addAll(newsList.getInstallation());
-                        if (mList.size() > 0) {
+                        newsAdapter.notifyDataSetChanged();
+                        if (!(mList.isEmpty())) {
                             failText.setVisibility(View.GONE);
-                            newsAdapter.notifyDataSetChanged();
                         }
                         Intent intent = new Intent();
                         intent.putExtra("size", mList.size());
@@ -94,4 +98,9 @@ public class NewsMsgActivity extends BaseBackActivity {
                 });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mList.clear();
+    }
 }

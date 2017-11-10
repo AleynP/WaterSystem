@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -23,7 +21,9 @@ import com.souhou.watersystem.R;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.adapter.FaultSubPicAdapter;
+import com.souhou.watersystem.utils.ClearEditText;
 import com.souhou.watersystem.utils.ImageDeal;
+import com.souhou.watersystem.utils.LoadingDialog;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -51,8 +51,8 @@ public class NewAddSubActivity extends BaseBackActivity {
     GridView gridView1;
 
     public static final int IMAGE_PICKER = 1004;
-    @BindView(R.id.ddk_new_sub)
-    ProgressBar ddkNewSub;
+    @BindView(R.id.water_sub_beizhu)
+    ClearEditText waterSubBeizhu;
     private FaultSubPicAdapter adapter;
     private List<ImageItem> mList = new ArrayList<>();
     String waterid;
@@ -68,7 +68,6 @@ public class NewAddSubActivity extends BaseBackActivity {
     }
 
     private void InItView() {
-        ddkNewSub.setVisibility(View.INVISIBLE);
         Intent intent = getIntent();
         waterid = intent.getStringExtra("water_id");
         waterId.setText(waterid);
@@ -108,9 +107,7 @@ public class NewAddSubActivity extends BaseBackActivity {
 
 
     private void Okhttp(JSONObject jsonObject) {
-        ddkNewSub.setVisibility(View.VISIBLE);
-//        Log.i("TAG", resMap.toString());
-//        Log.i("TAG", jsonObject.toJSONString());
+        LoadingDialog.createLoadingDialog(this, "正在提交...");
         if (!number.equals("")) {
             OkHttpUtils
                     .postString()
@@ -121,20 +118,14 @@ public class NewAddSubActivity extends BaseBackActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            ddkNewSub.setVisibility(View.INVISIBLE);
-                            SnackBar.make(ddkNewSub, "请求失败" + e.getMessage());
+                            LoadingDialog.closeDialog();
+                            SnackBar.make(gridView1, "请求失败" + e.getMessage());
                         }
 
                         @Override
                         public void onResponse(String response, int id) {
-                            ddkNewSub.setVisibility(View.INVISIBLE);
-                            SnackBar.make(ddkNewSub, "提交成功");
-                        }
-
-                        @Override
-                        public void inProgress(float progress, long total, int id) {
-                            super.inProgress(progress, total, id);
-
+                            LoadingDialog.closeDialog();
+                            SnackBar.make(gridView1, "提交成功");
                         }
                     });
         } else {
@@ -150,6 +141,7 @@ public class NewAddSubActivity extends BaseBackActivity {
             Map<String, String> resMap = new HashMap<>();
             resMap.put("WaterMeterID", waterid);
             resMap.put("WaterMeterNumber", number);
+            resMap.put("remarks", waterSubBeizhu.getText().toString());
             String Pic = "";
             for (int i = 0; i < mList.size(); i++) {
                 String path = mList.get(i).path;

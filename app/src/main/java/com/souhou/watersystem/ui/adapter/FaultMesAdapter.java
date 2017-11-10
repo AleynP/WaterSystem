@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.souhou.watersystem.R;
 import com.souhou.watersystem.bean.RepairBean;
+import com.souhou.watersystem.utils.DatetoStringFormat;
 
 import java.util.List;
 
@@ -55,7 +56,8 @@ public class FaultMesAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) view.getTag();
         }
-        vh.tvUser.setText(mList.get(i).getRepairs_Time() + "");
+        String time = DatetoStringFormat.StringToStrLong(mList.get(i).getRepairs_Time() + "");
+        vh.tvUser.setText(time);
         vh.tvTime.setText(mList.get(i).getRepairs_User());
         return view;
     }

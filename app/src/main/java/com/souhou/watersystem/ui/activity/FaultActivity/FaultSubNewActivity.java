@@ -1,6 +1,5 @@
 package com.souhou.watersystem.ui.activity.FaultActivity;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,12 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
@@ -25,9 +23,9 @@ import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.ui.adapter.FaultSubPicAdapter;
 import com.souhou.watersystem.utils.ImageDeal;
+import com.souhou.watersystem.utils.LoadingDialog;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
@@ -40,7 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
-import okhttp3.Response;
 
 public class FaultSubNewActivity extends BaseBackActivity {
 
@@ -50,12 +47,8 @@ public class FaultSubNewActivity extends BaseBackActivity {
     GridView picGridView;
     @BindView(R.id.ed_input_explain)
     EditText inPutText;
-    @BindView(R.id.bt_sub)
-    Button btSub;
 
     public static final int IMAGE_PICKER = 1004;
-    @BindView(R.id.ddk_sub)
-    ProgressBar ddkSub;
     private FaultSubPicAdapter adapter;
     private List<ImageItem> mList = new ArrayList<>();
     MyApplication app;
@@ -66,12 +59,11 @@ public class FaultSubNewActivity extends BaseBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fault_sub_new);
         ButterKnife.bind(this);
-        setTitle("新增故障处理");
+        setTitle("故障处理详情");
         initView();
     }
 
     public void initView() {
-        ddkSub.setVisibility(View.INVISIBLE);
         app = (MyApplication) getApplication();
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -98,14 +90,7 @@ public class FaultSubNewActivity extends BaseBackActivity {
     }
 
     private void request(JSONObject json) {
-
-        final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setTitle("正在提交");
-        dialog.setMessage("10");
-        dialog.setCancelable(false);
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        dialog.show();
-
+        LoadingDialog.createLoadingDialog(this, "正在提交...");
         OkHttpUtils
                 .postString()
                 .url(ServerConfig.BX_SAVE_URL)
@@ -113,24 +98,17 @@ public class FaultSubNewActivity extends BaseBackActivity {
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
                 .execute(new StringCallback() {
-
-                    @Override
-                    public void inProgress(float progress, long total, int id) {
-                        super.inProgress(progress, total, id);
-                        dialog.setProgress((int) (progress * 100));
-                    }
-
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        SnackBar.make(btSub, "请求失败" + e.getMessage());
-                        dialog.dismiss();
+                        LoadingDialog.closeDialog();
+                        SnackBar.make(picGridView, "请求失败" + e.getMessage());
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-//                        ddkSub.setVisibility(View.GONE);
-                        dialog.dismiss();
-                        SnackBar.make(btSub, "提交成功");
+                        LoadingDialog.closeDialog();
+                        JSONObject json = JSON.parseObject(response);
+                        SnackBar.make(picGridView, json.getString("result").toString());
                     }
                 });
     }
@@ -167,11 +145,10 @@ public class FaultSubNewActivity extends BaseBackActivity {
                 }
             }
             map.put("processPic", Pic);
-//            ddkSub.setVisibility(View.VISIBLE);
             JSONObject jsonObject = (JSONObject) JSONObject.toJSON(map);
             request(jsonObject);
         } else {
-            SnackBar.make(btSub, "请添加图片");
+            SnackBar.make(picGridView, "请添加图片");
         }
     }
 

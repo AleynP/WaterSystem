@@ -5,27 +5,31 @@ import com.alibaba.fastjson.util.TypeUtils;
 
 import java.util.List;
 
+
 /**
  * Created by Administrator on 2017/7/14.
  */
 
 public class JsonMananger {
-    static{
+    static {
         TypeUtils.compatibleWithJavaBean = true;
     }
+
     /**
      * 将json字符串转换成java对象
+     *
      * @param json
      * @param cls
      * @return
      * @throws Exception
      */
-    public static <T> T jsonToBean(String json, Class<T> cls)  {
+    public static <T> T jsonToBean(String json, Class<T> cls) {
         return JSON.parseObject(json, cls);
     }
 
     /**
      * 将json字符串转换成java List对象
+     *
      * @param json
      * @param cls
      * @return
@@ -37,6 +41,7 @@ public class JsonMananger {
 
     /**
      * 将bean对象转化成json字符串
+     *
      * @param obj
      * @return
      * @throws Exception
@@ -45,4 +50,6 @@ public class JsonMananger {
         String result = JSON.toJSONString(obj);
         return result;
     }
+
+
 }

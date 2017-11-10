@@ -21,24 +21,34 @@ public class NotHandelBean {
 
     public static class WeichuLiBaoZhuangBean {
         /**
-         * installation_SendTime : null
-         * installation_GetTime : 20170720175553
-         * Installation_User : 琳达
-         * Installation_Userphone : 13526023026
-         * Installation_Address : 大方向海南购房人已经
+         * id : 83
+         * installation_SendTime : 20171023172728
+         * installation_GetTime : 20171023175807
+         * Installation_User : 小燕子
+         * Installation_Userphone : 13838298317
+         * Installation_Address : 河南省郑州市郑东新区郑东商业中心
          */
 
-        private Object installation_SendTime;
+        private int id;
+        private long installation_SendTime;
         private long installation_GetTime;
         private String Installation_User;
         private long Installation_Userphone;
         private String Installation_Address;
 
-        public Object getInstallation_SendTime() {
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public long getInstallation_SendTime() {
             return installation_SendTime;
         }
 
-        public void setInstallation_SendTime(Object installation_SendTime) {
+        public void setInstallation_SendTime(long installation_SendTime) {
             this.installation_SendTime = installation_SendTime;
         }
 

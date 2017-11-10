@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     android:orientation="vertical"
     tools:context="com.souhou.watersystem.ui.activity.NewsActivity.NewAddSubActivity">
 
@@ -41,6 +42,18 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <com.souhou.watersystem.utils.ClearEditText
+        android:id="@+id/water_sub_beizhu"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorTextWhite"
+        android:gravity="top"
+        android:hint="备注信息可选填"
+        android:padding="2dp"
+        android:textSize="10sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,39 +66,29 @@
             android:layout_height="wrap_content"
             android:text="安装图片:"
             android:textSize="15sp" />
-
-
         <!-- 网格显示图片 行列间距5dp 每列宽度90dp -->
         <GridView
             android:id="@+id/gridView1"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="110dp"
             android:layout_margin="10dp"
-            android:background="#EFDFDF"
+            android:background="@color/colorTextWhite"
             android:columnWidth="90dp"
             android:gravity="center"
             android:horizontalSpacing="5dp"
-            android:numColumns="3"
+            android:numColumns="4"
+            android:padding="5dp"
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dp" />
 
-        <ProgressBar
-            android:id="@+id/ddk_new_sub"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:indeterminateDrawable="@drawable/ddk_progres_sub_style"
-            android:indeterminateTintMode="src_in" />
 
         <Button
             android:id="@+id/bt_sub"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/shape_button_green"
+            android:layout_margin="30dp"
+            android:background="@drawable/shape_button_true"
             android:text="提交" />
 
     </LinearLayout>

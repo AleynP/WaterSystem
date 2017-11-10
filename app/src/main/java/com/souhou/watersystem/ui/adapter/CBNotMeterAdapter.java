@@ -15,18 +15,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.souhou.watersystem.bean.CBMeterBean.*;
-
 /**
  * Created by Administrator on 2017/7/25.
  */
 
 public class CBNotMeterAdapter extends BaseAdapter {
-    private List<CBMeterBean.BenYueWeiChaoBean> mList;
+    private List<CBMeterBean> mList;
     private LayoutInflater inflater;
     private Context context;
 
-    public CBNotMeterAdapter(List<CBMeterBean.BenYueWeiChaoBean> list, Context context) {
+    public CBNotMeterAdapter(List<CBMeterBean> list, Context context) {
         this.mList = list;
         this.inflater = LayoutInflater.from(context);
         this.context = context;

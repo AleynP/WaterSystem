@@ -17,10 +17,28 @@
     <!-- 申明权限 操作SD卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_souhou_icon"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -43,7 +61,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.activity.UserActivity" />
         <activity android:name=".ui.activity.NewsActivity.NewsMsgActivity" />
-        <activity android:name=".ui.activity.FaultActivity.FaultMesActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultMsgActivity" />
         <activity android:name=".ui.activity.NewsActivity.UserdetailsActivity" />
         <activity android:name=".ui.activity.NewsActivity.NotHandelActivity" />
         <activity android:name=".ui.activity.NewsActivity.YesHandelActivity" />
@@ -58,10 +76,10 @@
         <activity android:name=".ui.activity.FaultActivity.FaultSubNewActivity" />
         <activity android:name=".common.BaseBackActivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterNotRecordActivity" />
-        <activity android:name=".ui.activity.MeterActivity.MeterYesRecordActivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterRecordctivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterQRActivity" />
         <activity android:name=".ui.activity.MeterActivity.MeterSubActivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterAlbumActivity" />
 
         <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
@@ -79,7 +97,21 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.MeterActivity.MeterAlbumActivity"></activity>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="eb9f9f2bf7b269b50051f6c91bbadbae" />
+
+        <service
+            android:name=".server.LocationService"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".ui.activity.FaultActivity.FaultHandDetailsActivity" />
+        <activity android:name=".ui.activity.FaultActivity.FaultNotHandDetailsActivity" />
+        <activity android:name=".ui.activity.NewsActivity.NotHandelDetilsActivity" />
+        <activity android:name=".ui.activity.NewsActivity.YesHandelDetilsActivity" />
+        <activity android:name=".ui.activity.MeterActivity.MeterYesDetilesActivity"></activity>
     </application>
 
 </manifest>

@@ -41,9 +41,7 @@ public class FaultFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fault, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -54,10 +52,6 @@ public class FaultFragment extends BaseFragment {
 
     }
 
-    @Override
-    protected void initView() {
-
-    }
 
     @Override
     public void onDestroyView() {

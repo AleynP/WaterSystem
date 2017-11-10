@@ -229,9 +229,4 @@ public class BaseBackActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        finish();
-        return super.dispatchKeyEvent(event);
-    }
 }

@@ -12,6 +12,7 @@ import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.utils.ClearEditText;
 import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LogUtils;
 import com.souhou.watersystem.utils.SnackBar;
 import com.souhou.watersystem.utils.Toasts;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
@@ -27,7 +28,7 @@ import okhttp3.Call;
 public class MeterQRActivity extends BaseBackActivity {
     public static final int REQUEST_CODE = 1;
     private CBWaterMeterBean cbWaterMeterBean;
-    private String Water_LiuLiang, water_BianHao;
+    private String water_BianHao;
     @BindView(R.id.ed_input)
     ClearEditText ed_input;
     @BindView(R.id.bt_qr_input)
@@ -44,7 +45,6 @@ public class MeterQRActivity extends BaseBackActivity {
         setContentView(R.layout.activity_meter_qr);
         ButterKnife.bind(this);
         setTitle("智能抄表");
-
     }
 
     @OnClick({R.id.bt_qr_input, R.id.bt_ok, R.id.bt_no})
@@ -57,6 +57,7 @@ public class MeterQRActivity extends BaseBackActivity {
             case R.id.bt_ok:
                 water_BianHao = ed_input.getText().toString();
                 if (!water_BianHao.equals("")) {
+                    LogUtils.d(water_BianHao);
                     request(water_BianHao);
                 } else {
                     ed_input.setShakeAnimation();
@@ -85,17 +86,11 @@ public class MeterQRActivity extends BaseBackActivity {
                     @Override
                     public void onResponse(String response, int id) {
                         cbWaterMeterBean = JsonMananger.jsonToBean(response, CBWaterMeterBean.class);
-                        int size = cbWaterMeterBean.getShangCiChaoBiaoJiLu().size();
-                        if (size != 0) {
-                            Water_LiuLiang = cbWaterMeterBean.getShangCiChaoBiaoJiLu().get(id).getMeterReading_Number();
-                            String Water_Ladder = cbWaterMeterBean.getShangCiChaoBiaoJiLu().get(id).getUser_Ladder() + "";
-                            String Water_sort = cbWaterMeterBean.getShangCiChaoBiaoJiLu().get(id).getWaterSort_Name();
-                            intent = new Intent(MeterQRActivity.this, MeterSubActivity.class);
-                            intent.putExtra("water_number", Water_LiuLiang);
-                            intent.putExtra("water_num", water_BianHao);
-                            intent.putExtra("UserLadder", Water_Ladder);
-                            intent.putExtra("WaterSortID", Water_sort);
-                            startActivity(intent);
+                        long number = cbWaterMeterBean.getShangCiChaoBiaoJiLu().getUser_Number();
+                        if (number != 0) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("water_num", water_BianHao);
+                            startActivity(MeterSubActivity.class, bundle);
                         } else {
                             SnackBar.make(btOk, "没有该水表");
                         }

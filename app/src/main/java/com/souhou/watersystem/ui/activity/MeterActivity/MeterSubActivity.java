@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.souhou.watersystem.R;
+import com.souhou.watersystem.bean.CBWaterMeterBean;
 import com.souhou.watersystem.common.BaseBackActivity;
 import com.souhou.watersystem.common.ServerConfig;
 import com.souhou.watersystem.ui.MyApplication;
 import com.souhou.watersystem.utils.ClearEditText;
+import com.souhou.watersystem.utils.JsonMananger;
+import com.souhou.watersystem.utils.LoadingDialog;
+import com.souhou.watersystem.utils.LogUtils;
 import com.souhou.watersystem.utils.SnackBar;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -25,27 +30,24 @@ import okhttp3.Call;
 
 public class MeterSubActivity extends BaseBackActivity {
 
-    @BindView(R.id.tv_loginName)
-    TextView tvLoginName;
-    @BindView(R.id.tv_water_sort)
-    TextView tvWaterSort;
-    @BindView(R.id.tv_water_num)
-    TextView tvWaterNum;
-    @BindView(R.id.tv_ladder_price)
-    TextView tvLadderPrice;
-    @BindView(R.id.tv_water_sc_num)
-    TextView tvWaterScNum;
-    @BindView(R.id.ed_water_bc_num)
-    ClearEditText edWaterBcNum;
-    @BindView(R.id.bu_sub)
-    Button buSub;
-    @BindView(R.id.bt_not)
-    Button btNot;
     MyApplication app;
-    @BindView(R.id.ddk_sub)
-    ProgressBar ddkSub;
+    @BindView(R.id.user_Name)
+    TextView userName;
+    @BindView(R.id.user_number)
+    TextView userNumber;
+    @BindView(R.id.user_address)
+    TextView userAddress;
+    @BindView(R.id.water_sort)
+    TextView waterSort;
+    @BindView(R.id.water_price_type)
+    TextView waterPriceType;
+    @BindView(R.id.water_sc_num)
+    TextView waterScNum;
+    @BindView(R.id.water_bc_num)
+    ClearEditText waterBcNum;
     private String ladder, water_BianHao, water_LiuLiang, sort, BC_LiuLiang;
-    Intent intent;
+    private CBWaterMeterBean cbWaterMeterBean;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,29 +55,56 @@ public class MeterSubActivity extends BaseBackActivity {
         setContentView(R.layout.activity_meter_sub);
         ButterKnife.bind(this);
         setTitle("抄表提交页面");
-        inView();
-    }
-
-    private void inView() {
         app = (MyApplication) getApplication();
-        intent = getIntent();
-        water_LiuLiang = intent.getStringExtra("water_number");
-        water_BianHao = intent.getStringExtra("water_num");
-        ladder = intent.getStringExtra("UserLadder");
-        sort = intent.getStringExtra("WaterSortID");
-        ddkSub.setVisibility(View.INVISIBLE);
-
-        tvLoginName.setText(app.getUsername());
-        tvWaterNum.setText(water_BianHao);
-        tvLadderPrice.setText(ladder);
-        tvWaterSort.setText(sort);
-        tvWaterScNum.setText(water_LiuLiang);
+        bundle = getIntent().getExtras();
+        water_BianHao = bundle.getString("water_num");
+        request(water_BianHao);
     }
 
+    private void inView(CBWaterMeterBean.ShangCiChaoBiaoJiLuBean JiLuBean) {
+        ladder = JiLuBean.getUser_Ladder() + "";
+        water_LiuLiang = JiLuBean.getMeterReading_Number() + "";
+        sort = JiLuBean.getWaterSort_Name();
+        BC_LiuLiang = JiLuBean.getWaterSort_Name();
 
-    private void request(String bc) {
+        userName.setText(JiLuBean.getUser_Name());
+        userNumber.setText(JiLuBean.getUser_Number() + "");
+        waterSort.setText(sort);
+        userAddress.setText(JiLuBean.getUser_Site());
+        if (ladder.equals("0")) {
+            waterPriceType.setText("非阶梯");
+        } else {
+            waterPriceType.setText("阶梯");
+        }
+        waterScNum.setText(JiLuBean.getMeterReading_Number() + "");
+    }
+
+    private void request(String bianhao) {
+        LoadingDialog.createLoadingDialog(this, "正在加载...");
         OkHttpUtils
                 .get()
+                .url(ServerConfig.CB_SC_WATERREC_URL)
+                .addParams("WaterMeterNumber", bianhao)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        LoadingDialog.closeDialog();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LoadingDialog.closeDialog();
+                        cbWaterMeterBean = JsonMananger.jsonToBean(response, CBWaterMeterBean.class);
+                        inView(cbWaterMeterBean.getShangCiChaoBiaoJiLu());
+                    }
+                });
+    }
+
+    private void response(String bc) {
+        LoadingDialog.createLoadingDialog(this, "正在提交...");
+        OkHttpUtils
+                .post()
                 .url(ServerConfig.CB_SC_WATER_SUB_URL)
                 .addParams("loginName", app.getUsername())
                 .addParams("UserLadder", ladder)
@@ -87,13 +116,14 @@ public class MeterSubActivity extends BaseBackActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        SnackBar.make(tvWaterNum, "请求失败" + e.getMessage().toString());
+                        LoadingDialog.closeDialog();
+                        Toast.makeText(MeterSubActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        SnackBar.make(tvWaterNum, "提交成功");
-                        ddkSub.setVisibility(View.INVISIBLE);
+                        LoadingDialog.closeDialog();
+                        subDialog();
                     }
                 });
     }
@@ -102,12 +132,12 @@ public class MeterSubActivity extends BaseBackActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bu_sub:
-                BC_LiuLiang = edWaterBcNum.getText().toString();
+                BC_LiuLiang = waterBcNum.getText().toString();
                 if (!BC_LiuLiang.equals("")) {
                     ADialog(BC_LiuLiang);
                 } else {
-                    edWaterBcNum.setShakeAnimation();
-                    SnackBar.make(tvWaterNum, "水表数不能为空");
+                    waterBcNum.setShakeAnimation();
+                    SnackBar.make(waterBcNum, "水表数不能为空");
                 }
                 break;
             case R.id.bt_not:
@@ -124,8 +154,7 @@ public class MeterSubActivity extends BaseBackActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                request(BC_LiuLiang);
-                ddkSub.setVisibility(View.VISIBLE);
+                response(BC_LiuLiang);
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -136,4 +165,19 @@ public class MeterSubActivity extends BaseBackActivity {
         });
         builder.show();
     }
+
+    private void subDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MeterSubActivity.this);
+        builder.setIcon(R.drawable.login_logo);
+        builder.setTitle("提交结果");
+        builder.setMessage("提交成功");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        builder.show();
+    }
+
 }

@@ -21,8 +21,9 @@ import java.io.Serializable;
 
 public class UserInfolist implements Serializable {
 
+
     /**
-     * userInfo : {"User_Number":11,"User_Name":"小明333","User_Quantity":3,"User_Site":"河南省周口市","User_Time":20170705,"WaterMeter_Number":"100010","WaterMeter_Time":null,"WaterMeter_State":1,"WaterType_Name":"4号水表"}
+     * userInfo : {"User_Number":1000124,"User_Name":"娄素洁","User_Quantity":5,"User_Site":"河南省郑州市郑东新区郑东商业中心","User_Time":20171012165516,"WaterMeter_Number":"10621117","WaterMeter_Time":20171013174247,"WaterMeter_State":1,"WaterType_Name":"液体定量流量表"}
      */
 
     private UserInfoBean userInfo;
@@ -37,24 +38,24 @@ public class UserInfolist implements Serializable {
 
     public static class UserInfoBean {
         /**
-         * User_Number : 11
-         * User_Name : 小明333
-         * User_Quantity : 3
-         * User_Site : 河南省周口市
-         * User_Time : 20170705
-         * WaterMeter_Number : 100010
-         * WaterMeter_Time : null
+         * User_Number : 1000124
+         * User_Name : 娄素洁
+         * User_Quantity : 5
+         * User_Site : 河南省郑州市郑东新区郑东商业中心
+         * User_Time : 20171012165516
+         * WaterMeter_Number : 10621117
+         * WaterMeter_Time : 20171013174247
          * WaterMeter_State : 1
-         * WaterType_Name : 4号水表
+         * WaterType_Name : 液体定量流量表
          */
 
         private int User_Number;
         private String User_Name;
         private int User_Quantity;
         private String User_Site;
-        private int User_Time;
+        private long User_Time;
         private String WaterMeter_Number;
-        private Object WaterMeter_Time;
+        private long WaterMeter_Time;
         private int WaterMeter_State;
         private String WaterType_Name;
 
@@ -90,11 +91,11 @@ public class UserInfolist implements Serializable {
             this.User_Site = User_Site;
         }
 
-        public int getUser_Time() {
+        public long getUser_Time() {
             return User_Time;
         }
 
-        public void setUser_Time(int User_Time) {
+        public void setUser_Time(long User_Time) {
             this.User_Time = User_Time;
         }
 
@@ -106,11 +107,11 @@ public class UserInfolist implements Serializable {
             this.WaterMeter_Number = WaterMeter_Number;
         }
 
-        public Object getWaterMeter_Time() {
+        public long getWaterMeter_Time() {
             return WaterMeter_Time;
         }
 
-        public void setWaterMeter_Time(Object WaterMeter_Time) {
+        public void setWaterMeter_Time(long WaterMeter_Time) {
             this.WaterMeter_Time = WaterMeter_Time;
         }
 

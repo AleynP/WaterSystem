@@ -9,6 +9,7 @@ import java.util.Date;
  */
 
 public class DatetoStringFormat {
+
     public static Date strToDateLong(String strDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         ParsePosition pos = new ParsePosition(0);
